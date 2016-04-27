@@ -67,9 +67,39 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-wc-skroutz-analytics.php';
  * @since    1.0.0
  */
 function run_wc_skroutz_analytics() {
+	if ( ! meets_prerequisites() ) {
+		return;
+	}
 
 	$plugin = new WC_Skroutz_Analytics();
-	$plugin->run();
-
 }
-run_wc_skroutz_analytics();
+add_action( 'plugins_loaded', 'run_wc_skroutz_analytics' );
+// TODO: improve this! Maybe check if woocommerce plugin is enabled.
+// then wait for the specific plugin to load (if it is possible) and then run our plugin
+
+/**
+ * Checks if it is ok to run the Skroutz Analytics plugin
+ *
+ * @return boolean true if it meets the prerequisites, otherwise false
+ */
+function meets_prerequisites() {
+	// Check if woocommerce plugin is active
+	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+		add_action( 'admin_notices', 'woocommerce_missing_notice' );
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * WooCommerce not installed notice
+ *
+ * @return string
+ */
+function woocommerce_missing_notice() {
+	$class = 'notice error';
+	$message = 'WooCommerce Skroutz Analytics plugin requires the WooCommerce plugin';
+
+	printf( '<div class="%s"><p>%s</p></div>', $class, $message );
+}
