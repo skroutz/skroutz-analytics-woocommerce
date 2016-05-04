@@ -31,27 +31,6 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * The code that runs during plugin activation.
- * This action is documented in includes/class-wc-skroutz-analytics-activator.php
- */
-function activate_wc_skroutz_analytics() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wc-skroutz-analytics-activator.php';
-	WC_Skroutz_Analytics_Activator::activate();
-}
-
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in includes/class-wc-skroutz-analytics-deactivator.php
- */
-function deactivate_wc_skroutz_analytics() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wc-skroutz-analytics-deactivator.php';
-	WC_Skroutz_Analytics_Deactivator::deactivate();
-}
-
-register_activation_hook( __FILE__, 'activate_wc_skroutz_analytics' );
-register_deactivation_hook( __FILE__, 'deactivate_wc_skroutz_analytics' );
-
-/**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
