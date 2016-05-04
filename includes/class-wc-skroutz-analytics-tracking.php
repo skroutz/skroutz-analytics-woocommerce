@@ -26,6 +26,12 @@ class WC_Skroutz_Analytics_Tracking {
 	private $shop_account_id;
 
 	/**
+	* The current order to be submitted
+	* @var string
+	*/
+	private $order;
+
+	/**
 	* Define the core functionality of the plugin.
 	*
 	* Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -39,6 +45,9 @@ class WC_Skroutz_Analytics_Tracking {
 
 	  	// Page tracking script
 	    add_action( 'wp_enqueue_scripts', array( $this, 'load_analytics_tracking_script' ) );
+
+	    // Ecommerce tracking
+	    add_action( 'woocommerce_thankyou', array( $this, 'load_ecommerce_analytics' ) );
 	}
 
 	public function load_analytics_tracking_script() {
@@ -57,4 +66,67 @@ class WC_Skroutz_Analytics_Tracking {
 
 		wp_enqueue_script( 'sa_tracking' );
 	}
+
+ 	public function load_ecommerce_analytics( $order_id ) {
+  		$this->order = new WC_Order( $order_id );
+
+		add_action( 'wp_print_footer_scripts', array( $this, 'output_ecommerce_analytics_script' ) );
+	}
+
+	public function output_ecommerce_analytics_script() {
+		$analytics_script = '<script type="text/javascript">';
+
+		$analytics_script .= $this->create_action( 'addOrder', $this->prepare_order_data() );
+
+		foreach ( $this->order->get_items() as $item ) {
+			$analytics_script .= $this->create_action( 'addItem', $this->prepare_item_data( $item ) );
+		}
+
+		$analytics_script .= '</script>';
+
+		echo $analytics_script;
+	}
+
+	/**
+	* Builds an Analytics Ecommerce addOrder action.
+	*
+	* @param array $order The completed order to report.
+	* @return string The JavaScript representation of an Analytics Ecommerce addOrder action.
+	*/
+	private function prepare_order_data() {
+		$data = array(
+			'order_id' => $this->order->get_order_number(),
+			'revenue'  => $this->order->get_total(),
+		    'shipping' => $this->order->get_total_shipping(),
+		    'tax'      => $this->order->get_total_tax(),
+		);
+
+		return json_encode($data);
+	}
+
+	/**
+	* Builds an Analytics Ecommerce addItem action.
+	*
+	* @param array $order The completed order to report.
+	* @param array $item The purchesed product to report, part of this order.
+	* @return string The JavaScript representation of an Analytics Ecommerce addItem action.
+	*/
+	private function prepare_item_data( $item ) {
+		$product = $this->order->get_product_from_item( $item );
+
+		$data = array(
+			'order_id'    => $this->order->get_order_number(),
+			'product_id'  => $this->items_product_id == 'id' ? $product->id : $product->get_sku(),
+			'name'        => esc_js($product->get_title()),
+			'price'       => $this->order->get_item_total( $item ),
+			'quantity'    => (int)$item['qty'],
+		);
+
+		return json_encode($data);
+	}
+
+	private function create_action( $action, $data ) {
+		return "sa('ecommerce', '$action', '{$data}');";
+	}
+
 }
