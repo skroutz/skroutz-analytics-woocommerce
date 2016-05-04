@@ -23,6 +23,15 @@
 class WC_Skroutz_Analytics_Integration extends WC_Integration {
 
   /**
+   * The tracking is responsible for all the tracking actions in the plugin.
+   *
+   * @since    1.0.0
+   * @access   protected
+   * @var      WC_Skroutz_Analytics_Tracking $tracking Defines all the tracking actions.
+   */
+  private $tracking;
+
+  /**
    * Initialize the class and set its properties.
    *
    * @since    1.0.0
@@ -40,6 +49,9 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
     $this->shop_account_id  = $this->get_option( 'sa_shop_account_id' );
 
     $this->register_admin_hooks();
+
+    //TODO: check if shop_account_id is set!!!!
+    $this->tracking = new WC_Skroutz_Analytics_Tracking( $this->shop_account_id );
   }
 
   public function init_form_fields() {
