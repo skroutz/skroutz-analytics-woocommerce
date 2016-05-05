@@ -50,7 +50,11 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 
     $this->register_admin_hooks();
 
-    //TODO: check if shop_account_id is set!!!!
+    // Check if account id is set, else don't do any tracking
+    if( ! $this->shop_account_id ) {
+      return;
+    }
+
     $this->tracking = new WC_Skroutz_Analytics_Tracking( $this->shop_account_id );
   }
 
