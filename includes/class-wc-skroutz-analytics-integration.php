@@ -51,6 +51,7 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 
     //Skroutz Analytics admin settings
     $this->shop_account_id  = $this->get_option( 'sa_shop_account_id' );
+    $this->items_product_id  = $this->get_option( 'sa_items_product_id' );
 
     $this->register_admin_hooks();
 
@@ -59,7 +60,7 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
       return;
     }
 
-    $this->tracking = new WC_Skroutz_Analytics_Tracking( $this->shop_account_id );
+    $this->tracking = new WC_Skroutz_Analytics_Tracking( $this->shop_account_id, $this->items_product_id );
   }
 
   public function init_form_fields() {
@@ -69,6 +70,14 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
                 'type'        => 'text',
                 'description' => __( 'The shop account ID is provided by Skroutz', 'wc-skroutz-analytics' ),
                 'placeholder' => 'SA-XXXX-YYYY',
+            ),
+            'sa_items_product_id' => array(
+                'title'       => __( 'Product ID', 'wc-skroutz-analytics' ),
+                'type'        => 'select',
+                'description' => __( 'Specify the product ID that should be send to analytics.', 'wc-skroutz-analytics' ),
+                'options' => array( 'sku' => 'Product SKU', 'id' => 'Product ID' ),
+                'default' => 'sku',
+                'desc_tip' => __( 'It must the same product ID used in the XML feed provided to Skroutz.', 'wc-skroutz-analytics' ),
             ),
         );
     }

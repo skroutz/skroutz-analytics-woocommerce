@@ -30,6 +30,12 @@ class WC_Skroutz_Analytics_Tracking {
 	private $shop_account_id;
 
 	/**
+	* The items product id option provided by the admin settings
+	* @var string
+	*/
+	private $items_product_id;
+
+	/**
 	* The current order to be submitted
 	* @var string
 	*/
@@ -44,8 +50,9 @@ class WC_Skroutz_Analytics_Tracking {
 	*
 	* @since    1.0.0
 	*/
-	public function __construct( $shop_account_id ) {
+	public function __construct( $shop_account_id, $items_product_id ) {
 		$this->shop_account_id = $shop_account_id;
+		$this->items_product_id = $items_product_id;
 
 	  	// Page tracking script
 	    add_action( 'wp_enqueue_scripts', array( $this, 'load_analytics_tracking_script' ) );
