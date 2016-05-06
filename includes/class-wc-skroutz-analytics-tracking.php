@@ -107,9 +107,9 @@ class WC_Skroutz_Analytics_Tracking {
 	private function prepare_order_data() {
 		$data = array(
 			'order_id' => $this->order->get_order_number(),
-			'revenue'  => $this->order->get_total(),
+			'revenue'  => $this->calculate_order_revenue(),
 		    'shipping' => $this->order->get_total_shipping(),
-		    'tax'      => $this->order->get_total_tax(),
+		    'tax'      => $this->calculate_order_tax(),
 		);
 
 		return json_encode($data);
@@ -138,6 +138,52 @@ class WC_Skroutz_Analytics_Tracking {
 
 	private function create_action( $action, $data ) {
 		return "sa('ecommerce', '$action', '{$data}');";
+	}
+
+	/**
+	* Calculates the total fees of the order.
+	*
+	* @return array The total fees excluding tax (fees_excl_tax) and the the total tax of the fees (fees_tax)
+	*
+	* @since    1.0.0
+	* @access   private
+	*/
+	private function calculate_order_fees() {
+		$fees_excl_tax = 0;
+		$fees_tax = 0;
+  		foreach ($this->order->get_fees() as $fee) {
+  			$fees_excl_tax += $fee['line_total'];
+  			$fees_tax += $fee['line_tax'];
+  		}
+
+  		return array(
+  			'fees_excl_tax' => round($fees_excl_tax, 2),
+  			'fees_tax' => round($fees_tax, 2),
+  		);
+	}
+
+	/**
+	* Calculates the revenue of the order excluding the fees
+	*
+	* @return float Order revenue
+	*
+	* @since    1.0.0
+	* @access   private
+	*/
+	private function calculate_order_revenue() {
+		return $this->order->get_total() - array_sum($this->calculate_order_fees());
+	}
+
+	/**
+	* Calculates the tax of the order excluding the tax fees
+	*
+	* @return float Order tax
+	*
+	* @since    1.0.0
+	* @access   private
+	*/
+	private function calculate_order_tax() {
+		return $this->order->get_total_tax() - $this->calculate_order_fees()['fees_tax'];
 	}
 
 }
