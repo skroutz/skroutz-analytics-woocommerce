@@ -24,6 +24,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_Skroutz_Analytics_Tracking {
 
 	/**
+	* The flavor (is the site) provided by the admin settings
+	* @var string
+	*/
+	private $flavor;
+
+	/**
 	* The shop account id provided by the admin settings
 	* @var string
 	*/
@@ -50,7 +56,8 @@ class WC_Skroutz_Analytics_Tracking {
 	*
 	* @since    1.0.0
 	*/
-	public function __construct( $shop_account_id, $items_product_id ) {
+	public function __construct( $flavor, $shop_account_id, $items_product_id ) {
+		$this->flavor = $flavor;
 		$this->shop_account_id = $shop_account_id;
 		$this->items_product_id = $items_product_id;
 
@@ -72,7 +79,10 @@ class WC_Skroutz_Analytics_Tracking {
 		wp_localize_script(
 			'sa_tracking',
 			WC_Skroutz_Analytics::PLUGIN_ID,
-			array( 'shop_account_id' => $this->shop_account_id )
+			array(
+				'flavor' => constant("WC_Skroutz_Analytics_Flavors::$this->flavor")['analytics_url'],
+				'shop_account_id' => $this->shop_account_id,
+			)
 		);
 
 		wp_enqueue_script( 'sa_tracking' );

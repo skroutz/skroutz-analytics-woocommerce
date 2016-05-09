@@ -50,6 +50,7 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
     $this->init_settings();
 
     //Skroutz Analytics admin settings
+    $this->flavor = $this->get_option( 'sa_flavor' );
     $this->shop_account_id  = $this->get_option( 'sa_shop_account_id' );
     $this->items_product_id  = $this->get_option( 'sa_items_product_id' );
 
@@ -60,15 +61,24 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
       return;
     }
 
-    $this->tracking = new WC_Skroutz_Analytics_Tracking( $this->shop_account_id, $this->items_product_id );
+    $this->tracking = new WC_Skroutz_Analytics_Tracking( $this->flavor, $this->shop_account_id, $this->items_product_id );
   }
 
-  public function init_form_fields() {
+  	public function init_form_fields() {
+  		$merchants_link = "<a id='merchants_link' href='' target='_blank'></a>"; //will be populated by the client
+
         $this->form_fields = array(
+            'sa_flavor' => array(
+                'title'       => __( 'Site', 'wc-skroutz-analytics' ),
+                'type'        => 'select',
+                'description' => __( 'Specify the site your eshop reports to.', 'wc-skroutz-analytics' ),
+                'options' => array( 'Skroutz' => 'Skroutz', 'Alve' => 'Alve', 'Scrooge' => 'Scrooge' ),
+                'default' => 'Skroutz',
+            ),
             'sa_shop_account_id' => array(
                 'title'       => __( 'Shop Account ID', 'wc-skroutz-analytics' ),
                 'type'        => 'text',
-                'description' => __( 'The shop account ID is provided by Skroutz', 'wc-skroutz-analytics' ),
+                'description' => sprintf(__('The shop account ID is provided by %s', 'wc-skroutz-analytics'), $merchants_link ),
                 'placeholder' => 'SA-XXXX-YYYY',
             ),
             'sa_items_product_id' => array(
@@ -121,13 +131,48 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
     return $settings;
   }
 
+  	public function load_admin_assets( $hook ) {
+		//load the assets only if we are in the settings tab of our plugin
+		if ( $hook !== 'woocommerce_page_wc-settings' ) {
+			return;
+		}
+
+		if ( isset($_GET['tab']) && $_GET['tab'] !== 'integration' ) {
+  			return;
+  		}
+
+		if ( isset($_GET['section']) && $_GET['section'] !== 'wc_skroutz_analytics' ) {
+			return;
+  		}
+
+  		wp_register_script(
+			'sa_admin_settings',
+		  	plugin_dir_url(dirname(__FILE__)) . 'assets/js/skroutz-analytics-admin-settings.js',
+		  	'',
+		  	WC_Skroutz_Analytics::PLUGIN_VERSION
+		);
+
+  		$flavors_class = new ReflectionClass('WC_Skroutz_Analytics_Flavors');
+  		$flavors = $flavors_class->getConstants();
+
+		wp_localize_script(
+			'sa_admin_settings',
+			WC_Skroutz_Analytics::PLUGIN_ID,
+			array( 'flavors' => $flavors )
+		);
+
+		wp_enqueue_script( 'sa_admin_settings' );
+	}
+
   private function is_valid_skroutz_analytics_code( $code ) {
     return preg_match('/^sa-\d{4}-\d{4}$/i', $code ) ? true : false;
   }
 
-  private function register_admin_hooks() {
-    add_action( 'woocommerce_update_options_integration_' . $this->id, array( $this, 'process_admin_options' ) );
+  	private function register_admin_hooks() {
+  		add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_assets') );
+
+    	add_action( 'woocommerce_update_options_integration_' . $this->id, array( $this, 'process_admin_options' ) );
         add_filter( 'woocommerce_settings_api_sanitized_fields_' . $this->id, array( $this, 'sanitize_settings' ) );
-  }
+  	}
 
 }
