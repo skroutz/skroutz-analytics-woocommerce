@@ -84,7 +84,7 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
             'sa_items_product_id' => array(
                 'title'       => __( 'Product ID', 'wc-skroutz-analytics' ),
                 'type'        => 'select',
-                'description' => __( 'Specify the product ID that should be send to analytics.', 'wc-skroutz-analytics' ),
+                'description' => __( 'Specify the product ID that should be sent to analytics.', 'wc-skroutz-analytics' ),
                 'options' => array( 'sku' => 'Product SKU', 'id' => 'Product ID' ),
                 'default' => 'sku',
                 'desc_tip' => __( 'It must the same product ID used in the XML feed provided to Skroutz.', 'wc-skroutz-analytics' ),
@@ -114,7 +114,7 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
   public function display_errors() {
     foreach ( $this->errors as $key => $value ) {
       $class = 'notice notice-error';
-      $message =  sprintf(__('An error occured. %s', 'wc-skroutz-analytics') ,$value );
+      $message =  sprintf(__('An error occurred. %s', 'wc-skroutz-analytics') ,$value );
 
       printf( '<div class="%s"><p>%s</p></div>', $class, $message );
     }

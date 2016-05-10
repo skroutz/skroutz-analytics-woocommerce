@@ -116,10 +116,9 @@ class WC_Skroutz_Analytics {
 	 * @access   private
 	 */
 	private function set_locale() {
-
 		$plugin_i18n = new WC_Skroutz_Analytics_i18n();
 
-		add_action( 'plugins_loaded', array( $plugin_i18n, 'load_plugin_textdomain' ) );
+		$plugin_i18n->load_plugin_textdomain();
 	}
 
 	/**

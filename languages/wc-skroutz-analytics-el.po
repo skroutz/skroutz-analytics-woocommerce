@@ -3,27 +3,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Skroutz Analytics 1.0.0\n"
-"Report-Msgid-Bugs-To: "
-"https://wordpress.org/support/plugin/wc-skroutz-analytics\n"
-"POT-Creation-Date: 2016-05-11 10:02:10+00:00\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-skroutz-"
+"analytics\n"
+"POT-Creation-Date: 2016-05-11 13:02+0300\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Skroutz SA <analytics@skroutz.gr>\n"
+"PO-Revision-Date: 2016-05-17 13:12+0300\n"
 "Language-Team: Skroutz SA <analytics@skroutz.gr>\n"
-"X-Generator: grunt-wp-i18n 0.5.4\n"
-"X-Poedit-KeywordsList: "
-"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
-"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
-"Language: en\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;"
+"esc_html_x:1,2c\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Country: Greece\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-Basepath: ../\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-Bookmarks: \n"
+"X-Poedit-Basepath: ..\n"
 "X-Textdomain-Support: yes\n"
+"Last-Translator: \n"
+"Language: el_GR\n"
+"X-Poedit-SearchPath-0: .\n"
 
 #: includes/class-wc-skroutz-analytics-integration.php:45
 msgid "Skroutz Analytics"
@@ -34,14 +32,19 @@ msgid ""
 "Skroutz Analytics is a free service that gives you the ability to generate "
 "statistics about your shop visitors and products."
 msgstr ""
+"Το Skroutz Analytics είναι μια δωρεάν υπηρεσία που σου δίνει την δυνατότητα "
+"να παράγεις στατιστικά για τους πελάτες και τα προϊόντα του ηλεκτρονικoύ "
+"σου καταστήματος."
 
 #: includes/class-wc-skroutz-analytics-integration.php:72
 msgid "Site"
-msgstr ""
+msgstr "Ιστοσελίδα"
 
 #: includes/class-wc-skroutz-analytics-integration.php:74
 msgid "Specify the site your eshop reports to."
 msgstr ""
+"Διάλεξε την ιστοσελίδα στην οποία το ηλεκτρονικό σου κατάστημα στέλνει τα "
+"στατιστικά."
 
 #: includes/class-wc-skroutz-analytics-integration.php:79
 msgid "Shop Account ID"
@@ -49,7 +52,7 @@ msgstr ""
 
 #: includes/class-wc-skroutz-analytics-integration.php:81
 msgid "The shop account ID is provided by %s"
-msgstr ""
+msgstr "Το shop account ID παρέχεται από το %s"
 
 #: includes/class-wc-skroutz-analytics-integration.php:85
 msgid "Product ID"
@@ -57,20 +60,24 @@ msgstr ""
 
 #: includes/class-wc-skroutz-analytics-integration.php:87
 msgid "Specify the product ID that should be sent to analytics."
-msgstr ""
+msgstr "Διάλεξε το product ID που πρέπει να στέλνεται στο analytics."
 
 #: includes/class-wc-skroutz-analytics-integration.php:90
 msgid "It must the same product ID used in the XML feed provided to Skroutz."
 msgstr ""
+"Πρέπει να ειναι το ίδιο product ID που χρησιμοποιείς στο XML feed που "
+"παρέχεις στο Skroutz."
 
 #: includes/class-wc-skroutz-analytics-integration.php:105
 msgid "Shop Account ID is invalid"
-msgstr ""
+msgstr "Το Shop Account ID δεν είναι έγκυρο"
 
 #: includes/class-wc-skroutz-analytics-integration.php:117
 msgid "An error occurred. %s"
-msgstr ""
+msgstr "Προκλήθηκε ενα λάθος. %s"
 
 #. Description of the plugin/theme
 msgid "Integrate skroutz analytics to your WooCommerce enabled Wordpress site"
 msgstr ""
+"Eνσωμάτωσε το Skroutz Analytics στην Wordpress ιστοσελίδα σου, που "
+"χρησιμοποιεί WooCommerce"
