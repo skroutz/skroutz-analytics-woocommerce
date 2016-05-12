@@ -5,19 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * The file that defines the core plugin class
- *
- * A class definition that includes attributes and functions used across both the
- * public-facing side of the site and the admin area.
- *
- * @link       www.skroutz.gr
- * @since      1.0.0
- *
- * @package    WC_Skroutz_Analytics
- * @subpackage WC_Skroutz_Analytics/includes
- */
-
-/**
  * The core plugin class.
  *
  * This is used to define internationalization, admin-specific hooks, and
@@ -29,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since      1.0.0
  * @package    WC_Skroutz_Analytics
  * @subpackage WC_Skroutz_Analytics/includes
- * @author     Skroutz <info@skroutz.gr>
+ * @author     Skroutz SA <analytics@skroutz.gr>
  */
 class WC_Skroutz_Analytics {
 
@@ -52,9 +39,7 @@ class WC_Skroutz_Analytics {
 	/**
 	 * Define the core functionality of the plugin.
 	 *
-	 * Set the plugin name and the plugin version that can be used throughout the plugin.
-	 * Load the dependencies, define the locale, and set the hooks for the admin area and
-	 * the public-facing side of the site.
+	 * Load the dependencies, define the locale, and set the admin hook for the plugin
 	 *
 	 * @since    1.0.0
 	 */
@@ -71,13 +56,10 @@ class WC_Skroutz_Analytics {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - WC_Skroutz_Analytics_Loader. Orchestrates the hooks of the plugin.
+	 * - WC_Skroutz_Analytics_Flavors. Defines the different supported flavors/sites.
 	 * - WC_Skroutz_Analytics_i18n. Defines internationalization functionality.
-	 * - WC_Skroutz_Analytics_Admin. Defines all hooks for the admin area.
-	 * - WC_Skroutz_Analytics_Public. Defines all hooks for the public side of the site.
-	 *
-	 * Create an instance of the loader which will be used to register the hooks
-	 * with WordPress.
+	 * - WC_Skroutz_Analytics_Integration. Defines the woocommerce integration functionality.
+	 * - WC_Skroutz_Analytics_Tracking. Defines the skroutz analytics tracking functionality.
 	 *
 	 * @since    1.0.0
 	 * @access   private
@@ -123,6 +105,8 @@ class WC_Skroutz_Analytics {
 
 	/**
 	 * Add a new integration to WooCommerce.
+	 *
+	 * @since    1.0.0
 	 */
 	public function add_integration( $integrations ) {
 		$integrations[] = 'WC_Skroutz_Analytics_Integration';

@@ -7,19 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * The tracking functionality of the plugin.
  *
- * @link       www.skroutz.gr
- * @since      1.0.0
- *
  * @package    WC_Skroutz_Analytics_Tracking
  * @subpackage WC_Skroutz_Analytics_Tracking/includes
- */
-
-/**
- * The tracking functionality of the plugin.
- *
- * @package    WC_Skroutz_Analytics_Tracking
- * @subpackage WC_Skroutz_Analytics_Tracking/includes
- * @author     Skroutz <info@skroutz.gr>
+ * @author     Skroutz SA <analytics@skroutz.gr>
  */
 class WC_Skroutz_Analytics_Tracking {
 
@@ -61,19 +51,19 @@ class WC_Skroutz_Analytics_Tracking {
 		$this->shop_account_id = $shop_account_id;
 		$this->items_product_id = $items_product_id;
 
-	  	// Page tracking script
-	    add_action( 'wp_enqueue_scripts', array( $this, 'load_analytics_tracking_script' ) );
+		// Page tracking script
+		add_action( 'wp_enqueue_scripts', array( $this, 'load_analytics_tracking_script' ) );
 
-	    // Ecommerce tracking
-	    add_action( 'woocommerce_thankyou', array( $this, 'load_ecommerce_analytics' ) );
+		// Ecommerce tracking
+		add_action( 'woocommerce_thankyou', array( $this, 'load_ecommerce_analytics' ) );
 	}
 
 	public function load_analytics_tracking_script() {
 		wp_register_script(
 			'sa_tracking',
-		  	plugin_dir_url(dirname(__FILE__)) . 'assets/js/skroutz-analytics-tracking.js',
-		  	'',
-		  	WC_Skroutz_Analytics::PLUGIN_VERSION
+			plugin_dir_url(dirname(__FILE__)) . 'assets/js/skroutz-analytics-tracking.js',
+			'',
+			WC_Skroutz_Analytics::PLUGIN_VERSION
 		);
 
 		wp_localize_script(
@@ -88,8 +78,8 @@ class WC_Skroutz_Analytics_Tracking {
 		wp_enqueue_script( 'sa_tracking' );
 	}
 
- 	public function load_ecommerce_analytics( $order_id ) {
-  		$this->order = new WC_Order( $order_id );
+	public function load_ecommerce_analytics( $order_id ) {
+		$this->order = new WC_Order( $order_id );
 
 		add_action( 'wp_print_footer_scripts', array( $this, 'output_ecommerce_analytics_script' ) );
 	}
@@ -118,8 +108,8 @@ class WC_Skroutz_Analytics_Tracking {
 		$data = array(
 			'order_id' => $this->order->get_order_number(),
 			'revenue'  => $this->calculate_order_revenue(),
-		    'shipping' => $this->order->get_total_shipping(),
-		    'tax'      => $this->calculate_order_tax(),
+			'shipping' => $this->order->get_total_shipping(),
+			'tax'      => $this->calculate_order_tax(),
 		);
 
 		return json_encode($data);
@@ -162,14 +152,14 @@ class WC_Skroutz_Analytics_Tracking {
 		$fees_excl_tax = 0;
 		$fees_tax = 0;
   		foreach ($this->order->get_fees() as $fee) {
-  			$fees_excl_tax += $fee['line_total'];
-  			$fees_tax += $fee['line_tax'];
-  		}
+			$fees_excl_tax += $fee['line_total'];
+			$fees_tax += $fee['line_tax'];
+		}
 
-  		return array(
-  			'fees_excl_tax' => round($fees_excl_tax, 2),
-  			'fees_tax' => round($fees_tax, 2),
-  		);
+		return array(
+			'fees_excl_tax' => round($fees_excl_tax, 2),
+			'fees_tax' => round($fees_tax, 2),
+		);
 	}
 
 	/**
