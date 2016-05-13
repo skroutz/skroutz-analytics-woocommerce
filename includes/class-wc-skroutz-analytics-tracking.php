@@ -52,30 +52,28 @@ class WC_Skroutz_Analytics_Tracking {
 		$this->items_product_id = $items_product_id;
 
 		// Page tracking script
-		add_action( 'wp_enqueue_scripts', array( $this, 'load_analytics_tracking_script' ) );
+		add_action( 'wp_print_footer_scripts', array( $this, 'output_analytics_tracking_script' ) );
 
 		// Ecommerce tracking
 		add_action( 'woocommerce_thankyou', array( $this, 'load_ecommerce_analytics' ) );
 	}
 
-	public function load_analytics_tracking_script() {
-		wp_register_script(
-			'sa_tracking',
-			plugin_dir_url(dirname(__FILE__)) . 'assets/js/skroutz-analytics-tracking.js',
-			'',
-			WC_Skroutz_Analytics::PLUGIN_VERSION
-		);
+	public function output_analytics_tracking_script() {
+		$analytics_url = constant("WC_Skroutz_Analytics_Flavors::$this->flavor")['analytics_url'];
 
-		wp_localize_script(
-			'sa_tracking',
-			WC_Skroutz_Analytics::PLUGIN_ID,
-			array(
-				'flavor' => constant("WC_Skroutz_Analytics_Flavors::$this->flavor")['analytics_url'],
-				'shop_account_id' => $this->shop_account_id,
-			)
-		);
+		$analytics_script = "
+		<!-- Skroutz Analytics WooCommerce plugin - v".WC_Skroutz_Analytics::PLUGIN_VERSION." -->
+		<script type='text/javascript'>
+			(function(a,b,c,d,e,f,g){a[e]= a[e] || function(){
+			(a[e].q = a[e].q || []).push(arguments);};f=b.createElement(c);f.async=true;
+			f.src=d;g=b.getElementsByTagName(c)[0];g.parentNode.insertBefore(f,g);
+			})(window,document,'script','$analytics_url','sa');
 
-		wp_enqueue_script( 'sa_tracking' );
+			sa('session', 'connect', '$this->shop_account_id');
+		</script>
+		";
+
+		echo $analytics_script;
 	}
 
 	public function load_ecommerce_analytics( $order_id ) {
@@ -85,15 +83,15 @@ class WC_Skroutz_Analytics_Tracking {
 	}
 
 	public function output_ecommerce_analytics_script() {
-		$analytics_script = '<script type="text/javascript">';
+		$analytics_script = "<script type='text/javascript'> \n";
 
-		$analytics_script .= $this->create_action( 'addOrder', $this->prepare_order_data() );
+		$analytics_script .= $this->create_action( 'addOrder', $this->prepare_order_data() ) . "\n";
 
 		foreach ( $this->order->get_items() as $item ) {
-			$analytics_script .= $this->create_action( 'addItem', $this->prepare_item_data( $item ) );
+			$analytics_script .= $this->create_action( 'addItem', $this->prepare_item_data( $item ) ) . "\n";
 		}
 
-		$analytics_script .= '</script>';
+		$analytics_script .= "</script> \n";
 
 		echo $analytics_script;
 	}
