@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
   var updateLink = function(link, flavor) {
     link.text(flavor);
-    link.attr('href', wc_skroutz_analytics.flavors[flavor].merchants_url);
+    link.attr('href', wc_skroutz_analytics.flavors[flavor+'_merchants_url']);
   },
   $link = $('#merchants_link'),
   $flavorDropdown = $('#woocommerce_wc_skroutz_analytics_sa_flavor'),

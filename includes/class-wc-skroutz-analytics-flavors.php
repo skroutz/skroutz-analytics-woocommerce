@@ -13,18 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Skroutz_Analytics_Flavors
 {
-	const Skroutz = array(
-		'analytics_url' => 'https://analytics.skroutz.gr/analytics.min.js',
-		'merchants_url' => 'https://merchants.skroutz.gr/merchants/account/settings/analytics',
-	);
+	const skroutz_analytics_url = 'https://analytics.skroutz.gr/analytics.min.js';
+	const skroutz_merchants_url = 'https://merchants.skroutz.gr/merchants/account/settings/analytics';
 
-	const Alve = array(
-		'analytics_url' => 'https://analytics.alve.com/analytics.min.js',
-		'merchants_url' => 'https://merchants.alve.com/merchants/account/settings/analytics',
-	);
+	const alve_analytics_url = 'https://analytics.alve.com/analytics.min.js';
+	const alve_merchants_url = 'https://merchants.alve.com/merchants/account/settings/analytics';
 
-	const Scrooge = array(
-		'analytics_url' => 'https://analytics.scrooge.co.uk/analytics.min.js',
-		'merchants_url' => 'https://merchants.scrooge.co.uk/merchants/account/settings/analytics',
-	);
+	const scrooge_analytics_url = 'https://analytics.scrooge.co.uk/analytics.min.js';
+	const scrooge_merchants_url = 'https://merchants.scrooge.co.uk/merchants/account/settings/analytics';
 }

@@ -68,8 +68,8 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 				'title'       => __( 'Site', 'wc-skroutz-analytics' ),
 				'type'        => 'select',
 				'description' => __( 'Specify the site your eshop reports to.', 'wc-skroutz-analytics' ),
-				'options'     => array( 'Skroutz' => 'Skroutz', 'Alve' => 'Alve', 'Scrooge' => 'Scrooge' ),
-				'default'     => 'Skroutz',
+				'options'     => array( 'skroutz' => 'Skroutz', 'alve' => 'Alve', 'scrooge' => 'Scrooge' ),
+				'default'     => 'skroutz',
 			),
 			'sa_shop_account_id' => array(
 				'title'       => __( 'Shop Account ID', 'wc-skroutz-analytics' ),

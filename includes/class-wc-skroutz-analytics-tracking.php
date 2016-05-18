@@ -59,7 +59,7 @@ class WC_Skroutz_Analytics_Tracking {
 	}
 
 	public function output_analytics_tracking_script() {
-		$analytics_url = constant("WC_Skroutz_Analytics_Flavors::$this->flavor")['analytics_url'];
+		$analytics_url = constant("WC_Skroutz_Analytics_Flavors::$this->flavor"."_analytics_url");
 
 		$analytics_script = "
 		<!-- Skroutz Analytics WooCommerce plugin - v".WC_Skroutz_Analytics::PLUGIN_VERSION." -->
@@ -181,7 +181,9 @@ class WC_Skroutz_Analytics_Tracking {
 	* @access   private
 	*/
 	private function calculate_order_tax() {
-		return $this->order->get_total_tax() - $this->calculate_order_fees()['fees_tax'];
+		$order_fees = $this->calculate_order_fees();
+
+		return $this->order->get_total_tax() - $order_fees['fees_tax'];
 	}
 
 }
