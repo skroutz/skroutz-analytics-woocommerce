@@ -56,8 +56,8 @@ add_action( 'plugins_loaded', 'run_wc_skroutz_analytics' );
  * @return boolean true if it meets the prerequisites, otherwise false
  */
 function meets_prerequisites() {
-	// Check if woocommerce plugin is active
-	if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+	// Check if woocommerce plugin is active, by checking if the woocommerce class that we will extend exists
+	if( ! class_exists( 'WC_Integration' )) {
 		add_action( 'admin_notices', 'woocommerce_missing_notice' );
 		return false;
 	}
