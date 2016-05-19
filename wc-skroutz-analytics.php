@@ -46,6 +46,8 @@ function run_wc_skroutz_analytics() {
 		return;
 	}
 
+	define('SA_PLUGIN_BASENAME', plugin_basename( __FILE__ ));
+
 	$plugin = new WC_Skroutz_Analytics();
 }
 add_action( 'plugins_loaded', 'run_wc_skroutz_analytics' );

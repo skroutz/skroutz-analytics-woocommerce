@@ -36,6 +36,9 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 		$this->method_title = __( 'Skroutz Analytics', 'wc-skroutz-analytics' );
 		$this->method_description    = __( 'Skroutz Analytics is a free service that gives you the ability to generate statistics about your shop visitors and products.', 'wc-skroutz-analytics' );
 
+		//Add settings action link to plugins listing
+		add_filter( 'plugin_action_links_' . SA_PLUGIN_BASENAME, array( $this, 'add_action_links' ));
+
 		// Load the settings
 		$this->init_form_fields();
 		$this->init_settings();
@@ -53,6 +56,27 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 		}
 
 		$this->tracking = new WC_Skroutz_Analytics_Tracking( $this->flavor, $this->shop_account_id, $this->items_product_id );
+	}
+
+	/**
+	* Add settings action link to plugins listing
+	*
+	* @param array links The existing action links
+	* @return array The final action links to be displayed
+	*
+	* @since    1.0.0
+	*/
+	public function add_action_links ( $links ) {
+		$action_links = array(
+			'settings' => sprintf(
+				'<a href="%s" title="%s"> %s </a>',
+				admin_url( 'admin.php?page=wc-settings&tab=integration&section=wc_skroutz_analytics'),
+				__( 'View Skroutz Analytics Settings', 'wc-skroutz-analytics'),
+				__( 'Settings', 'wc-skroutz-analytics' )
+			),
+		);
+
+		return array_merge( $links, $action_links );
 	}
 
 	/**

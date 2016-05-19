@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: WooCommerce Skroutz Analytics 1.0.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/wc-skroutz-analytics\n"
-"POT-Creation-Date: 2016-05-11 10:02:10+00:00\n"
+"POT-Creation-Date: 2016-05-19 12:29:14+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,49 +25,57 @@ msgstr ""
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
 
-#: includes/class-wc-skroutz-analytics-integration.php:45
+#: includes/class-wc-skroutz-analytics-integration.php:36
 msgid "Skroutz Analytics"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:46
+#: includes/class-wc-skroutz-analytics-integration.php:37
 msgid ""
 "Skroutz Analytics is a free service that gives you the ability to generate "
 "statistics about your shop visitors and products."
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:72
+#: includes/class-wc-skroutz-analytics-integration.php:74
+msgid "View Skroutz Analytics Settings"
+msgstr ""
+
+#: includes/class-wc-skroutz-analytics-integration.php:75
+msgid "Settings"
+msgstr ""
+
+#: includes/class-wc-skroutz-analytics-integration.php:92
 msgid "Site"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:74
+#: includes/class-wc-skroutz-analytics-integration.php:94
 msgid "Specify the site your eshop reports to."
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:79
+#: includes/class-wc-skroutz-analytics-integration.php:99
 msgid "Shop Account ID"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:81
+#: includes/class-wc-skroutz-analytics-integration.php:101
 msgid "The shop account ID is provided by %s"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:85
+#: includes/class-wc-skroutz-analytics-integration.php:105
 msgid "Product ID"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:87
+#: includes/class-wc-skroutz-analytics-integration.php:107
 msgid "Specify the product ID that should be sent to analytics."
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:90
+#: includes/class-wc-skroutz-analytics-integration.php:110
 msgid "It must the same product ID used in the XML feed provided to Skroutz."
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:105
+#: includes/class-wc-skroutz-analytics-integration.php:127
 msgid "Shop Account ID is invalid"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:117
+#: includes/class-wc-skroutz-analytics-integration.php:141
 msgid "An error occurred. %s"
 msgstr ""
 
