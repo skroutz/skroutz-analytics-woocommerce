@@ -126,7 +126,7 @@ class WC_Skroutz_Analytics_Tracking {
 		$data = array(
 			'order_id'    => $this->order->get_order_number(),
 			'product_id'  => $this->items_product_id == 'id' ? $product->id : $product->get_sku(),
-			'name'        => esc_js($product->get_title()),
+			'name'        => $product->get_title(),
 			'price'       => $this->order->get_item_total( $item ),
 			'quantity'    => (int)$item['qty'],
 		);
@@ -135,7 +135,7 @@ class WC_Skroutz_Analytics_Tracking {
 	}
 
 	private function create_action( $action, $data ) {
-		return "sa('ecommerce', '$action', '{$data}');";
+		return "sa('ecommerce', '$action', JSON.stringify({$data}));";
 	}
 
 	/**
