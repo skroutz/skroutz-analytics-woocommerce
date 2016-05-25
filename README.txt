@@ -3,7 +3,7 @@ Contributors: Skroutz SA
 Tags: skroutz, alve, scrooge, analytics, woocommerce
 Requires at least: 4.1
 Tested up to: 4.5.2
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,6 +58,9 @@ Duplicate Skroutz Analytics code causes a conflict in tracking. Remove any other
 2. Skroutz Analytics statistics in the Skroutz for merchants.
 
 == Changelog ==
+
+= 1.0.1 =
+Project restructure
 
 = 1.0.0 =
 Initial release
