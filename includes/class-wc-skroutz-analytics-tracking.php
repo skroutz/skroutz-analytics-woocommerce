@@ -127,7 +127,7 @@ class WC_Skroutz_Analytics_Tracking {
 			'order_id'    => $this->order->get_order_number(),
 			'product_id'  => $this->items_product_id == 'id' ? $product->id : $product->get_sku(),
 			'name'        => $product->get_title(),
-			'price'       => $this->order->get_item_total( $item ),
+			'price'       => $this->order->get_item_total( $item, true ),
 			'quantity'    => (int)$item['qty'],
 		);
 
