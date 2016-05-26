@@ -7,6 +7,20 @@ This plugin provides the integration between [Skroutz Analytics][1] and the [Woo
 * Integrates the ecommerce data (transactions and revenue) generated during an order.
 
 ## Installation
+
+The plugin is available from the [Wordpress plugin repo][11].
+
+#### Wordpress (recommended)
+
+1. Login to your wordpress admin panel
+2. Navigate to `Plugins > Add New`
+3. Search for `skroutz analytics woocommerce`
+4. Install the plugin, authored by skroutz
+5. Activate the plugin through the Plugins menu in WordPress admin.
+6. Set the `Shop Account ID` to the plugin's settings.
+
+#### Manual
+
 1. Download the plugin file to your computer and unzip it.
 2. Upload the unzipped plugin folder to your WordPress installation’s `wp-content/plugins/` directory.
 3. Activate the plugin through the Plugins menu in WordPress admin.
@@ -20,8 +34,14 @@ We support Skrouz.gr, Alve.com and Scrooge.co.uk.
 ##### Where can I find the plugin's settings?
 This plugin will add the settings to the WooCommerce Integration tab `WooCommerce > Settings > Integration > Skroutz Analytics`
 
+##### Where can I find the `Shop Account ID`?
+Visit skroutz for [merchants page][10], and navigate to the Skroutz Analytics section. Otherwise you may contact your account manager.
+
 ##### I don't see the code on my site. Where is it?
 Make sure you have set your Skroutz Analytics `Shop Account ID` in the plugin settings, otherwise the tracking won't work.
+
+##### How can I test if Skroutz Analytics is working?
+Skroutz provides you a temporary `verification page` during the testing phase of the skroutz analytics integration. You can visit skroutz for [merchants page][10] or contact your account manager.
 
 ##### Which pages do you track?
 This plugin does not track any admin pages, only frontend pages.
@@ -62,4 +82,6 @@ Skroutz Analytics WooCommerce Plugin is licensed under the [GNU Public License v
 [7]: http://gitready.com/advanced/2009/02/10/squashing-commits-with-rebase.htmlphp/
 [8]: https://help.github.com/articles/using-pull-requests
 [9]: LICENSE.txt
+[10]: https://merchants.skroutz.gr/merchants/account/settings/analytics
+[11]: https://wordpress.org/plugins/skroutz-analytics-woocommerce/
 

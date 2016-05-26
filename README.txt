@@ -1,9 +1,9 @@
 === WooCommerce Skroutz Analytics ===
-Contributors: Skroutz SA
+Contributors: skroutz
 Tags: skroutz, alve, scrooge, analytics, woocommerce
-Requires at least: 4.1
+Requires at least: 4.0
 Tested up to: 4.5.2
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,8 +43,14 @@ We support Skrouz.gr, Alve.com and Scrooge.co.uk.
 This plugin will add the settings to the WooCommerce Integration tab. 
 `WooCommerce > Settings > Integration > Skroutz Analytics`
 
+= Where can I find the `Shop Account ID`? =
+Visit skroutz for [merchants page](https://merchants.skroutz.gr/merchants/account/settings/analytics), and navigate to the Skroutz Analytics section. Otherwise you may contact your account manager.
+
 = I don't see the code on my site. Where is it? =
 Make sure you have set your Skroutz Analytics `Shop Account ID` in the plugin settings, otherwise tracking won't work.
+
+= How can I test if Skroutz Analytics is working? =
+Skroutz provides you a temporary `verification page` during the testing phase of the skroutz analytics integration. You can visit skroutz for [merchants page](https://merchants.skroutz.gr/merchants/account/settings/analytics) or contact your account manager.
 
 = Which pages do you track? =
 This plugin does not track any admin pages, only frontend pages.
@@ -58,6 +64,10 @@ Duplicate Skroutz Analytics code causes a conflict in tracking. Remove any other
 2. Skroutz Analytics statistics in the Skroutz for merchants.
 
 == Changelog ==
+
+= 1.0.3 =
+* Update readme FAQ
+* Support Wordpress version > 4.0
 
 = 1.0.2 =
 Fix item price to always include the tax
