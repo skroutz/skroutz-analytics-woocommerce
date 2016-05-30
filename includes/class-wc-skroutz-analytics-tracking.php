@@ -106,7 +106,7 @@ class WC_Skroutz_Analytics_Tracking {
 		$data = array(
 			'order_id' => $this->order->get_order_number(),
 			'revenue'  => $this->calculate_order_revenue(),
-			'shipping' => $this->order->get_total_shipping(),
+			'shipping' => $this->order->get_total_shipping() + $this->order->get_shipping_tax(),
 			'tax'      => $this->calculate_order_tax(),
 		);
 
