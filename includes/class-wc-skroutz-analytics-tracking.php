@@ -106,7 +106,7 @@ class WC_Skroutz_Analytics_Tracking {
 		$data = array(
 			'order_id' => $this->order->get_order_number(),
 			'revenue'  => $this->calculate_order_revenue(),
-			'shipping' => $this->order->get_total_shipping(),
+			'shipping' => $this->order->get_total_shipping() + $this->order->get_shipping_tax(),
 			'tax'      => $this->calculate_order_tax(),
 		);
 
@@ -181,9 +181,32 @@ class WC_Skroutz_Analytics_Tracking {
 	* @access   private
 	*/
 	private function calculate_order_tax() {
+		// Fallback tax calculation mechanism if WC does not return any taxes (No tax rules, or taxes are disabled)
+		// Manually calculate the tax based on an the default country tax rate that we have configured
+		if ( $this->order->get_total_tax() == 0 ) {
+			return $this->calculate_tax_from_total(
+				$this->calculate_order_revenue(),
+				constant("WC_Skroutz_Analytics_Flavors::$this->flavor"."_default_tax_rate")
+			);
+		}
+
 		$order_fees = $this->calculate_order_fees();
 
-		return $this->order->get_total_tax() - $order_fees['fees_tax'];
+		return round ($this->order->get_total_tax() - $order_fees['fees_tax'], 2 );
+	}
+
+	/**
+	* Calculates the tax given a total amount and a tax rate
+	*
+	* @param float The total amount (that should include the tax)
+	* @param int The tax rate
+	* @return float The tax
+	*
+	* @since    1.0.4
+	* @access   private
+	*/
+	private function calculate_tax_from_total($total, $tax_rate) {
+		return round( $total - $total / ( 1 + $tax_rate/100 ), 2 );
 	}
 
 }
