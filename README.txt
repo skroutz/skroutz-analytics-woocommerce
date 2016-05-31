@@ -3,7 +3,7 @@ Contributors: skroutz
 Tags: skroutz, alve, scrooge, analytics, woocommerce
 Requires at least: 4.0
 Tested up to: 4.5.2
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,12 +58,25 @@ This plugin does not track any admin pages, only frontend pages.
 = My code is there, but does not report any ecommece data. Why? =
 Duplicate Skroutz Analytics code causes a conflict in tracking. Remove any other Skroutz Analytics plugins or code from your site to avoid duplication and conflicts in tracking.
 
+= The order tax seems to be wrong. Why? =
+The plugin uses the WooCommerce tax rates you have configured in the settings. If the `Enable Taxes` option is disabled, or there are no `Tax Rates` configured, a default tax rate based on the flavor/country will be used to manually the calculate the order tax from the order revenue. So to avoid that, you need to properly setup your tax rules:
+
+* Make sure you have enabled the `Enabled Taxes` option under `WooCommerce > Settings > Tax > Tax Options`
+* And you have added **at least one** `Standard Tax Rate` under `WooCommerce > Settings > Tax > Standard Rates`
+* Finally the shipping tax should be included in the order tax.
+    - Make sure the `Shipping checkbox` is checked in the Tax Rates table (see above)
+    - Also the `Tax Status` under `WooCommerce > Settings > Shipping > Flat Rate` must be set to `Taxable`. Note that the `Cost` value should be set excluding tax, as the tax will be automatically applied by WooCommerce. For example if you want the shipping cost to be 5 euro, you should set the cost to 4.03, given a 24% rate tax. The same applies for all the shipping methods that are enabled for your eshop.
+
 == Screenshots ==
 
 1. Skroutz Analytics settings panel.
 2. Skroutz Analytics statistics in the Skroutz for merchants.
 
 == Changelog ==
+
+= 1.0.4 =
+* In order shipping include the shipping tax if it is setup in WooCommerce
+* Fallback mechanism for order tax, if it is not properly setup in WooCommerce. A default tax rate will be used based on the flavor/country.
 
 = 1.0.3 =
 * Update readme FAQ
