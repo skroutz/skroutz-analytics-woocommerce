@@ -45,9 +45,41 @@ module.exports = function(grunt) {
                 updatePoFiles: false
             }
         }
-    }
+    },
+    wp_plugin: {
+      deploy: {
+        options: {
+          assets_dir: 'assets/wp',
+          deploy_dir: 'deploy',   // Relative path to your deploy directory (required).
+          plugin_slug: 'wc-skroutz-analytics',
+          svn_username: 'skroutz',
+          svn_repository: 'https://plugins.svn.wordpress.org/skroutz-analytics-woocommerce/'
+        }
+      }
+    },
+    copy: {
+      main: {
+        files: [
+          {
+            expand: true,
+            src: ['**', '!tmp/**', '!Gruntfile.js', '!node_modules/**', '!package.json', '!README.md', '!*.sublime*', '!assets/wp/**'],
+            dest: 'deploy/'
+          },
+        ],
+      },
+    },
+    clean: ['deploy/**', 'tmp/**']
   });
 
   // Load plugins
-  grunt.loadNpmTasks( 'grunt-wp-i18n' );
+  grunt.loadNpmTasks('grunt-wp-i18n');
+  grunt.loadNpmTasks('grunt-wp-plugin');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+
+  grunt.registerTask('deploy', 'Create a deploy dir, deploy to wordpress svn and clean up', function() {
+    grunt.log.ok('Start deploying...');
+    grunt.task.run(['copy', 'wp_plugin', 'clean']);
+    grunt.log.ok('Deploy finished!');
+  });
 };
