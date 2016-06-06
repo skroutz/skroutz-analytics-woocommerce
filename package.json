@@ -26,6 +26,9 @@
   "homepage": "https://github.com/skroutz/skroutz-analytics-woocommerce#readme",
   "devDependencies": {
     "grunt": "^1.0.1",
-    "grunt-wp-i18n": "^0.5.4"
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-wp-i18n": "^0.5.4",
+    "grunt-wp-plugin": "skroutz/grunt-wp-plugin#v1.1.0-skroutz"
   }
 }
