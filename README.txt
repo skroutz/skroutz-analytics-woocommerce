@@ -3,7 +3,7 @@ Contributors: skroutz
 Tags: skroutz, alve, scrooge, analytics, woocommerce
 Requires at least: 4.0
 Tested up to: 4.5.2
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,9 @@ The plugin uses the WooCommerce tax rates you have configured in the settings. I
 2. Skroutz Analytics statistics in the Skroutz for merchants.
 
 == Changelog ==
+
+= 1.0.5 =
+Disable cloudflare rocket loader for tracking scripts
 
 = 1.0.4 =
 * In order shipping include the shipping tax if it is setup in WooCommerce
