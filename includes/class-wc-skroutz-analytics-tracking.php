@@ -63,7 +63,7 @@ class WC_Skroutz_Analytics_Tracking {
 
 		$analytics_script = "
 		<!-- Skroutz Analytics WooCommerce plugin - v".WC_Skroutz_Analytics::PLUGIN_VERSION." -->
-		<script type='text/javascript'>
+		<script data-cfasync='false' type='text/javascript'>
 			(function(a,b,c,d,e,f,g){a[e]= a[e] || function(){
 			(a[e].q = a[e].q || []).push(arguments);};f=b.createElement(c);f.async=true;
 			f.src=d;g=b.getElementsByTagName(c)[0];g.parentNode.insertBefore(f,g);
@@ -83,7 +83,7 @@ class WC_Skroutz_Analytics_Tracking {
 	}
 
 	public function output_ecommerce_analytics_script() {
-		$analytics_script = "<script type='text/javascript'> \n";
+		$analytics_script = "<script data-cfasync='false' type='text/javascript'> \n";
 
 		$analytics_script .= $this->create_action( 'addOrder', $this->prepare_order_data() ) . "\n";
 
