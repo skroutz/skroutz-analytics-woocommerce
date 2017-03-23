@@ -125,7 +125,7 @@ class WC_Skroutz_Analytics_Tracking {
 
 		$data = array(
 			'order_id'    => $this->order->get_order_number(),
-			'product_id'  => $this->items_product_id == 'id' ? $product->id : $product->get_sku(),
+			'product_id'  => $this->sa_product_id( $product ),
 			'name'        => $product->get_title(),
 			'price'       => $this->order->get_item_total( $item, true ),
 			'quantity'    => (int)$item['qty'],
@@ -136,6 +136,25 @@ class WC_Skroutz_Analytics_Tracking {
 
 	private function create_action( $action, $data ) {
 		return "sa('ecommerce', '$action', JSON.stringify({$data}));";
+	}
+
+	/**
+	* Returns the product id that should be reported to Analytics based on
+	* product id admin setting. If the setting is SKU and the product SKU field
+	* is not set, a composite id is generated with the format wc-sa-{product id}
+	*
+	* @param WC_Product $product The purchased WC product
+	* @return string|integer  The product id that should be reported to Analytics
+	*
+	* @since    1.0.6
+	* @access   private
+	*/
+	private function sa_product_id( $product ) {
+		if($this->items_product_id == 'id') {
+			return $product->id;
+		}
+
+		return $product->get_sku() ? $product->get_sku() : "wc-sa-{$product->id}";
 	}
 
 	/**
