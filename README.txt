@@ -3,7 +3,7 @@ Contributors: skroutz
 Tags: skroutz, alve, scrooge, analytics, woocommerce
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 1.0.6
+Stable tag: 1.1.0
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,11 @@ The plugin uses the WooCommerce tax rates you have configured in the settings. I
 2. Skroutz Analytics statistics in the Skroutz for merchants.
 
 == Changelog ==
+
+= 1.1.0 =
+* Add an extra option to always send the parent product id/sku even if it is a variation product.
+* Modify the reported product id based on the new option.
+* Modify the behaviour of the product ID option. We used to send only the parent product id even if it was a variation product. We now check the type of the product and send the variation id instead if applicable.
 
 = 1.0.6 =
 Add fallback mechanism when product SKU is not set.
