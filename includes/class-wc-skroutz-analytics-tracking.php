@@ -143,8 +143,7 @@ class WC_Skroutz_Analytics_Tracking {
 
 	/**
 	* Returns the product id that should be reported to Analytics based on
-	* product id admin setting. If the setting is SKU and the product SKU field
-	* is not set, a composite id is generated with the format wc-sa-{product id}
+	* product id admin settings.
 	*
 	* @param WC_Product $product The purchased WC product
 	* @return string|integer  The product id that should be reported to Analytics
@@ -153,11 +152,20 @@ class WC_Skroutz_Analytics_Tracking {
 	* @access   private
 	*/
 	private function sa_product_id( $product ) {
-		if($this->items_product_id == 'id') {
-			return $product->id;
+		$parent_or_variation = $product;
+
+		if($this->items_product_id_settings['parent_id_enabled'] == 'yes' && $product->is_type( 'variation' ) ) {
+			$parent_or_variation = $product->parent;
 		}
 
-		return $product->get_sku() ? $product->get_sku() : "wc-sa-{$product->id}";
+		if($this->items_product_id_settings['id'] == 'sku') {
+			$product_id = $parent_or_variation->get_sku();
+		} else {
+			// TODO: Use $product->get_id() when we drop support for WooCommerce < 2.6
+			$product_id = $parent_or_variation->is_type( 'variation' ) ? $parent_or_variation->get_variation_id() : $parent_or_variation->id;
+		}
+
+		return $product_id ? $product_id : "wc-sa-{$product->id}";
 	}
 
 	/**
