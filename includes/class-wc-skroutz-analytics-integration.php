@@ -46,7 +46,10 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 		//Skroutz Analytics admin settings
 		$this->flavor = $this->get_option( 'sa_flavor' );
 		$this->shop_account_id  = $this->get_option( 'sa_shop_account_id' );
-		$this->items_product_id  = $this->get_option( 'sa_items_product_id' );
+		$this->items_product_id_settings = array(
+			'id' => $this->get_option( 'sa_items_product_id', 'sku' ),
+			'parent_id_enabled' => $this->get_option( 'sa_items_product_parent_id_enabled', 'no' ),
+		);
 
 		$this->register_admin_hooks();
 
@@ -55,7 +58,11 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 			return;
 		}
 
-		$this->tracking = new WC_Skroutz_Analytics_Tracking( $this->flavor, $this->shop_account_id, $this->items_product_id );
+		$this->tracking = new WC_Skroutz_Analytics_Tracking(
+			$this->flavor,
+			$this->shop_account_id,
+			$this->items_product_id_settings
+		);
 	}
 
 	/**
@@ -108,6 +115,10 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 				'options'     => array( 'sku' => 'Product SKU', 'id' => 'Product ID' ),
 				'default'     => 'sku',
 				'desc_tip'    => __( 'It must the same product ID used in the XML feed provided to Skroutz.', 'wc-skroutz-analytics' ),
+			),
+			'sa_items_product_parent_id_enabled' => array(
+				'type'	=> 'checkbox',
+				'label'	=> 'Always send parent product ID/SKU (variation ids will be ignored)',
 			),
 		);
 	}

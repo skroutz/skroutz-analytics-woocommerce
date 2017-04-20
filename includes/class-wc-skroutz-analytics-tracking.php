@@ -26,10 +26,13 @@ class WC_Skroutz_Analytics_Tracking {
 	private $shop_account_id;
 
 	/**
-	* The items product id option provided by the admin settings
-	* @var string
+	* The items product id options provided by the admin settings
+	*
+	* id: id|sku
+	* parent_id_enabled: yes|no
+	* @var array
 	*/
-	private $items_product_id;
+	private $items_product_id_settings;
 
 	/**
 	* The current order to be submitted
@@ -46,10 +49,10 @@ class WC_Skroutz_Analytics_Tracking {
 	*
 	* @since    1.0.0
 	*/
-	public function __construct( $flavor, $shop_account_id, $items_product_id ) {
+	public function __construct( $flavor, $shop_account_id, $items_product_id_settings ) {
 		$this->flavor = $flavor;
 		$this->shop_account_id = $shop_account_id;
-		$this->items_product_id = $items_product_id;
+		$this->items_product_id_settings = $items_product_id_settings;
 
 		// Page tracking script
 		add_action( 'wp_print_footer_scripts', array( $this, 'output_analytics_tracking_script' ) );
@@ -140,8 +143,7 @@ class WC_Skroutz_Analytics_Tracking {
 
 	/**
 	* Returns the product id that should be reported to Analytics based on
-	* product id admin setting. If the setting is SKU and the product SKU field
-	* is not set, a composite id is generated with the format wc-sa-{product id}
+	* product id admin settings.
 	*
 	* @param WC_Product $product The purchased WC product
 	* @return string|integer  The product id that should be reported to Analytics
@@ -150,11 +152,20 @@ class WC_Skroutz_Analytics_Tracking {
 	* @access   private
 	*/
 	private function sa_product_id( $product ) {
-		if($this->items_product_id == 'id') {
-			return $product->id;
+		$parent_or_variation = $product;
+
+		if($this->items_product_id_settings['parent_id_enabled'] == 'yes' && $product->is_type( 'variation' ) ) {
+			$parent_or_variation = $product->parent;
 		}
 
-		return $product->get_sku() ? $product->get_sku() : "wc-sa-{$product->id}";
+		if($this->items_product_id_settings['id'] == 'sku') {
+			$product_id = $parent_or_variation->get_sku();
+		} else {
+			// TODO: Use $product->get_id() when we drop support for WooCommerce < 2.6
+			$product_id = $parent_or_variation->is_type( 'variation' ) ? $parent_or_variation->get_variation_id() : $parent_or_variation->id;
+		}
+
+		return $product_id ? $product_id : "wc-sa-{$product->id}";
 	}
 
 	/**
