@@ -26,10 +26,13 @@ class WC_Skroutz_Analytics_Tracking {
 	private $shop_account_id;
 
 	/**
-	* The items product id option provided by the admin settings
-	* @var string
+	* The items product id options provided by the admin settings
+	*
+	* id: id|sku
+	* parent_id_enabled: yes|no
+	* @var array
 	*/
-	private $items_product_id;
+	private $items_product_id_settings;
 
 	/**
 	* The current order to be submitted
@@ -46,10 +49,10 @@ class WC_Skroutz_Analytics_Tracking {
 	*
 	* @since    1.0.0
 	*/
-	public function __construct( $flavor, $shop_account_id, $items_product_id ) {
+	public function __construct( $flavor, $shop_account_id, $items_product_id_settings ) {
 		$this->flavor = $flavor;
 		$this->shop_account_id = $shop_account_id;
-		$this->items_product_id = $items_product_id;
+		$this->items_product_id_settings = $items_product_id_settings;
 
 		// Page tracking script
 		add_action( 'wp_print_footer_scripts', array( $this, 'output_analytics_tracking_script' ) );
