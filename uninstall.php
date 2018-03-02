@@ -14,5 +14,5 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-$skroutz_analytics_option = 'woocommerce_skroutz_analytics_settings';
+$skroutz_analytics_option = 'woocommerce_wc_skroutz_analytics_settings';
 delete_option( $skroutz_analytics_option );
