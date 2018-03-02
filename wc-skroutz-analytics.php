@@ -22,6 +22,8 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       wc-skroutz-analytics
  * Domain Path:       /languages
+ * WC requires at least: 2.5.0
+ * WC tested up to: 3.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
