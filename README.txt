@@ -3,7 +3,7 @@ Contributors: skroutz
 Tags: skroutz, alve, scrooge, analytics, woocommerce
 Requires at least: 4.0
 Tested up to: 4.9
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,10 @@ The plugin uses the WooCommerce tax rates you have configured in the settings. I
 2. Skroutz Analytics statistics in the Skroutz for merchants.
 
 == Changelog ==
+
+= 1.1.1 =
+* Add WooCommerce `requires at least: 2.5.0` and `tested up to: 3.3.0`
+* Fix settings cleanup on plugin uninstall
 
 = 1.1.0 =
 * Add an extra option to always send the parent product id/sku even if it is a variation product.
