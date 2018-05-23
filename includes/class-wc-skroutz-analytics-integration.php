@@ -120,7 +120,7 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 			),
 			'sa_items_product_parent_id_enabled' => array(
 				'type'	=> 'checkbox',
-				'label'	=> 'Always send parent product ID/SKU (variation ids will be ignored)',
+				'label'	=> __( 'Always send parent product ID/SKU (variation ids will be ignored)', 'wc-skroutz-analytics' ),
 			),
 			'sa_items_custom_id_enabled' => array(
 				'type'	=> 'checkbox',
