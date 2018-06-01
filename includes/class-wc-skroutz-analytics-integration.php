@@ -144,27 +144,15 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 	* @since    1.0.0
 	*/
 	public function validate_sa_shop_account_id_field( $key ) {
+		// TODO: Add second argument ($value) and remove current assignment, when we drop support for WooCommerce < 2.6
+		// https://docs.woocommerce.com/wc-apidocs/source-class-WC_Settings_API.html#137
 		$value = $_POST[ $this->plugin_id . $this->id . '_' . $key ];
 
 		if ( isset( $value ) && !$this->is_valid_skroutz_analytics_code( $value ) ) {
-			$this->errors[$key] = sprintf(__('Shop Account ID is invalid', 'wc-skroutz-analytics') );
+			WC_Admin_Settings::add_error( __('Shop Account ID is invalid', 'wc-skroutz-analytics') );
 		}
 
 		return $value;
-	}
-
-	/**
-	* Display errors by overriding the display_errors() method
-	*
-	* @since    1.0.0
-	*/
-	public function display_errors() {
-		foreach ( $this->errors as $key => $value ) {
-			$class = 'notice notice-error';
-			$message =  sprintf(__('An error occurred. %s', 'wc-skroutz-analytics') ,$value );
-
-			printf( '<div class="%s"><p>%s</p></div>', $class, $message );
-		}
 	}
 
 	/**
