@@ -49,6 +49,8 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 		$this->items_product_id_settings = array(
 			'id' => $this->get_option( 'sa_items_product_id', 'sku' ),
 			'parent_id_enabled' => $this->get_option( 'sa_items_product_parent_id_enabled', 'no' ),
+			'custom_id_enabled' => $this->get_option( 'sa_items_custom_id_enabled', 'no'),
+			'custom_id' => $this->get_option( 'sa_items_custom_id'),
 		);
 
 		$this->register_admin_hooks();
@@ -118,7 +120,17 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 			),
 			'sa_items_product_parent_id_enabled' => array(
 				'type'	=> 'checkbox',
-				'label'	=> 'Always send parent product ID/SKU (variation ids will be ignored)',
+				'label'	=> __( 'Always send parent product ID/SKU (variation ids will be ignored)', 'wc-skroutz-analytics' ),
+			),
+			'sa_items_custom_id_enabled' => array(
+				'type'	=> 'checkbox',
+				'label'	=> __( 'Use custom postmeta id', 'wc-skroutz-analytics' ),
+			),
+			'sa_items_custom_id' => array(
+				'type'        => 'text',
+				'description' => __( 'Specify a custom id key that will be used to retrieve the product id from postmeta table.', 'wc-skroutz-analytics' ),
+				'placeholder' => 'custom_id',
+				'desc_tip'    => __( 'If custom id key is not found the Product ID/SKU will be used.', 'wc-skroutz-analytics' ),
 			),
 		);
 	}

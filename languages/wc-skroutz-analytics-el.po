@@ -5,13 +5,15 @@ msgstr ""
 "Project-Id-Version: WooCommerce Skroutz Analytics 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-skroutz-"
 "analytics\n"
-"POT-Creation-Date: 2016-05-19 15:30+0300\n"
+"POT-Creation-Date: 2018-05-31 13:08:01+00:00\n"
+"PO-Revision-Date: 2018-06-05 10:57+0300\n"
+"Last-Translator: \n"
+"Language-Team: Skroutz SA <analytics@skroutz.gr>\n"
+"Language: el_GR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2016-05-19 15:32+0300\n"
-"Language-Team: Skroutz SA <analytics@skroutz.gr>\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 2.0.7\n"
 "X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;"
 "_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;"
 "esc_html_x:1,2c\n"
@@ -19,8 +21,6 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-Basepath: ..\n"
 "X-Textdomain-Support: yes\n"
-"Last-Translator: \n"
-"Language: el_GR\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: includes/class-wc-skroutz-analytics-integration.php:36
@@ -33,54 +33,74 @@ msgid ""
 "statistics about your shop visitors and products."
 msgstr ""
 "Το Skroutz Analytics είναι μια δωρεάν υπηρεσία που σου δίνει την δυνατότητα "
-"να παράγεις στατιστικά για τους πελάτες και τα προϊόντα του ηλεκτρονικoύ "
-"σου καταστήματος."
+"να παράγεις στατιστικά για τους πελάτες και τα προϊόντα του ηλεκτρονικoύ σου "
+"καταστήματος."
 
-#: includes/class-wc-skroutz-analytics-integration.php:74
+#: includes/class-wc-skroutz-analytics-integration.php:83
 msgid "View Skroutz Analytics Settings"
 msgstr "Δείτε τις ρυθμίσεις του Skroutz Analytics"
 
-#: includes/class-wc-skroutz-analytics-integration.php:75
+#: includes/class-wc-skroutz-analytics-integration.php:84
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-#: includes/class-wc-skroutz-analytics-integration.php:92
+#: includes/class-wc-skroutz-analytics-integration.php:101
 msgid "Site"
 msgstr "Ιστοσελίδα"
 
-#: includes/class-wc-skroutz-analytics-integration.php:94
+#: includes/class-wc-skroutz-analytics-integration.php:103
 msgid "Specify the site your eshop reports to."
 msgstr ""
 "Διάλεξε την ιστοσελίδα στην οποία το ηλεκτρονικό σου κατάστημα στέλνει τα "
 "στατιστικά."
 
-#: includes/class-wc-skroutz-analytics-integration.php:99
+#: includes/class-wc-skroutz-analytics-integration.php:108
 msgid "Shop Account ID"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:101
+#: includes/class-wc-skroutz-analytics-integration.php:110
 msgid "The shop account ID is provided by %s"
 msgstr "Το shop account ID παρέχεται από το %s"
 
-#: includes/class-wc-skroutz-analytics-integration.php:105
+#: includes/class-wc-skroutz-analytics-integration.php:114
 msgid "Product ID"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:107
+#: includes/class-wc-skroutz-analytics-integration.php:116
 msgid "Specify the product ID that should be sent to analytics."
 msgstr "Διάλεξε το product ID που πρέπει να στέλνεται στο analytics."
 
-#: includes/class-wc-skroutz-analytics-integration.php:110
+#: includes/class-wc-skroutz-analytics-integration.php:119
 msgid "It must the same product ID used in the XML feed provided to Skroutz."
 msgstr ""
 "Πρέπει να ειναι το ίδιο product ID που χρησιμοποιείς στο XML feed που "
 "παρέχεις στο Skroutz."
 
+#: includes/class-wc-skroutz-analytics-integration.php:123
+msgid "Always send parent product ID/SKU (variation ids will be ignored)"
+msgstr "Αποστολή πάντα του parent product ID/SKU (variation ids θα αγνοούνται)"
+
 #: includes/class-wc-skroutz-analytics-integration.php:127
+msgid "Use custom postmeta id"
+msgstr "Χρήση custom postmeta id"
+
+#: includes/class-wc-skroutz-analytics-integration.php:131
+msgid ""
+"Specify a custom id key that will be used to retrieve the product id from "
+"postmeta table."
+msgstr ""
+"Eισάγετε ένα custom id key που θα χρησιμοποιηθεί για να ανακτηθεί το product "
+"id από τον πίνακα postmeta."
+
+#: includes/class-wc-skroutz-analytics-integration.php:133
+msgid "If custom id key is not found the Product ID/SKU will be used."
+msgstr "Εάν δεν βρεθεί το custom id key θα χρησιμοποιηθεί το Product ID/SKU."
+
+#: includes/class-wc-skroutz-analytics-integration.php:150
 msgid "Shop Account ID is invalid"
 msgstr "Το Shop Account ID δεν είναι έγκυρο"
 
-#: includes/class-wc-skroutz-analytics-integration.php:141
+#: includes/class-wc-skroutz-analytics-integration.php:164
 msgid "An error occurred. %s"
 msgstr "Προκλήθηκε ενα λάθος. %s"
 

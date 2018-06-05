@@ -12,4 +12,14 @@ jQuery(document).ready(function($) {
 
   // Listen for flavor changes
   $flavorDropdown.on('change', function() { updateMerchantLink(this.value); });
+
+  var $customIdCheckbox = $('#woocommerce_wc_skroutz_analytics_sa_items_custom_id_enabled'),
+  $customId = $('#woocommerce_wc_skroutz_analytics_sa_items_custom_id').closest('tr'),
+  showHideCustomId = function() { $customIdCheckbox.is(':checked') ? $customId.show() : $customId.hide(); };
+
+  // Initialize
+  showHideCustomId();
+
+  // Listen for custom id checkbox changes
+  $customIdCheckbox.on('change', function() { showHideCustomId(); });
 });
