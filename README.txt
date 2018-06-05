@@ -3,7 +3,7 @@ Contributors: skroutz
 Tags: skroutz, alve, scrooge, analytics, woocommerce
 Requires at least: 4.0
 Tested up to: 4.9
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,12 +67,19 @@ The plugin uses the WooCommerce tax rates you have configured in the settings. I
     - Make sure the `Shipping checkbox` is checked in the Tax Rates table (see above)
     - Also the `Tax Status` under `WooCommerce > Settings > Shipping > Flat Rate` must be set to `Taxable`. Note that the `Cost` value should be set excluding tax, as the tax will be automatically applied by WooCommerce. For example if you want the shipping cost to be 5 euro, you should set the cost to 4.03, given a 24% rate tax. The same applies for all the shipping methods that are enabled for your eshop.
 
+= I don't use neither product ID nor SKU in XML, but a custom postmeta id =
+The option to use a custom postmeta id is supported. You have to check the `Use custom postmeta id` option in the plugin settings, and then specify the custom id key used in the postmeta table. Note that if the custom id is not found for a product the product id/sku will be used instead.
+
 == Screenshots ==
 
 1. Skroutz Analytics settings panel.
 2. Skroutz Analytics statistics in the Skroutz for merchants.
 
 == Changelog ==
+
+= 1.2.0 =
+* Add option to use a custom product id from postmeta table.
+* Fix display validation errors on admin settings.
 
 = 1.1.1 =
 * Add WooCommerce `requires at least: 2.5.0` and `tested up to: 3.3.0`
