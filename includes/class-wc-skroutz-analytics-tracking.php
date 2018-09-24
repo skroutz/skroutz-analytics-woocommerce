@@ -63,11 +63,12 @@ class WC_Skroutz_Analytics_Tracking {
 
 	public function output_analytics_tracking_script() {
 		$analytics_url = constant("WC_Skroutz_Analytics_Flavors::$this->flavor"."_analytics_url");
+		$analytics_object = constant("WC_Skroutz_Analytics_Flavors::$this->flavor"."_analytics_object");
 
 		$analytics_script = "
 		<!-- Skroutz Analytics WooCommerce plugin - v".WC_Skroutz_Analytics::PLUGIN_VERSION." -->
 		<script data-cfasync='false' type='text/javascript'>
-			(function(a,b,c,d,e,f,g){a[e]= a[e] || function(){
+			(function(a,b,c,d,e,f,g){a['$analytics_object']=e;a[e]= a[e] || function(){
 			(a[e].q = a[e].q || []).push(arguments);};f=b.createElement(c);f.async=true;
 			f.src=d;g=b.getElementsByTagName(c)[0];g.parentNode.insertBefore(f,g);
 			})(window,document,'script','$analytics_url','sa');

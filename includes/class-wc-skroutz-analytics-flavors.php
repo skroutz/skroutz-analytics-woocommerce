@@ -15,13 +15,16 @@ class WC_Skroutz_Analytics_Flavors
 {
 	const skroutz_analytics_url = 'https://analytics.skroutz.gr/analytics.min.js';
 	const skroutz_merchants_url = 'https://merchants.skroutz.gr/merchants/account/settings/analytics';
-  const skroutz_default_tax_rate = 24;
+	const skroutz_default_tax_rate = 24;
+	const skroutz_analytics_object = 'SkroutzAnalyticsObject';
 
 	const alve_analytics_url = 'https://analytics.alve.com/analytics.min.js';
 	const alve_merchants_url = 'https://merchants.alve.com/merchants/account/settings/analytics';
-  const alve_default_tax_rate = 18;
+	const alve_default_tax_rate = 18;
+	const alve_analytics_object = 'AlveAnalyticsObject';
 
 	const scrooge_analytics_url = 'https://analytics.scrooge.co.uk/analytics.min.js';
 	const scrooge_merchants_url = 'https://merchants.scrooge.co.uk/merchants/account/settings/analytics';
-  const scrooge_default_tax_rate = 20;
+	const scrooge_default_tax_rate = 20;
+	const scrooge_analytics_object = 'ScroogeAnalyticsObject';
 }
