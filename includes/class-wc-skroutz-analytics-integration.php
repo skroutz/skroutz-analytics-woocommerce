@@ -40,18 +40,9 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 		add_filter( 'plugin_action_links_' . SA_PLUGIN_BASENAME, array( $this, 'add_action_links' ));
 
 		// Load the settings
+		$this->load_settings();
 		$this->init_form_fields();
 		$this->init_settings();
-
-		//Skroutz Analytics admin settings
-		$this->flavor = $this->get_option( 'sa_flavor' );
-		$this->shop_account_id  = $this->get_option( 'sa_shop_account_id' );
-		$this->items_product_id_settings = array(
-			'id' => $this->get_option( 'sa_items_product_id', 'sku' ),
-			'parent_id_enabled' => $this->get_option( 'sa_items_product_parent_id_enabled', 'no' ),
-			'custom_id_enabled' => $this->get_option( 'sa_items_custom_id_enabled', 'no'),
-			'custom_id' => $this->get_option( 'sa_items_custom_id'),
-		);
 
 		$this->register_admin_hooks();
 
@@ -63,7 +54,8 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 		$this->tracking = new WC_Skroutz_Analytics_Tracking(
 			$this->flavor,
 			$this->shop_account_id,
-			$this->items_product_id_settings
+			$this->items_product_id_settings,
+			$this->global_object_name_settings
 		);
 	}
 
@@ -95,6 +87,7 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 	*/
 	public function init_form_fields() {
 		$merchants_link = "<a id='merchants_link' href='' target='_blank'></a>"; //will be populated by the client
+		$default_object_name = constant("WC_Skroutz_Analytics_Flavors::$this->flavor"."_global_object_name");
 
 		$this->form_fields = array(
 			'sa_flavor' => array(
@@ -131,6 +124,17 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 				'description' => __( 'Specify a custom id key that will be used to retrieve the product id from postmeta table.', 'wc-skroutz-analytics' ),
 				'placeholder' => 'custom_id',
 				'desc_tip'    => __( 'If custom id key is not found the Product ID/SKU will be used.', 'wc-skroutz-analytics' ),
+			),
+			'sa_custom_global_object_name_enabled' => array(
+				'title'    => __( 'Global Object Name', 'wc-skroutz-analytics' ),
+				'type'     => 'checkbox',
+				'label'    => __( 'Use custom global object name', 'wc-skroutz-analytics' ),
+				'desc_tip' => __( 'Change global object name when there is a conflict with the default value.', 'wc-skroutz-analytics' ),
+			),
+			'sa_custom_global_object_name' => array(
+				'type'        => 'text',
+				'description' => __( 'Specify a custom global object name that will be used in the analytics tracking code.', 'wc-skroutz-analytics' ),
+				'placeholder' => $default_object_name,
 			),
 		);
 	}
@@ -204,6 +208,28 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 		);
 
 		wp_enqueue_script( 'sa_admin_settings' );
+	}
+
+	/**
+	* Load admin stored options
+	* If the options do not exist in the db the defaults will be loaded where applicable
+	*
+	* @since    1.3.0
+	* @access   private
+	*/
+	private function load_settings() {
+		$this->flavor = $this->get_option( 'sa_flavor' );
+		$this->shop_account_id  = $this->get_option( 'sa_shop_account_id' );
+		$this->items_product_id_settings = array(
+			'id' => $this->get_option( 'sa_items_product_id', 'sku' ),
+			'parent_id_enabled' => $this->get_option( 'sa_items_product_parent_id_enabled', 'no' ),
+			'custom_id_enabled' => $this->get_option( 'sa_items_custom_id_enabled', 'no'),
+			'custom_id' => $this->get_option( 'sa_items_custom_id'),
+		);
+		$this->global_object_name_settings = array(
+			'enabled' => $this->get_option( 'sa_custom_global_object_name_enabled', 'no' ),
+			'name' => $this->get_option( 'sa_custom_global_object_name'),
+		);
 	}
 
 	/**
