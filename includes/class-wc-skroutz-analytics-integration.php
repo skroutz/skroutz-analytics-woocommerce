@@ -109,7 +109,7 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 				'description' => __( 'Specify the product ID that should be sent to analytics.', 'wc-skroutz-analytics' ),
 				'options'     => array( 'sku' => 'Product SKU', 'id' => 'Product ID' ),
 				'default'     => 'sku',
-				'desc_tip'    => __( 'It must the same product ID used in the XML feed provided to Skroutz.', 'wc-skroutz-analytics' ),
+				'desc_tip'    => __( 'It must have the same product ID used in the XML feed provided to Skroutz.', 'wc-skroutz-analytics' ),
 			),
 			'sa_items_product_parent_id_enabled' => array(
 				'type'	=> 'checkbox',
