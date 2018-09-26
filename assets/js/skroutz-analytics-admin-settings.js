@@ -17,9 +17,15 @@ jQuery(document).ready(function($) {
   $customId = $('#woocommerce_wc_skroutz_analytics_sa_items_custom_id').closest('tr'),
   showHideCustomId = function() { $customIdCheckbox.is(':checked') ? $customId.show() : $customId.hide(); };
 
+  var $objectNameCheckbox = $('#woocommerce_wc_skroutz_analytics_sa_custom_global_object_name_enabled'),
+  $objectName = $('#woocommerce_wc_skroutz_analytics_sa_custom_global_object_name').closest('tr'),
+  showHideGlobalObjectName = function() { $objectNameCheckbox.is(':checked') ? $objectName.show() : $objectName.hide(); };
+
   // Initialize
   showHideCustomId();
+  showHideGlobalObjectName();
 
-  // Listen for custom id checkbox changes
+  // Listen for checkbox changes
   $customIdCheckbox.on('change', function() { showHideCustomId(); });
+  $objectNameCheckbox.on('change', function() { showHideGlobalObjectName(); });
 });

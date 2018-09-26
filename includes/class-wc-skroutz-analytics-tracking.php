@@ -35,6 +35,12 @@ class WC_Skroutz_Analytics_Tracking {
 	private $items_product_id_settings;
 
 	/**
+	* The global object name provided by the admin settings
+	* @var string
+	*/
+	private $global_object_name;
+
+	/**
 	* The current order to be submitted
 	* @var string
 	*/
@@ -49,10 +55,11 @@ class WC_Skroutz_Analytics_Tracking {
 	*
 	* @since    1.0.0
 	*/
-	public function __construct( $flavor, $shop_account_id, $items_product_id_settings ) {
+	public function __construct( $flavor, $shop_account_id, $items_product_id_settings, $global_object_name_settings ) {
 		$this->flavor = $flavor;
 		$this->shop_account_id = $shop_account_id;
 		$this->items_product_id_settings = $items_product_id_settings;
+		$this->global_object_name = $this->get_global_object_name($global_object_name_settings);
 
 		// Page tracking script
 		add_action( 'wp_print_footer_scripts', array( $this, 'output_analytics_tracking_script' ) );
@@ -63,16 +70,17 @@ class WC_Skroutz_Analytics_Tracking {
 
 	public function output_analytics_tracking_script() {
 		$analytics_url = constant("WC_Skroutz_Analytics_Flavors::$this->flavor"."_analytics_url");
+		$analytics_object = constant("WC_Skroutz_Analytics_Flavors::$this->flavor"."_analytics_object");
 
 		$analytics_script = "
 		<!-- Skroutz Analytics WooCommerce plugin - v".WC_Skroutz_Analytics::PLUGIN_VERSION." -->
 		<script data-cfasync='false' type='text/javascript'>
-			(function(a,b,c,d,e,f,g){a[e]= a[e] || function(){
+			(function(a,b,c,d,e,f,g){a['$analytics_object']=e;a[e]= a[e] || function(){
 			(a[e].q = a[e].q || []).push(arguments);};f=b.createElement(c);f.async=true;
 			f.src=d;g=b.getElementsByTagName(c)[0];g.parentNode.insertBefore(f,g);
-			})(window,document,'script','$analytics_url','sa');
+			})(window,document,'script','$analytics_url','$this->global_object_name');
 
-			sa('session', 'connect', '$this->shop_account_id');
+			{$this->create_connect()}
 		</script>
 		";
 
@@ -97,6 +105,18 @@ class WC_Skroutz_Analytics_Tracking {
 		$analytics_script .= "</script> \n";
 
 		echo $analytics_script;
+	}
+
+	/**
+	* Builds the connect command based on global object name and shop account id.
+	*
+	* @return string The connect command
+	*
+	* @since    1.3.0
+	* @access   private
+	*/
+	private function create_connect() {
+		return "{$this->global_object_name}('session', 'connect', '$this->shop_account_id');";
 	}
 
 	/**
@@ -138,7 +158,7 @@ class WC_Skroutz_Analytics_Tracking {
 	}
 
 	private function create_action( $action, $data ) {
-		return "sa('ecommerce', '$action', JSON.stringify({$data}));";
+		return "{$this->global_object_name}('ecommerce', '$action', JSON.stringify({$data}));";
 	}
 
 	/**
@@ -206,6 +226,21 @@ class WC_Skroutz_Analytics_Tracking {
 	private function typed_product_id( $product ) {
 		// TODO: Use $product->get_id() when we drop support for WooCommerce < 2.6
 		return $product->is_type( 'variation' ) ? $product->get_variation_id() : $product->id;
+	}
+
+	/**
+	* Get the global object name, based on admin settings.
+	* If custom name is not enabled or not provided the default global object name will be returned.
+	*
+	* @return array The global object name
+	*
+	* @since    1.3.0
+	* @access   private
+	*/
+	private function get_global_object_name( $settings ) {
+		$default_object_name = constant("WC_Skroutz_Analytics_Flavors::$this->flavor"."_global_object_name");
+
+		return ($settings['enabled'] == 'yes' && $settings['name']) ? $settings['name'] : $default_object_name;
 	}
 
 	/**
