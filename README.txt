@@ -3,7 +3,7 @@ Contributors: skroutz
 Tags: skroutz, alve, scrooge, analytics, woocommerce
 Requires at least: 4.0
 Tested up to: 4.9
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,12 +70,20 @@ The plugin uses the WooCommerce tax rates you have configured in the settings. I
 = I don't use neither product ID nor SKU in XML, but a custom postmeta id =
 The option to use a custom postmeta id is supported. You have to check the `Use custom postmeta id` option in the plugin settings, and then specify the custom id key used in the postmeta table. Note that if the custom id is not found for a product the product id/sku will be used instead.
 
+= Global object name `skroutz_analytics` is already being used, can I change it? =
+The option to use a custom global object name is supported. You have to check the `Use custom global object name` option in the plugin settings, and then specify a name in the text field.
+
 == Screenshots ==
 
 1. Skroutz Analytics settings panel.
 2. Skroutz Analytics statistics in the Skroutz for merchants.
 
 == Changelog ==
+
+= 1.3.0 =
+* Update Analytics tracking script to latest version. [docs](http://developer.skroutz.gr/analytics/#step-1-integrate-the-analytics-tracking-script)
+* Add ability to use a custom global object name. [docs](http://developer.skroutz.gr/analytics/settings/#renaming-the-skroutzanalytics-object)
+* Modify the default global object name from `sa` to `{site}_analytics`
 
 = 1.2.0 =
 * Add option to use a custom product id from postmeta table.

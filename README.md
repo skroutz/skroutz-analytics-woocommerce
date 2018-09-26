@@ -58,6 +58,12 @@ The plugin uses the WooCommerce tax rates you have configured in the settings. I
     - Make sure the `Shipping checkbox` is checked in the Tax Rates table (see above)
     - Also the `Tax Status` under `WooCommerce > Settings > Shipping > Flat Rate` must be set to `Taxable`. Note that the `Cost` value should be set excluding tax, as the tax will be automatically applied by WooCommerce. For example if you want the shipping cost to be 5 euro, you should set the cost to 4.03, given a 24% rate tax. The same applies for all the shipping methods that are enabled for your eshop.
 
+##### I don't use neither product ID nor SKU in XML, but a custom postmeta id
+The option to use a custom postmeta id is supported. You have to check the `Use custom postmeta id` option in the plugin settings, and then specify the custom id key used in the postmeta table. Note that if the custom id is not found for a product the product id/sku will be used instead.
+
+##### Global object name `skroutz_analytics` is already being used, can I change it?
+The option to use a custom global object name is supported. You have to check the `Use custom global object name` option in the plugin settings, and then specify a name in the text field.
+
 ## Contributing
 If you discover issues, or have any ideas for improvements and features, please report them to the [issue tracker][3] of the repository, or submit a pull request.
 
