@@ -185,10 +185,10 @@ class WC_Skroutz_Analytics_Tracking {
 		} elseif($this->items_product_id_settings['id'] == 'sku') {
 			$product_id = $parent_or_variation->get_sku();
 		} else {
-			$product_id = $this->typed_product_id($parent_or_variation);
+			$product_id = $parent_or_variation->get_id();
 		}
 
-		return $product_id ? $product_id : "wc-sa-{$product->id}";
+		return $product_id ? $product_id : "wc-sa-{$product->get_id()}";
 	}
 
 	/**
@@ -204,28 +204,13 @@ class WC_Skroutz_Analytics_Tracking {
 
 		if ($this->items_product_id_settings['custom_id_enabled'] == 'yes' && $this->items_product_id_settings['custom_id']) {
 			$product_id = get_post_meta(
-				$this->typed_product_id($product),
+				$product->get_id(),
 				$this->items_product_id_settings['custom_id'],
 				true
 			);
 		}
 
 		return $product_id;
-	}
-
-	/**
-	* Get the id of the given product depending on the product type.
-	* If product is variation it returns the variation id.
-	*
-	* @param WC_Product $product The WC product
-	* @return string|int The product id
-	*
-	* @since    1.2.0
-	* @access   private
-	*/
-	private function typed_product_id( $product ) {
-		// TODO: Use $product->get_id() when we drop support for WooCommerce < 2.6
-		return $product->is_type( 'variation' ) ? $product->get_variation_id() : $product->id;
 	}
 
 	/**
