@@ -175,7 +175,7 @@ class WC_Skroutz_Analytics_Tracking {
 		$parent_or_variation = $product;
 
 		if($this->items_product_id_settings['parent_id_enabled'] == 'yes' && $product->is_type( 'variation' ) ) {
-			$parent_or_variation = $product->parent;
+			$parent_or_variation = $this->get_parent_product($product);
 		}
 
 		$product_id = $this->get_custom_product_id($parent_or_variation);
@@ -211,6 +211,26 @@ class WC_Skroutz_Analytics_Tracking {
 		}
 
 		return $product_id;
+	}
+
+	/**
+	* Get the parent product of a variation product.
+	*
+	* @param WC_Product $product The purchased WC product
+	* @return WC_Product|null|false The parent product
+	*
+	* @since    1.3.1
+	* @access   private
+	*/
+	private function get_parent_product( $product ) {
+		// TODO Use only get_parent_id when we drop support for WooCommerce < 3.0
+		if (method_exists( $product, 'get_parent_id' )) {
+			$parent_id = $product->get_parent_id();
+		} else {
+			$parent_id = wp_get_post_parent_id($product->get_id());
+		}
+
+		return wc_get_product($parent_id);
 	}
 
 	/**
