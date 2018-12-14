@@ -175,7 +175,7 @@ class WC_Skroutz_Analytics_Tracking {
 		$parent_or_variation = $product;
 
 		if($this->items_product_id_settings['parent_id_enabled'] == 'yes' && $product->is_type( 'variation' ) ) {
-			$parent_or_variation = $product->parent;
+			$parent_or_variation = $this->get_parent_product($product);
 		}
 
 		$product_id = $this->get_custom_product_id($parent_or_variation);
@@ -185,10 +185,10 @@ class WC_Skroutz_Analytics_Tracking {
 		} elseif($this->items_product_id_settings['id'] == 'sku') {
 			$product_id = $parent_or_variation->get_sku();
 		} else {
-			$product_id = $this->typed_product_id($parent_or_variation);
+			$product_id = $parent_or_variation->get_id();
 		}
 
-		return $product_id ? $product_id : "wc-sa-{$product->id}";
+		return $product_id ? $product_id : "wc-sa-{$product->get_id()}";
 	}
 
 	/**
@@ -204,7 +204,7 @@ class WC_Skroutz_Analytics_Tracking {
 
 		if ($this->items_product_id_settings['custom_id_enabled'] == 'yes' && $this->items_product_id_settings['custom_id']) {
 			$product_id = get_post_meta(
-				$this->typed_product_id($product),
+				$product->get_id(),
 				$this->items_product_id_settings['custom_id'],
 				true
 			);
@@ -214,18 +214,23 @@ class WC_Skroutz_Analytics_Tracking {
 	}
 
 	/**
-	* Get the id of the given product depending on the product type.
-	* If product is variation it returns the variation id.
+	* Get the parent product of a variation product.
 	*
-	* @param WC_Product $product The WC product
-	* @return string|int The product id
+	* @param WC_Product $product The purchased WC product
+	* @return WC_Product|null|false The parent product
 	*
-	* @since    1.2.0
+	* @since    1.3.1
 	* @access   private
 	*/
-	private function typed_product_id( $product ) {
-		// TODO: Use $product->get_id() when we drop support for WooCommerce < 2.6
-		return $product->is_type( 'variation' ) ? $product->get_variation_id() : $product->id;
+	private function get_parent_product( $product ) {
+		// TODO Use only get_parent_id when we drop support for WooCommerce < 3.0
+		if (method_exists( $product, 'get_parent_id' )) {
+			$parent_id = $product->get_parent_id();
+		} else {
+			$parent_id = wp_get_post_parent_id($product->get_id());
+		}
+
+		return wc_get_product($parent_id);
 	}
 
 	/**
