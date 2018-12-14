@@ -62,7 +62,7 @@ module.exports = function(grunt) {
         files: [
           {
             expand: true,
-            src: ['**', '!tmp/**', '!Gruntfile.js', '!node_modules/**', '!package.json', '!README.md', '!*.sublime*', '!assets/wp/**'],
+            src: ['**', '!tmp/**', '!Gruntfile.js', '!node_modules/**', '!package.json', '!README.md', '!*.sublime*', '!assets/wp/**', '!deploy/**'],
             dest: 'deploy/'
           },
         ],
@@ -79,7 +79,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deploy', 'Create a deploy dir, deploy to wordpress svn and clean up', function() {
     grunt.log.ok('Start deploying...');
-    grunt.task.run(['copy', 'wp_plugin', 'clean']);
+    grunt.task.run(['clean', 'copy', 'wp_plugin', 'clean']);
     grunt.log.ok('Deploy finished!');
   });
 };
