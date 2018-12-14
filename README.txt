@@ -3,7 +3,7 @@ Contributors: skroutz
 Tags: skroutz, alve, scrooge, analytics, woocommerce
 Requires at least: 4.0
 Tested up to: 5.0
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,9 @@ The option to use a custom global object name is supported. You have to check th
 2. Skroutz Analytics statistics in the Skroutz for merchants.
 
 == Changelog ==
+
+= 1.3.2 =
+* Remove `deploy` directory that was falsely included in version 1.3.1.
 
 = 1.3.1 =
 * Fix `product->id`, `product->get_variation_id`, `product->parent` deprecation notices thrown in newest WooCommerce versions.
