@@ -200,7 +200,7 @@ class WC_Skroutz_Analytics_Tracking {
 	* @access   private
 	*/
 	private function get_custom_product_id( $product ) {
-		$product_id = NULL;
+		$product_id = null;
 
 		if ($this->items_product_id_settings['custom_id_enabled'] == 'yes' && $this->items_product_id_settings['custom_id']) {
 			$product_id = get_post_meta(
