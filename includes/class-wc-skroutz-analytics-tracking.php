@@ -145,10 +145,11 @@ class WC_Skroutz_Analytics_Tracking {
 	*/
 	private function prepare_item_data( $item ) {
 		$product = $this->order->get_product_from_item( $item );
+		$sa_product = new WC_Skroutz_Analytics_Product($product, $this->items_product_id_settings);
 
 		$data = array(
 			'order_id'    => $this->order->get_order_number(),
-			'product_id'  => $this->sa_product_id( $product ),
+			'product_id'  => $sa_product->get_id(),
 			'name'        => $product->get_title(),
 			'price'       => $this->order->get_item_total( $item, true ),
 			'quantity'    => (int)$item['qty'],
@@ -159,78 +160,6 @@ class WC_Skroutz_Analytics_Tracking {
 
 	private function create_action( $action, $data ) {
 		return "{$this->global_object_name}('ecommerce', '$action', JSON.stringify({$data}));";
-	}
-
-	/**
-	* Returns the product id that should be reported to Analytics based on
-	* product id admin settings.
-	*
-	* @param WC_Product $product The purchased WC product
-	* @return string|integer  The product id that should be reported to Analytics
-	*
-	* @since    1.0.6
-	* @access   private
-	*/
-	private function sa_product_id( $product ) {
-		$parent_or_variation = $product;
-
-		if($this->items_product_id_settings['parent_id_enabled'] == 'yes' && $product->is_type( 'variation' ) ) {
-			$parent_or_variation = $this->get_parent_product($product);
-		}
-
-		$product_id = $this->get_custom_product_id($parent_or_variation);
-
-		if($product_id) {
-			return $product_id; // return the custom_id from postmeta table
-		} elseif($this->items_product_id_settings['id'] == 'sku') {
-			$product_id = $parent_or_variation->get_sku();
-		} else {
-			$product_id = $parent_or_variation->get_id();
-		}
-
-		return $product_id ? $product_id : "wc-sa-{$product->get_id()}";
-	}
-
-	/**
-	* Get the custom postmeta id if exists, based on admin settings
-	*
-	* @return NULL|string|integer The custom postmeta id
-	*
-	* @since    1.2.0
-	* @access   private
-	*/
-	private function get_custom_product_id( $product ) {
-		$product_id = NULL;
-
-		if ($this->items_product_id_settings['custom_id_enabled'] == 'yes' && $this->items_product_id_settings['custom_id']) {
-			$product_id = get_post_meta(
-				$product->get_id(),
-				$this->items_product_id_settings['custom_id'],
-				true
-			);
-		}
-
-		return $product_id;
-	}
-
-	/**
-	* Get the parent product of a variation product.
-	*
-	* @param WC_Product $product The purchased WC product
-	* @return WC_Product|null|false The parent product
-	*
-	* @since    1.3.1
-	* @access   private
-	*/
-	private function get_parent_product( $product ) {
-		// TODO Use only get_parent_id when we drop support for WooCommerce < 3.0
-		if (method_exists( $product, 'get_parent_id' )) {
-			$parent_id = $product->get_parent_id();
-		} else {
-			$parent_id = wp_get_post_parent_id($product->get_id());
-		}
-
-		return wc_get_product($parent_id);
 	}
 
 	/**
