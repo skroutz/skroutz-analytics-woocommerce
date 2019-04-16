@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Integration with the WooCommerce plugin.
  * Define the plugin settings, validation and sanitization.
  * Instantiate the tracking functionality if able
+ * Register the widgets if able
  *
  * @package    WC_Skroutz_Analytics
  * @subpackage WC_Skroutz_Analytics/admin
@@ -57,6 +58,8 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 			$this->items_product_id_settings,
 			$this->global_object_name_settings
 		);
+
+		$this->register_widgets();
 	}
 
 	/**
@@ -211,6 +214,24 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 	}
 
 	/**
+	 * Register the inline widget
+	 *
+	 * @since    1.4.0
+	 */
+	public function register_skroutz_product_reviews_inline_widget() {
+		register_widget( 'WC_Skroutz_Analytics_Product_Reviews_Inline_Widget' );
+	}
+
+	/**
+	 * Register the extended widget
+	 *
+	 * @since    1.4.0
+	 */
+	public function register_skroutz_product_reviews_extended_widget() {
+		register_widget( 'WC_Skroutz_Analytics_Product_Reviews_Extended_Widget' );
+	}
+
+	/**
 	* Load admin stored options
 	* If the options do not exist in the db the defaults will be loaded where applicable
 	*
@@ -253,5 +274,16 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 
 		add_action( 'woocommerce_update_options_integration_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_filter( 'woocommerce_settings_api_sanitized_fields_' . $this->id, array( $this, 'sanitize_settings' ) );
+	}
+
+	/**
+	 * Register the inline and extended widgets on widgets init
+	 *
+	 * @since 1.4.0
+	 * @access   private
+	 */
+	private function register_widgets() {
+		add_action( 'widgets_init', array( $this, 'register_skroutz_product_reviews_inline_widget') );
+		add_action( 'widgets_init', array( $this, 'register_skroutz_product_reviews_extended_widget') );
 	}
 }
