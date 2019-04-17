@@ -1,15 +1,15 @@
-# Copyright (C) 2018 Skroutz
+# Copyright (C) 2019 Skroutz
 # This file is distributed under the GPL-2.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Skroutz Analytics 1.2.0\n"
+"Project-Id-Version: WooCommerce Skroutz Analytics 1.3.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/wc-skroutz-analytics\n"
-"POT-Creation-Date: 2018-09-26 09:12:41+00:00\n"
+"POT-Creation-Date: 2019-04-19 07:27:44+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Skroutz SA <analytics@skroutz.gr>\n"
 "Language-Team: Skroutz SA <analytics@skroutz.gr>\n"
 "X-Generator: grunt-wp-i18n 0.5.4\n"
@@ -25,90 +25,106 @@ msgstr ""
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
 
-#: includes/class-wc-skroutz-analytics-integration.php:36
+#: includes/class-wc-skroutz-analytics-integration.php:39
 msgid "Skroutz Analytics"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:37
+#: includes/class-wc-skroutz-analytics-integration.php:40
 msgid ""
 "Skroutz Analytics is a free service that gives you the ability to generate "
 "statistics about your shop visitors and products."
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:75
+#: includes/class-wc-skroutz-analytics-integration.php:74
 msgid "View Skroutz Analytics Settings"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:76
+#: includes/class-wc-skroutz-analytics-integration.php:75
 msgid "Settings"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:94
+#: includes/class-wc-skroutz-analytics-integration.php:93
 msgid "Site"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:96
+#: includes/class-wc-skroutz-analytics-integration.php:95
 msgid "Specify the site your eshop reports to."
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:101
+#: includes/class-wc-skroutz-analytics-integration.php:100
 msgid "Shop Account ID"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:103
+#: includes/class-wc-skroutz-analytics-integration.php:102
 msgid "The shop account ID is provided by %s"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:107
+#: includes/class-wc-skroutz-analytics-integration.php:106
 msgid "Product ID"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:109
+#: includes/class-wc-skroutz-analytics-integration.php:108
 msgid "Specify the product ID that should be sent to analytics."
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:112
+#: includes/class-wc-skroutz-analytics-integration.php:111
 msgid "It must have the same product ID used in the XML feed provided to Skroutz."
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:116
+#: includes/class-wc-skroutz-analytics-integration.php:115
 msgid "Always send parent product ID/SKU (variation ids will be ignored)"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:120
+#: includes/class-wc-skroutz-analytics-integration.php:119
 msgid "Use custom postmeta id"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:124
+#: includes/class-wc-skroutz-analytics-integration.php:123
 msgid ""
 "Specify a custom id key that will be used to retrieve the product id from "
 "postmeta table."
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:126
+#: includes/class-wc-skroutz-analytics-integration.php:125
 msgid "If custom id key is not found the Product ID/SKU will be used."
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:129
+#: includes/class-wc-skroutz-analytics-integration.php:128
 msgid "Global Object Name"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:131
+#: includes/class-wc-skroutz-analytics-integration.php:130
 msgid "Use custom global object name"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:132
+#: includes/class-wc-skroutz-analytics-integration.php:131
 msgid "Change global object name when there is a conflict with the default value."
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:136
+#: includes/class-wc-skroutz-analytics-integration.php:135
 msgid ""
 "Specify a custom global object name that will be used in the analytics "
 "tracking code."
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:156
+#: includes/class-wc-skroutz-analytics-integration.php:155
 msgid "Shop Account ID is invalid"
+msgstr ""
+
+#: includes/widgets/wc-skroutz-analytics-product-reviews-extended-widget.php:20
+msgid "Display the extended widget with product ratings and reviews from %s"
+msgstr ""
+
+#: includes/widgets/wc-skroutz-analytics-product-reviews-extended-widget.php:27
+msgid "Extended Product Reviews %s Widget"
+msgstr ""
+
+#: includes/widgets/wc-skroutz-analytics-product-reviews-inline-widget.php:20
+msgid "Display the inline widget with product ratings from %s"
+msgstr ""
+
+#: includes/widgets/wc-skroutz-analytics-product-reviews-inline-widget.php:27
+msgid "Inline Product Reviews %s Widget"
 msgstr ""
 
 #. Description of the plugin/theme
