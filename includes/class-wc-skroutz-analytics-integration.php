@@ -60,12 +60,7 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 			return;
 		}
 
-		$this->tracking = new WC_Skroutz_Analytics_Tracking(
-			$this->flavor,
-			$this->shop_account_id,
-			$this->items_product_id_settings,
-			$this->global_object_name_settings
-		);
+		$this->tracking = new WC_Skroutz_Analytics_Tracking();
 
 		$this->register_widgets();
 	}

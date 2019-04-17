@@ -14,27 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_Skroutz_Analytics_Tracking {
 
 	/**
-	* The flavor (is the site) provided by the admin settings
-	* @var string
-	*/
-	private $flavor;
-
-	/**
-	* The shop account id provided by the admin settings
-	* @var string
-	*/
-	private $shop_account_id;
-
-	/**
-	* The items product id options provided by the admin settings
-	*
-	* id: id|sku
-	* parent_id_enabled: yes|no
-	* @var array
-	*/
-	private $items_product_id_settings;
-
-	/**
 	* The global object name provided by the admin settings
 	* @var string
 	*/
@@ -55,11 +34,9 @@ class WC_Skroutz_Analytics_Tracking {
 	*
 	* @since    1.0.0
 	*/
-	public function __construct( $flavor, $shop_account_id, $items_product_id_settings, $global_object_name_settings ) {
-		$this->flavor = $flavor;
-		$this->shop_account_id = $shop_account_id;
-		$this->items_product_id_settings = $items_product_id_settings;
-		$this->global_object_name = $this->get_global_object_name($global_object_name_settings);
+	public function __construct() {
+		$this->settings = WC_Skroutz_Analytics_Settings::get_instance();
+		$this->global_object_name = $this->get_global_object_name();
 
 		// Page tracking script
 		add_action( 'wp_print_footer_scripts', array( $this, 'output_analytics_tracking_script' ) );
@@ -69,8 +46,8 @@ class WC_Skroutz_Analytics_Tracking {
 	}
 
 	public function output_analytics_tracking_script() {
-		$analytics_url = constant("WC_Skroutz_Analytics_Flavors::$this->flavor"."_analytics_url");
-		$analytics_object = constant("WC_Skroutz_Analytics_Flavors::$this->flavor"."_analytics_object");
+		$analytics_url = constant( "WC_Skroutz_Analytics_Flavors::".$this->settings->get_flavor()."_analytics_url" );
+		$analytics_object = constant( "WC_Skroutz_Analytics_Flavors::".$this->settings->get_flavor()."_analytics_object" );
 
 		$analytics_script = "
 		<!-- Skroutz Analytics WooCommerce plugin - v".WC_Skroutz_Analytics::PLUGIN_VERSION." -->
@@ -116,7 +93,7 @@ class WC_Skroutz_Analytics_Tracking {
 	* @access   private
 	*/
 	private function create_connect() {
-		return "{$this->global_object_name}('session', 'connect', '$this->shop_account_id');";
+		return "{$this->global_object_name}('session', 'connect', '{$this->settings->get_shop_account_id()}');";
 	}
 
 	/**
@@ -145,7 +122,7 @@ class WC_Skroutz_Analytics_Tracking {
 	*/
 	private function prepare_item_data( $item ) {
 		$product = $this->order->get_product_from_item( $item );
-		$sa_product = new WC_Skroutz_Analytics_Product($product, $this->items_product_id_settings);
+		$sa_product = new WC_Skroutz_Analytics_Product( $product, $this->settings->get_product_id_settings() );
 
 		$data = array(
 			'order_id'    => $this->order->get_order_number(),
@@ -171,8 +148,10 @@ class WC_Skroutz_Analytics_Tracking {
 	* @since    1.3.0
 	* @access   private
 	*/
-	private function get_global_object_name( $settings ) {
-		$default_object_name = constant("WC_Skroutz_Analytics_Flavors::$this->flavor"."_global_object_name");
+	private function get_global_object_name() {
+		$default_object_name = constant( "WC_Skroutz_Analytics_Flavors::".$this->settings->get_flavor()."_global_object_name" );
+
+		$settings = $this->settings->get_global_object_name_settings();
 
 		return ($settings['enabled'] == 'yes' && $settings['name']) ? $settings['name'] : $default_object_name;
 	}
@@ -225,7 +204,7 @@ class WC_Skroutz_Analytics_Tracking {
 		if ( $this->order->get_total_tax() == 0 ) {
 			return $this->calculate_tax_from_total(
 				$this->calculate_order_revenue(),
-				constant("WC_Skroutz_Analytics_Flavors::$this->flavor"."_default_tax_rate")
+				constant( "WC_Skroutz_Analytics_Flavors::".$this->settings->get_flavor()."_default_tax_rate" )
 			);
 		}
 
