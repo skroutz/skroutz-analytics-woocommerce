@@ -23,7 +23,7 @@
  * Text Domain:       wc-skroutz-analytics
  * Domain Path:       /languages
  * WC requires at least: 2.5.0
- * WC tested up to: 3.5.2
+ * WC tested up to: 3.6.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
