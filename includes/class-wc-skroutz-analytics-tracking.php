@@ -14,27 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_Skroutz_Analytics_Tracking {
 
 	/**
-	* The flavor (is the site) provided by the admin settings
-	* @var string
-	*/
-	private $flavor;
-
-	/**
-	* The shop account id provided by the admin settings
-	* @var string
-	*/
-	private $shop_account_id;
-
-	/**
-	* The items product id options provided by the admin settings
-	*
-	* id: id|sku
-	* parent_id_enabled: yes|no
-	* @var array
-	*/
-	private $items_product_id_settings;
-
-	/**
 	* The global object name provided by the admin settings
 	* @var string
 	*/
@@ -55,11 +34,9 @@ class WC_Skroutz_Analytics_Tracking {
 	*
 	* @since    1.0.0
 	*/
-	public function __construct( $flavor, $shop_account_id, $items_product_id_settings, $global_object_name_settings ) {
-		$this->flavor = $flavor;
-		$this->shop_account_id = $shop_account_id;
-		$this->items_product_id_settings = $items_product_id_settings;
-		$this->global_object_name = $this->get_global_object_name($global_object_name_settings);
+	public function __construct() {
+		$this->settings = WC_Skroutz_Analytics_Settings::get_instance();
+		$this->global_object_name = $this->get_global_object_name();
 
 		// Page tracking script
 		add_action( 'wp_print_footer_scripts', array( $this, 'output_analytics_tracking_script' ) );
@@ -69,8 +46,8 @@ class WC_Skroutz_Analytics_Tracking {
 	}
 
 	public function output_analytics_tracking_script() {
-		$analytics_url = constant("WC_Skroutz_Analytics_Flavors::$this->flavor"."_analytics_url");
-		$analytics_object = constant("WC_Skroutz_Analytics_Flavors::$this->flavor"."_analytics_object");
+		$analytics_url = constant( "WC_Skroutz_Analytics_Flavors::".$this->settings->get_flavor()."_analytics_url" );
+		$analytics_object = constant( "WC_Skroutz_Analytics_Flavors::".$this->settings->get_flavor()."_analytics_object" );
 
 		$analytics_script = "
 		<!-- Skroutz Analytics WooCommerce plugin - v".WC_Skroutz_Analytics::PLUGIN_VERSION." -->
@@ -116,7 +93,7 @@ class WC_Skroutz_Analytics_Tracking {
 	* @access   private
 	*/
 	private function create_connect() {
-		return "{$this->global_object_name}('session', 'connect', '$this->shop_account_id');";
+		return "{$this->global_object_name}('session', 'connect', '{$this->settings->get_shop_account_id()}');";
 	}
 
 	/**
@@ -145,10 +122,11 @@ class WC_Skroutz_Analytics_Tracking {
 	*/
 	private function prepare_item_data( $item ) {
 		$product = $this->order->get_product_from_item( $item );
+		$sa_product = new WC_Skroutz_Analytics_Product( $product, $this->settings->get_product_id_settings() );
 
 		$data = array(
 			'order_id'    => $this->order->get_order_number(),
-			'product_id'  => $this->sa_product_id( $product ),
+			'product_id'  => $sa_product->get_id(),
 			'name'        => $product->get_title(),
 			'price'       => $this->order->get_item_total( $item, true ),
 			'quantity'    => (int)$item['qty'],
@@ -162,78 +140,6 @@ class WC_Skroutz_Analytics_Tracking {
 	}
 
 	/**
-	* Returns the product id that should be reported to Analytics based on
-	* product id admin settings.
-	*
-	* @param WC_Product $product The purchased WC product
-	* @return string|integer  The product id that should be reported to Analytics
-	*
-	* @since    1.0.6
-	* @access   private
-	*/
-	private function sa_product_id( $product ) {
-		$parent_or_variation = $product;
-
-		if($this->items_product_id_settings['parent_id_enabled'] == 'yes' && $product->is_type( 'variation' ) ) {
-			$parent_or_variation = $this->get_parent_product($product);
-		}
-
-		$product_id = $this->get_custom_product_id($parent_or_variation);
-
-		if($product_id) {
-			return $product_id; // return the custom_id from postmeta table
-		} elseif($this->items_product_id_settings['id'] == 'sku') {
-			$product_id = $parent_or_variation->get_sku();
-		} else {
-			$product_id = $parent_or_variation->get_id();
-		}
-
-		return $product_id ? $product_id : "wc-sa-{$product->get_id()}";
-	}
-
-	/**
-	* Get the custom postmeta id if exists, based on admin settings
-	*
-	* @return NULL|string|integer The custom postmeta id
-	*
-	* @since    1.2.0
-	* @access   private
-	*/
-	private function get_custom_product_id( $product ) {
-		$product_id = NULL;
-
-		if ($this->items_product_id_settings['custom_id_enabled'] == 'yes' && $this->items_product_id_settings['custom_id']) {
-			$product_id = get_post_meta(
-				$product->get_id(),
-				$this->items_product_id_settings['custom_id'],
-				true
-			);
-		}
-
-		return $product_id;
-	}
-
-	/**
-	* Get the parent product of a variation product.
-	*
-	* @param WC_Product $product The purchased WC product
-	* @return WC_Product|null|false The parent product
-	*
-	* @since    1.3.1
-	* @access   private
-	*/
-	private function get_parent_product( $product ) {
-		// TODO Use only get_parent_id when we drop support for WooCommerce < 3.0
-		if (method_exists( $product, 'get_parent_id' )) {
-			$parent_id = $product->get_parent_id();
-		} else {
-			$parent_id = wp_get_post_parent_id($product->get_id());
-		}
-
-		return wc_get_product($parent_id);
-	}
-
-	/**
 	* Get the global object name, based on admin settings.
 	* If custom name is not enabled or not provided the default global object name will be returned.
 	*
@@ -242,8 +148,10 @@ class WC_Skroutz_Analytics_Tracking {
 	* @since    1.3.0
 	* @access   private
 	*/
-	private function get_global_object_name( $settings ) {
-		$default_object_name = constant("WC_Skroutz_Analytics_Flavors::$this->flavor"."_global_object_name");
+	private function get_global_object_name() {
+		$default_object_name = constant( "WC_Skroutz_Analytics_Flavors::".$this->settings->get_flavor()."_global_object_name" );
+
+		$settings = $this->settings->get_global_object_name_settings();
 
 		return ($settings['enabled'] == 'yes' && $settings['name']) ? $settings['name'] : $default_object_name;
 	}
@@ -296,7 +204,7 @@ class WC_Skroutz_Analytics_Tracking {
 		if ( $this->order->get_total_tax() == 0 ) {
 			return $this->calculate_tax_from_total(
 				$this->calculate_order_revenue(),
-				constant("WC_Skroutz_Analytics_Flavors::$this->flavor"."_default_tax_rate")
+				constant( "WC_Skroutz_Analytics_Flavors::".$this->settings->get_flavor()."_default_tax_rate" )
 			);
 		}
 

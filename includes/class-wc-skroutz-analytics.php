@@ -78,9 +78,29 @@ class WC_Skroutz_Analytics {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wc-skroutz-analytics-flavors.php';
 
 		/**
+		 * The class responsible for fetching the plugin settings.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wc-skroutz-analytics-settings.php';
+
+		/**
+		 * The class responsible for providing the proper product id based on admin settings.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wc-skroutz-analytics-product.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wc-skroutz-analytics-integration.php';
+
+		/**
+		 * The product reviews inline widget
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/widgets/wc-skroutz-analytics-product-reviews-inline-widget.php';
+
+		/**
+		 * The product reviews extended widget
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/widgets/wc-skroutz-analytics-product-reviews-extended-widget.php';
 
 		/**
 		 * The class responsible for all the tracking actions.

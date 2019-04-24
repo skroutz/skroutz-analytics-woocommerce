@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Integration with the WooCommerce plugin.
  * Define the plugin settings, validation and sanitization.
  * Instantiate the tracking functionality if able
+ * Register the widgets if able
  *
  * @package    WC_Skroutz_Analytics
  * @subpackage WC_Skroutz_Analytics/admin
@@ -27,6 +28,15 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 	private $tracking;
 
 	/**
+	 * The plugin's settigns.
+	 *
+	 * @since    1.4.0
+	 * @access   private
+	 * @var      WC_Skroutz_Analytics_Settings $sa_settings The plugin's settigns.
+	 */
+	private $sa_settings;
+
+	/**
 	* Initialize the class and set its properties.
 	*
 	* @since    1.0.0
@@ -39,24 +49,20 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 		//Add settings action link to plugins listing
 		add_filter( 'plugin_action_links_' . SA_PLUGIN_BASENAME, array( $this, 'add_action_links' ));
 
-		// Load the settings
-		$this->load_settings();
+		$this->sa_settings = WC_Skroutz_Analytics_Settings::get_instance();
 		$this->init_form_fields();
 		$this->init_settings();
 
 		$this->register_admin_hooks();
 
 		// Check if account id is set, else don't do any tracking
-		if( ! $this->shop_account_id ) {
+		if ( ! $this->sa_settings->get_shop_account_id() ) {
 			return;
 		}
 
-		$this->tracking = new WC_Skroutz_Analytics_Tracking(
-			$this->flavor,
-			$this->shop_account_id,
-			$this->items_product_id_settings,
-			$this->global_object_name_settings
-		);
+		$this->tracking = new WC_Skroutz_Analytics_Tracking();
+
+		$this->register_widgets();
 	}
 
 	/**
@@ -87,7 +93,7 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 	*/
 	public function init_form_fields() {
 		$merchants_link = "<a id='merchants_link' href='' target='_blank'></a>"; //will be populated by the client
-		$default_object_name = constant("WC_Skroutz_Analytics_Flavors::$this->flavor"."_global_object_name");
+		$default_object_name = constant( "WC_Skroutz_Analytics_Flavors::".$this->sa_settings->get_flavor()."_global_object_name" );
 
 		$this->form_fields = array(
 			'sa_flavor' => array(
@@ -211,25 +217,21 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 	}
 
 	/**
-	* Load admin stored options
-	* If the options do not exist in the db the defaults will be loaded where applicable
-	*
-	* @since    1.3.0
-	* @access   private
-	*/
-	private function load_settings() {
-		$this->flavor = $this->get_option( 'sa_flavor' );
-		$this->shop_account_id  = $this->get_option( 'sa_shop_account_id' );
-		$this->items_product_id_settings = array(
-			'id' => $this->get_option( 'sa_items_product_id', 'sku' ),
-			'parent_id_enabled' => $this->get_option( 'sa_items_product_parent_id_enabled', 'no' ),
-			'custom_id_enabled' => $this->get_option( 'sa_items_custom_id_enabled', 'no'),
-			'custom_id' => $this->get_option( 'sa_items_custom_id'),
-		);
-		$this->global_object_name_settings = array(
-			'enabled' => $this->get_option( 'sa_custom_global_object_name_enabled', 'no' ),
-			'name' => $this->get_option( 'sa_custom_global_object_name'),
-		);
+	 * Register the inline widget
+	 *
+	 * @since    1.4.0
+	 */
+	public function register_skroutz_product_reviews_inline_widget() {
+		register_widget( 'WC_Skroutz_Analytics_Product_Reviews_Inline_Widget' );
+	}
+
+	/**
+	 * Register the extended widget
+	 *
+	 * @since    1.4.0
+	 */
+	public function register_skroutz_product_reviews_extended_widget() {
+		register_widget( 'WC_Skroutz_Analytics_Product_Reviews_Extended_Widget' );
 	}
 
 	/**
@@ -253,5 +255,16 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 
 		add_action( 'woocommerce_update_options_integration_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_filter( 'woocommerce_settings_api_sanitized_fields_' . $this->id, array( $this, 'sanitize_settings' ) );
+	}
+
+	/**
+	 * Register the inline and extended widgets on widgets init
+	 *
+	 * @since 1.4.0
+	 * @access   private
+	 */
+	private function register_widgets() {
+		add_action( 'widgets_init', array( $this, 'register_skroutz_product_reviews_inline_widget') );
+		add_action( 'widgets_init', array( $this, 'register_skroutz_product_reviews_extended_widget') );
 	}
 }
