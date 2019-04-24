@@ -1,7 +1,7 @@
 # Skroutz Analytics WooCommerce Plugin
 Integrate skroutz analytics to your WooCommerce enabled Wordpress site
 
-This plugin provides the integration between [Skroutz Analytics][1] and the [WooCommerce plugin][2]. 
+This plugin provides the integration between [Skroutz Analytics][1] and the [WooCommerce plugin][2].
 
 * Integrates the analytics tracking script to all your frontend pages.
 * Integrates the ecommerce data (transactions and revenue) generated during an order.
@@ -63,6 +63,14 @@ The option to use a custom postmeta id is supported. You have to check the `Use 
 
 ##### Global object name `skroutz_analytics` is already being used, can I change it?
 The option to use a custom global object name is supported. You have to check the `Use custom global object name` option in the plugin settings, and then specify a name in the text field.
+
+##### How can I integrate the Product Reviews service?
+The plugin provides two WordPress Widgets, that you can easily add:
+
+* [Product Reviews Inline Widget](https://developer.skroutz.gr/partner_sku_reviews/#inline-widget)
+* [Product Reviews Extended Widget](https://developer.skroutz.gr/partner_sku_reviews/#extended-widget)
+
+You can find detailed documentation on how to integrate the widgets [here](https://developer.skroutz.gr/partner_sku_reviews/wordpress_widgets/).
 
 ## Contributing
 If you discover issues, or have any ideas for improvements and features, please report them to the [issue tracker][3] of the repository, or submit a pull request.

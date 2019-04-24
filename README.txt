@@ -3,7 +3,7 @@ Contributors: skroutz
 Tags: skroutz, alve, scrooge, analytics, woocommerce
 Requires at least: 4.0
 Tested up to: 5.1
-Stable tag: 1.3.2
+Stable tag: 1.4.0
 Requires PHP: 5.4
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,7 +12,7 @@ Integrate Skroutz Analytics to your WooCommerce enabled Wordpress site.
 
 == Description ==
 
-This plugin provides the integration between [Skroutz Analytics](http://developer.skroutz.gr/analytics/) and the [WooCommerce plugin](https://wordpress.org/plugins/woocommerce/). 
+This plugin provides the integration between [Skroutz Analytics](http://developer.skroutz.gr/analytics/) and the [WooCommerce plugin](https://wordpress.org/plugins/woocommerce/).
 
 Details:
 
@@ -30,7 +30,7 @@ Contributing: [Github](https://github.com/skroutz/skroutz-analytics-woocommerce)
 
 = Automatic installation =
 1. Go to your wordpress `admin panel > Plugins > Add New`.
-2. Search this plugin by its name. 
+2. Search this plugin by its name.
 3. Install the plugin.
 4. Activate the plugin.
 5. Set the `Shop Account ID` to the plugin's settings.
@@ -41,7 +41,7 @@ Contributing: [Github](https://github.com/skroutz/skroutz-analytics-woocommerce)
 We support Skrouz.gr, Alve.com and Scrooge.co.uk.
 
 = Where can I find the plugin's settings? =
-This plugin will add the settings to the WooCommerce Integration tab. 
+This plugin will add the settings to the WooCommerce Integration tab.
 `WooCommerce > Settings > Integration > Skroutz Analytics`
 
 = Where can I find the `Shop Account ID`? =
@@ -74,12 +74,23 @@ The option to use a custom postmeta id is supported. You have to check the `Use 
 = Global object name `skroutz_analytics` is already being used, can I change it? =
 The option to use a custom global object name is supported. You have to check the `Use custom global object name` option in the plugin settings, and then specify a name in the text field.
 
+= How can I add the Product Reviews Widgets? =
+The plugin provides two Wordpress Widgets, that you can easily add:
+
+* [Product Reviews Inline Widget](https://developer.skroutz.gr/partner_sku_reviews/#inline-widget)
+* [Product Reviews Extended Widget](https://developer.skroutz.gr/partner_sku_reviews/#extended-widget)
+
+Detailed documentation on how to integrate the widgets can be found [here](https://developer.skroutz.gr/partner_sku_reviews/wordpress_widgets/).
+
 == Screenshots ==
 
 1. Skroutz Analytics settings panel.
 2. Skroutz Analytics statistics in the Skroutz for merchants.
 
 == Changelog ==
+
+= 1.4.0 =
+* Add Product Reviews Inline & Extended Widgets [docs](https://developer.skroutz.gr/partner_sku_reviews/wordpress_widgets/)
 
 = 1.3.2 =
 * Remove `deploy` directory that was falsely included in version 1.3.1.
