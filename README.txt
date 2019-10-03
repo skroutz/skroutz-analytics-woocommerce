@@ -3,7 +3,7 @@ Contributors: skroutz
 Tags: skroutz, alve, scrooge, analytics, woocommerce
 Requires at least: 4.0
 Tested up to: 5.2
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 Requires PHP: 5.4
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -88,6 +88,9 @@ Detailed documentation on how to integrate the widgets can be found [here](https
 2. Skroutz Analytics statistics in the Skroutz for merchants.
 
 == Changelog ==
+
+= 1.4.1 =
+* Bump WooCommerce tested up to version 3.7
 
 = 1.4.0 =
 * Add Product Reviews Inline & Extended Widgets [docs](https://developer.skroutz.gr/partner_sku_reviews/wordpress_widgets/)
