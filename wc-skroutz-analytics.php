@@ -12,10 +12,10 @@
  * @package           WC_Skroutz_Analytics
  *
  * @wordpress-plugin
- * Plugin Name:       WooCommerce Skroutz Analytics
- * Plugin URI:        https://github.com/skroutz/wc-skroutz-analytics
- * Description:       Integrate skroutz analytics to your WooCommerce enabled Wordpress site
- * Version:           1.4.1
+ * Plugin Name:       Custom WooCommerce Skroutz Analytics
+ * Plugin URI:        https://fashion116.gr
+ * Description:       Custom Skroutz Analytics - DO NOT UPDATE
+ * Version:           9.9.9
  * Author:            Skroutz
  * Author URI:        www.skroutz.gr
  * License:           GPL-2.0

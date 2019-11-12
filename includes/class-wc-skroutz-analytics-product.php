@@ -52,17 +52,25 @@ class WC_Skroutz_Analytics_Product {
 	 */
 	public function get_id() {
 		$parent_or_variation = $this->product;
+		$product_id = null;
 
-		if ( $this->items_product_id_settings['parent_id_enabled'] == 'yes' && $this->product->is_type( 'variation' ) ) {
-			$parent_or_variation = $this->get_parent_product();
-		}
+		if ( $this->product->is_type( 'variation' ) ) {
+			foreach ( $parent_or_variation->get_attributes() as $taxonomy => $term_slug ) {
+				if ( $taxonomy != wc_attribute_taxonomy_name( 'color_slug' ) ) { // Replace with the color attribute slug
+					continue;
+				}
 
-		$product_id = $this->get_custom_product_id($parent_or_variation);
+				$term = get_term_by( 'slug', $term_slug , $taxonomy );
 
-		if ( $product_id ) {
-			return $product_id; // return the custom_id from postmeta table
-		} elseif ( $this->items_product_id_settings['id'] == 'sku' ) {
-			$product_id = $parent_or_variation->get_sku();
+				if ( $term ) {
+					$product_id = "{$this->get_parent_product()->get_id()}-{$term->term_id}";
+					break;
+        }
+			}
+
+			if ( ! $product_id ) {
+				$product_id = $this->get_parent_product()->get_id();
+			}
 		} else {
 			$product_id = $parent_or_variation->get_id();
 		}
