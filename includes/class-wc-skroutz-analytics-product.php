@@ -53,21 +53,28 @@ class WC_Skroutz_Analytics_Product {
 	public function get_id() {
 		$parent_or_variation = $this->product;
 
-		if ( $this->items_product_id_settings['parent_id_enabled'] == 'yes' && $this->product->is_type( 'variation' ) ) {
+		if ( $this->product->is_type( 'variation' ) && $this->items_product_id_settings['parent_id_enabled'] != 'no' ) {
 			$parent_or_variation = $this->get_parent_product();
 		}
 
 		$product_id = $this->get_custom_product_id($parent_or_variation);
 
-		if ( $product_id ) {
-			return $product_id; // return the custom_id from postmeta table
-		} elseif ( $this->items_product_id_settings['id'] == 'sku' ) {
-			$product_id = $parent_or_variation->get_sku();
-		} else {
-			$product_id = $parent_or_variation->get_id();
+		if ( ! $product_id ) {
+			$product_id = $this->items_product_id_settings['id'] == 'sku'
+				? $parent_or_variation->get_sku()
+				: $parent_or_variation->get_id();
 		}
 
-		return $product_id ? $product_id : "wc-sa-{$this->product->get_id()}";
+		if ( ! $product_id ) {
+			// If product sku is not found set a default id. Analytics does not accept line items without a product id.
+			$product_id = "wc-sa-{$this->product->get_id()}";
+		}
+
+		if ( $this->product->is_type( 'variation' ) && $this->items_product_id_settings['parent_id_enabled'] == 'parent_id_term_id' ) {
+			$product_id .= $this->get_product_terms_suffix();
+		}
+
+		return $product_id;
 	}
 
 	/**
@@ -110,5 +117,35 @@ class WC_Skroutz_Analytics_Product {
 		}
 
 		return wc_get_product( $parent_id );
+	}
+
+	/**
+	 * Get the suffix of the product id based on the grouped attributes settings.
+	 * Format: -product_term_id_1-product_term_id_2...
+	 *
+	 * @return NULL|string The product id suffix. If no product attribute matches any attribute in settings returns null.
+	 *
+	 * @since    1.5.0
+	 * @access   private
+	 */
+	private function get_product_terms_suffix() {
+		$product_attributes = $this->product->get_variation_attributes();
+
+		$terms = null;
+		foreach ($this->items_product_id_settings['grouping_attributes'] as $attribute_name) {
+
+			$taxonomy_name = wc_attribute_taxonomy_name($attribute_name);
+			// TODO: Use wc_variation_attribute_name() when we drop support for WooCommerce < 2.6
+			$variation_attribute_name = 'attribute_' . sanitize_title( $taxonomy_name );
+
+			if ( isset($product_attributes[$variation_attribute_name]) ) {
+				$term = get_term_by( 'slug', $product_attributes[$variation_attribute_name], $taxonomy_name );
+				if ( $term ) {
+					$terms .= "-{$term->term_id}";
+				}
+			}
+		}
+
+		return $terms;
 	}
 }
