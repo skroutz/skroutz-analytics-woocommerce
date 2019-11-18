@@ -74,7 +74,7 @@ class WC_Skroutz_Analytics_Product {
 			$product_id .= $this->get_product_terms_suffix();
 		}
 
-		return $product_id;
+		return apply_filters( 'wc_skroutz_analytics_product_id_filter', $product_id, $this->product );
 	}
 
 	/**
