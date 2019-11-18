@@ -13,6 +13,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Skroutz_Analytics_Settings {
 
+	const DEFAULT_FLAVOR = 'skroutz';
+	const DEFAULT_SHOP_ACCOUNT_ID = null;
+	const DEFAULT_ITEMS_PRODUCT_ID = 'sku';
+	const DEFAULT_ITEMS_PRODUCT_PARENT_ID_ENABLED = 'no';
+	const DEFAULT_ITEMS_CUSTOM_ID_ENABLED = 'no';
+	const DEFAULT_ITEMS_CUSTOM_ID = null;
+	const DEFAULT_CUSTOM_GLOBAL_OBJECT_NAME_ENABLED = 'no';
+	const DEFAULT_CUSTOM_GLOBAL_OBJECT_NAME = null;
+
 	/**
 	 * The singleton instance
 	 * @var string
@@ -111,27 +120,31 @@ class WC_Skroutz_Analytics_Settings {
 	private function set_settings() {
 		$settings = get_option( 'woocommerce_wc_skroutz_analytics_settings', [] );
 
-		$this->flavor = isset( $settings['sa_flavor'] ) ? $settings['sa_flavor'] : 'skroutz';
+		$this->flavor = isset( $settings['sa_flavor'] ) ? $settings['sa_flavor'] : self::DEFAULT_FLAVOR;
 		$this->shop_account_id  = isset( $settings['sa_shop_account_id'] )
-									? $settings['sa_shop_account_id']
-									: null;
+			? $settings['sa_shop_account_id']
+			: self::DEFAULT_SHOP_ACCOUNT_ID;
 		$this->items_product_id_settings = array(
-			'id' => isset( $settings['sa_items_product_id'] ) ? $settings['sa_items_product_id'] : 'sku',
+			'id' => isset( $settings['sa_items_product_id'] )
+				? $settings['sa_items_product_id']
+				: self::DEFAULT_ITEMS_PRODUCT_ID,
 			'parent_id_enabled' => isset( $settings['sa_items_product_parent_id_enabled'] )
-									? $settings['sa_items_product_parent_id_enabled']
-									: 'no',
+				? $settings['sa_items_product_parent_id_enabled']
+				: self::DEFAULT_ITEMS_PRODUCT_PARENT_ID_ENABLED,
 			'custom_id_enabled' => isset( $settings['sa_items_custom_id_enabled'] )
-									? $settings['sa_items_custom_id_enabled']
-									: 'no',
-			'custom_id' => isset( $settings['sa_items_custom_id'] ) ? $settings['sa_items_custom_id'] : null,
+				? $settings['sa_items_custom_id_enabled']
+				: self::DEFAULT_ITEMS_CUSTOM_ID_ENABLED,
+			'custom_id' => isset( $settings['sa_items_custom_id'] )
+				? $settings['sa_items_custom_id']
+				: self::DEFAULT_ITEMS_CUSTOM_ID,
 		);
 		$this->global_object_name_settings = array(
 			'enabled' => isset( $settings['sa_custom_global_object_name_enabled'] )
-							? $settings['sa_custom_global_object_name_enabled']
-							: 'no',
+				? $settings['sa_custom_global_object_name_enabled']
+				: self::DEFAULT_CUSTOM_GLOBAL_OBJECT_NAME_ENABLED,
 			'name' => isset( $settings['sa_custom_global_object_name'] )
-						? $settings['sa_custom_global_object_name']
-						: null,
+				? $settings['sa_custom_global_object_name']
+				: self::DEFAULT_CUSTOM_GLOBAL_OBJECT_NAME,
 		);
 	}
 }
