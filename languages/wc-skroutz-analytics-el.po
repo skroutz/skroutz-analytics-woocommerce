@@ -6,7 +6,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wc-skroutz-"
 "analytics\n"
 "POT-Creation-Date: 2019-04-19 07:27:44+00:00\n"
-"PO-Revision-Date: 2019-04-19 10:29+0300\n"
+"PO-Revision-Date: 2019-11-20 10:29+0200\n"
 "Last-Translator: \n"
 "Language-Team: Skroutz SA <analytics@skroutz.gr>\n"
 "Language: el_GR\n"
@@ -23,11 +23,11 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: includes/class-wc-skroutz-analytics-integration.php:39
+#: includes/class-wc-skroutz-analytics-integration.php:46
 msgid "Skroutz Analytics"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:40
+#: includes/class-wc-skroutz-analytics-integration.php:47
 msgid ""
 "Skroutz Analytics is a free service that gives you the ability to generate "
 "statistics about your shop visitors and products."
@@ -36,83 +36,132 @@ msgstr ""
 "να παράγεις στατιστικά για τους πελάτες και τα προϊόντα του ηλεκτρονικoύ σου "
 "καταστήματος."
 
-#: includes/class-wc-skroutz-analytics-integration.php:74
+#: includes/class-wc-skroutz-analytics-integration.php:81
 msgid "View Skroutz Analytics Settings"
 msgstr "Δείτε τις ρυθμίσεις του Skroutz Analytics"
 
-#: includes/class-wc-skroutz-analytics-integration.php:75
+#: includes/class-wc-skroutz-analytics-integration.php:82
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-#: includes/class-wc-skroutz-analytics-integration.php:93
+#: includes/class-wc-skroutz-analytics-integration.php:100
 msgid "Site"
 msgstr "Ιστοσελίδα"
 
-#: includes/class-wc-skroutz-analytics-integration.php:95
+#: includes/class-wc-skroutz-analytics-integration.php:102
 msgid "Specify the site your eshop reports to."
 msgstr ""
 "Διάλεξε την ιστοσελίδα στην οποία το ηλεκτρονικό σου κατάστημα στέλνει τα "
 "στατιστικά."
 
-#: includes/class-wc-skroutz-analytics-integration.php:100
+#: includes/class-wc-skroutz-analytics-integration.php:107
 msgid "Shop Account ID"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:102
+#: includes/class-wc-skroutz-analytics-integration.php:109
 msgid "The shop account ID is provided by %s"
 msgstr "Το shop account ID παρέχεται από το %s"
 
-#: includes/class-wc-skroutz-analytics-integration.php:106
-msgid "Product ID"
+#: includes/class-wc-skroutz-analytics-integration.php:114
+msgid "Unique ID"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:108
-msgid "Specify the product ID that should be sent to analytics."
-msgstr "Διάλεξε το product ID που πρέπει να στέλνεται στο analytics."
-
-#: includes/class-wc-skroutz-analytics-integration.php:111
-msgid ""
-"It must have the same product ID used in the XML feed provided to Skroutz."
-msgstr ""
-"Πρέπει να ειναι το ίδιο product ID που χρησιμοποιείς στο XML feed που "
-"παρέχεις στο Skroutz."
-
-#: includes/class-wc-skroutz-analytics-integration.php:115
-msgid "Always send parent product ID/SKU (variation ids will be ignored)"
-msgstr "Αποστολή πάντα του parent product ID/SKU (variation ids θα αγνοούνται)"
+#: includes/class-wc-skroutz-analytics-integration.php:116
+msgid "Specify the Unique ID that should be sent to analytics."
+msgstr "Διάλεξε το Unique ID που πρέπει να στέλνεται στο analytics."
 
 #: includes/class-wc-skroutz-analytics-integration.php:119
-msgid "Use custom postmeta id"
-msgstr "Χρήση custom postmeta id"
+msgid ""
+"It must have the same Unique ID used in the XML feed provided to Skroutz."
+msgstr ""
+"Πρέπει να ειναι το ίδιο Unique ID που χρησιμοποιείς στο XML feed που "
+"παρέχεις στο Skroutz."
 
 #: includes/class-wc-skroutz-analytics-integration.php:123
-msgid ""
-"Specify a custom id key that will be used to retrieve the product id from "
-"postmeta table."
-msgstr ""
-"Eισάγετε ένα custom id key που θα χρησιμοποιηθεί για να ανακτηθεί το product "
-"id από τον πίνακα postmeta."
-
-#: includes/class-wc-skroutz-analytics-integration.php:125
-msgid "If custom id key is not found the Product ID/SKU will be used."
-msgstr "Εάν δεν βρεθεί το custom id key θα χρησιμοποιηθεί το Product ID/SKU."
+msgid "Use custom postmeta ID"
+msgstr "Χρήση custom postmeta ID"
 
 #: includes/class-wc-skroutz-analytics-integration.php:128
+msgid ""
+"Specify a custom ID key that will be used to retrieve the Unique ID from "
+"postmeta table."
+msgstr ""
+"Eισάγετε ένα custom ID key που θα χρησιμοποιηθεί για να ανακτηθεί το Unique "
+"ID από τον πίνακα postmeta."
+
+#: includes/class-wc-skroutz-analytics-integration.php:130
+msgid "If custom ID key is not found the Product ID/SKU will be used."
+msgstr "Εάν δεν βρεθεί το custom ID key θα χρησιμοποιηθεί το Product ID/SKU."
+
+#: includes/class-wc-skroutz-analytics-integration.php:137
+msgid "Variation Unique IDs"
+msgstr "Variation Unique IDs"
+
+#: includes/class-wc-skroutz-analytics-integration.php:138
+msgid "Send variation Unique ID"
+msgstr "Αποστολή του variation Unique ID"
+
+#: includes/class-wc-skroutz-analytics-integration.php:139
+msgid ""
+"e.g. Given parent product with %1$sID: 1%2$s %1$s&amp;%2$s variation "
+"(%1$sred color%2$s) with %1$sID: 2%2$s ➔ will send %1$sID: 2%2$s"
+msgstr ""
+"π.χ. Έστω parent product με %1$sID: 1%2$s %1$s&amp;%2$s variation (%1$sred "
+"color%2$s) με %1$sID: 2%2$s ➔ θα σταλεί %1$sID: 2%2$s"
+
+#: includes/class-wc-skroutz-analytics-integration.php:143
+msgid "Send parent Unique ID"
+msgstr "Αποστολή του parent Unique ID"
+
+#: includes/class-wc-skroutz-analytics-integration.php:144
+msgid ""
+"e.g. Given parent product with %1$sID: 1%2$s %1$s&amp;%2$s variation "
+"(%1$sred color%2$s) with %1$sID: 2%2$s ➔ will send %1$sID: 1%2$s"
+msgstr ""
+"π.χ. Έστω parent product με %1$sID: 1%2$s %1$s&amp;%2$s variation (%1$sred "
+"color%2$s) με %1$sID: 2%2$s ➔ θα σταλεί %1$sID: 1%2$s"
+
+#: includes/class-wc-skroutz-analytics-integration.php:148
+msgid ""
+"Send parent Unique ID combined with specified variation attribute term IDs"
+msgstr ""
+"Αποστολή του parent Unique ID σε συνδυασμό με τα term IDs των επιλεγμένων "
+"variation attributes"
+
+#: includes/class-wc-skroutz-analytics-integration.php:149
+msgid ""
+"e.g. Given parent product with %1$sID: 1%2$s %1$s&amp;%2$s variation "
+"(%1$sred color%2$s) with %1$sID: 2%2$s %1$s&amp;%2$s red term with %1$sID: "
+"73%2$s ➔ will send %1$sID: 1-73%2$s"
+msgstr ""
+"π.χ. Έστω parent product με %1$sID: 1%2$s %1$s&amp;%2$s variation (%1$sred "
+"color%2$s) με %1$sID: 2%2$s %1$s&amp;%2$s red term με %1$sID: 73%2$s ➔ θα "
+"σταλεί %1$sID: 1-73%2$s"
+
+#: includes/class-wc-skroutz-analytics-integration.php:157
+msgid ""
+"Specify the attributes that will be used to group product variations (e.g. "
+"color)."
+msgstr ""
+"Επιλέξτε τα attributes που θα χρησιμοποιηθούν για την ομαδοποίηση των "
+"product variations (π.χ. color)."
+
+#: includes/class-wc-skroutz-analytics-integration.php:162
 msgid "Global Object Name"
 msgstr ""
 
-#: includes/class-wc-skroutz-analytics-integration.php:130
+#: includes/class-wc-skroutz-analytics-integration.php:164
 msgid "Use custom global object name"
 msgstr "Χρήση διαφορετικού global object name"
 
-#: includes/class-wc-skroutz-analytics-integration.php:131
+#: includes/class-wc-skroutz-analytics-integration.php:165
 msgid ""
 "Change global object name when there is a conflict with the default value."
 msgstr ""
 "Αλλάξτε το global object name έαν χρησιμοποιείται ήδη στον κώδικα σας το "
 "προκαθορισμένο όνομα."
 
-#: includes/class-wc-skroutz-analytics-integration.php:135
+#: includes/class-wc-skroutz-analytics-integration.php:170
 msgid ""
 "Specify a custom global object name that will be used in the analytics "
 "tracking code."
@@ -120,25 +169,25 @@ msgstr ""
 "Eισάγετε ένα διαφορετικό global object name που θα χρησιμοποιηθεί στον "
 "κώδικα του analytics tracking."
 
-#: includes/class-wc-skroutz-analytics-integration.php:155
+#: includes/class-wc-skroutz-analytics-integration.php:191
 msgid "Shop Account ID is invalid"
 msgstr "Το Shop Account ID δεν είναι έγκυρο"
 
-#: includes/widgets/wc-skroutz-analytics-product-reviews-extended-widget.php:20
+#: includes/widgets/wc-skroutz-analytics-product-reviews-extended-widget.php:27
 msgid "Display the extended widget with product ratings and reviews from %s"
 msgstr ""
 "Εμφάνισε το extended widget με τις βαθμολογίες και αξιολογήσεις των "
 "προϊόντων από το %s"
 
-#: includes/widgets/wc-skroutz-analytics-product-reviews-extended-widget.php:27
+#: includes/widgets/wc-skroutz-analytics-product-reviews-extended-widget.php:34
 msgid "Extended Product Reviews %s Widget"
 msgstr "Extended Αξιολογήσεις Προϊόντων %s  Widget"
 
-#: includes/widgets/wc-skroutz-analytics-product-reviews-inline-widget.php:20
+#: includes/widgets/wc-skroutz-analytics-product-reviews-inline-widget.php:27
 msgid "Display the inline widget with product ratings from %s"
 msgstr "Εμφάνισε το inline widget με τις βαθμολογίες των προϊόντων από το %s"
 
-#: includes/widgets/wc-skroutz-analytics-product-reviews-inline-widget.php:27
+#: includes/widgets/wc-skroutz-analytics-product-reviews-inline-widget.php:34
 msgid "Inline Product Reviews %s Widget"
 msgstr "Inline Αξιολογήσεις Προϊόντων %s Widget"
 
