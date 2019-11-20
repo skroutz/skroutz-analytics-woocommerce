@@ -1,6 +1,11 @@
 jQuery(document).ready(function($) {
+  var capitalize = function (s) {
+    if (typeof s !== 'string') return '';
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
+
   var updateLink = function(link, flavor) {
-    link.text(flavor);
+    link.text(capitalize(flavor));
     link.attr('href', wc_skroutz_analytics.flavors[flavor+'_merchants_url']);
   },
   $link = $('#merchants_link'),
