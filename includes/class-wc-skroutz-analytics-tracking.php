@@ -48,10 +48,11 @@ class WC_Skroutz_Analytics_Tracking {
 	public function output_analytics_tracking_script() {
 		$analytics_url = constant( "WC_Skroutz_Analytics_Flavors::".$this->settings->get_flavor()."_analytics_url" );
 		$analytics_object = constant( "WC_Skroutz_Analytics_Flavors::".$this->settings->get_flavor()."_analytics_object" );
+		$plugin_version = WC_Skroutz_Analytics::PLUGIN_VERSION;
 
 		$analytics_script = "
-		<!-- Skroutz Analytics WooCommerce plugin - v".WC_Skroutz_Analytics::PLUGIN_VERSION." -->
-		<script data-cfasync='false' type='text/javascript'>
+		<!-- Skroutz Analytics WooCommerce plugin - v{$plugin_version} -->
+		<script data-cfasync='false' data-wc-skroutz-analytics-plugin-version='$plugin_version' type='text/javascript'>
 			(function(a,b,c,d,e,f,g){a['$analytics_object']=e;a[e]= a[e] || function(){
 			(a[e].q = a[e].q || []).push(arguments);};f=b.createElement(c);f.async=true;
 			f.src=d;g=b.getElementsByTagName(c)[0];g.parentNode.insertBefore(f,g);
@@ -136,7 +137,7 @@ class WC_Skroutz_Analytics_Tracking {
 	}
 
 	private function create_action( $action, $data ) {
-		return "{$this->global_object_name}('ecommerce', '$action', JSON.stringify({$data}));";
+		return "{$this->global_object_name}('ecommerce', '$action', {$data});";
 	}
 
 	/**
