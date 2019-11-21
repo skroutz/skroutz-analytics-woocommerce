@@ -137,7 +137,7 @@ class WC_Skroutz_Analytics_Tracking {
 	}
 
 	private function create_action( $action, $data ) {
-		return "{$this->global_object_name}('ecommerce', '$action', JSON.stringify({$data}));";
+		return "{$this->global_object_name}('ecommerce', '$action', {$data});";
 	}
 
 	/**
