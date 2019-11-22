@@ -61,6 +61,31 @@ The plugin uses the WooCommerce tax rates you have configured in the settings. I
 ##### I don't use neither product ID nor SKU in XML, but a custom postmeta id
 The option to use a custom postmeta id is supported. You have to check the `Use custom postmeta id` option in the plugin settings, and then specify the custom id key used in the postmeta table. Note that if the custom id is not found for a product the product id/sku will be used instead.
 
+##### I have variable products with multiple attributes that must be grouped by an attribute (e.g. color) in XML. What can I do?
+Select the option `Send parent Unique ID combined with specified variation attribute term IDs` in the plugin settings and specify in the select box the grouping attribute (e.g. color). You can set more that one grouping attributes. But note that the order in which the attributes are set in the settings also affects the generated Unique ID.
+
+The Unique ID that will be generated is a combination of the parent product ID and the specified grouping attribute terms:
+`<parent product ID>-<grouping attribute term1 ID>-...-<grouping attribute termN ID>`.
+
+The following rules apply:
+
+* If a product is not a variant the `<product ID>` is used.
+* If a product is a variant and does not have one of the declared color attributes the `<parent product ID>` is used.
+* If a product is a variant and has one of the specified grouping attributes the `<parent product ID>-<attribute term ID>` is used.
+* If a product is a variant and has two of the specified grouping attributes the `<parent product ID>-<attribute1 termA ID>-<attribute2 termB ID>` is used.
+
+##### None of the settings for the Unique product ID works for me. Can I have a custom Unique ID?
+The plugin provides a [filter][12] that allows you to customize the Unique ID of each product that will be reported in an order. The filter tag is: `wc_skroutz_analytics_product_id_filter`, the value is the generated Unique ID and the additional argument is the product object (WC_Product | WC_Product_Variable).
+
+Usage example:
+
+```
+function my_product_id( $id, $product ) {
+    return "my-{$id}-custom-{$product->get_sku()}";
+}
+add_action( 'wc_skroutz_analytics_product_id_filter', 'my_product_id', 10, 2 );
+```
+
 ##### Global object name `skroutz_analytics` is already being used, can I change it?
 The option to use a custom global object name is supported. You have to check the `Use custom global object name` option in the plugin settings, and then specify a name in the text field.
 
@@ -107,4 +132,5 @@ Skroutz Analytics WooCommerce Plugin is licensed under the [GNU Public License v
 [9]: LICENSE.txt
 [10]: https://merchants.skroutz.gr/merchants/account/settings/analytics
 [11]: https://wordpress.org/plugins/skroutz-analytics-woocommerce/
+[12]: https://developer.wordpress.org/plugins/hooks/filters/
 
