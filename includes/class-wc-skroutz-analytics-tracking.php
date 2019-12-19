@@ -68,6 +68,11 @@ class WC_Skroutz_Analytics_Tracking {
 	public function load_ecommerce_analytics( $order_id ) {
 		$this->order = new WC_Order( $order_id );
 
+		// Do not report an order to analytics when the order status is failed.
+		if ( $this->order->has_status( 'failed' ) ) {
+			return;
+		}
+
 		add_action( 'wp_print_footer_scripts', array( $this, 'output_ecommerce_analytics_script' ) );
 	}
 
