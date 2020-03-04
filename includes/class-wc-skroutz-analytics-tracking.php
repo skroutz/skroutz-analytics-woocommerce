@@ -13,6 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Skroutz_Analytics_Tracking {
 
+	const PAID_BY_DESCR_MAX_LENGTH = 50;
+
 	/**
 	* The global object name provided by the admin settings
 	* @var string
@@ -115,6 +117,12 @@ class WC_Skroutz_Analytics_Tracking {
 			'shipping' => $this->order->get_total_shipping() + $this->order->get_shipping_tax(),
 			'tax'      => $this->calculate_order_tax(),
 		);
+
+		$payment_gateway = wc_get_payment_gateway_by_order( $this->order );
+		if ( $payment_gateway ) {
+			$data['paid_by'] = $payment_gateway->id;
+			$data['paid_by_descr'] = substr( $payment_gateway->get_title(), 0, self::PAID_BY_DESCR_MAX_LENGTH );
+		}
 
 		return json_encode($data);
 	}
