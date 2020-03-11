@@ -121,7 +121,7 @@ class WC_Skroutz_Analytics_Tracking {
 		$payment_gateway = wc_get_payment_gateway_by_order( $this->order );
 		if ( $payment_gateway ) {
 			$data['paid_by'] = $payment_gateway->id;
-			$data['paid_by_descr'] = substr( $payment_gateway->get_title(), 0, self::PAID_BY_DESCR_MAX_LENGTH );
+			$data['paid_by_descr'] = mb_substr( $payment_gateway->get_title(), 0, self::PAID_BY_DESCR_MAX_LENGTH );
 		}
 
 		return json_encode($data);
