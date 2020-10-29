@@ -270,7 +270,7 @@ class WC_Skroutz_Analytics_Integration extends WC_Integration {
 	* @access   private
 	*/
 	private function is_valid_skroutz_analytics_code( $code ) {
-		return preg_match('/^sa-\d{4}-\d{4}$/i', $code ) ? true : false;
+		return preg_match('/^sa-\d{4,}-\d{4}$/i', $code ) ? true : false;
 	}
 
 	/**
