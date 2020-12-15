@@ -2,7 +2,7 @@
 Contributors: skroutz
 Tags: skroutz, alve, scrooge, analytics, woocommerce
 Requires at least: 4.0
-Tested up to: 5.5
+Tested up to: 5.6
 Stable tag: 1.6.4
 Requires PHP: 5.4
 License: GPL-2.0
