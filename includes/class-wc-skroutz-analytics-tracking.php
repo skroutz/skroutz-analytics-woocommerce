@@ -135,7 +135,14 @@ class WC_Skroutz_Analytics_Tracking {
 	* @return string The JavaScript representation of an Analytics Ecommerce addItem action.
 	*/
 	private function prepare_item_data( $item ) {
-		$product = $this->order->get_product_from_item( $item );
+		// WC_Abstract_Legacy_Order::get_product_from_item is deprecated since version 4.4.0
+		// TODO Use only WC_Order_Item_Product::get_product when we drop support for WooCommerce < 3.0
+		if ( method_exists( $item, 'get_product' ) ) {
+			$product = $item->get_product();
+		} else {
+			$product = $this->order->get_product_from_item( $item );
+		}
+
 		$sa_product = new WC_Skroutz_Analytics_Product( $product, $this->settings->get_product_id_settings() );
 
 		$data = array(
