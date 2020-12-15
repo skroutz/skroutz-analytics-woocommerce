@@ -3,7 +3,7 @@ Contributors: skroutz
 Tags: skroutz, alve, scrooge, analytics, woocommerce
 Requires at least: 4.0
 Tested up to: 5.6
-Stable tag: 1.6.4
+Stable tag: 1.6.5
 Requires PHP: 5.4
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -112,6 +112,11 @@ Detailed documentation on how to integrate the widgets can be found [here](https
 2. Skroutz Analytics statistics in the Skroutz for merchants.
 
 == Changelog ==
+
+= 1.6.5 =
+* Bump Wordpress tested up to version 5.6
+* Bump WooCommerce tested up to version 4.8
+* Fix deprecation warning for WC_Abstract_Legacy_Order::get_product_from_item
 
 = 1.6.4 =
 * Fix Shop Account ID validation on admin settings when second part is more than 4 digits
