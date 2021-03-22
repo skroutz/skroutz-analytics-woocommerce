@@ -1,4 +1,4 @@
-=== WooCommerce Skroutz Analytics ===
+=== Skroutz Analytics for WooCommerce ===
 Contributors: skroutz
 Tags: skroutz, alve, scrooge, analytics, woocommerce
 Requires at least: 4.0
