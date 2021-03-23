@@ -29,7 +29,7 @@ The plugin is available from the [Wordpress plugin repo][11].
 ## FAQ
 
 ##### Which sites do you support?
-We support Skrouz.gr, Alve.com and Scrooge.co.uk.
+We support Skroutz.gr
 
 ##### Where can I find the plugin's settings?
 This plugin will add the settings to the WooCommerce Integration tab `WooCommerce > Settings > Integration > Skroutz Analytics`
