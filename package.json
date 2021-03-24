@@ -1,6 +1,6 @@
 {
   "name": "wc-skroutz-analytics",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "description": "Integrate skroutz analytics to your WooCommerce enabled Wordpress site",
   "main": "index.js",
   "scripts": {
