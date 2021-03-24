@@ -12,8 +12,8 @@
  * @package           WC_Skroutz_Analytics
  *
  * @wordpress-plugin
- * Plugin Name:       WooCommerce Skroutz Analytics
- * Plugin URI:        https://github.com/skroutz/wc-skroutz-analytics
+ * Plugin Name:       Skroutz Analytics for WooCommerce
+ * Plugin URI:        https://github.com/skroutz/skroutz-analytics-woocommerce
  * Description:       Integrate skroutz analytics to your WooCommerce enabled Wordpress site
  * Version:           1.6.5
  * Author:            Skroutz
@@ -76,7 +76,7 @@ function meets_prerequisites() {
  */
 function woocommerce_missing_notice() {
 	$class = 'notice error';
-	$message = 'WooCommerce Skroutz Analytics plugin requires the WooCommerce plugin';
+	$message = 'Skroutz Analytics for WooCommerce requires the WooCommerce plugin';
 
 	printf( '<div class="%s"><p>%s</p></div>', $class, $message );
 }

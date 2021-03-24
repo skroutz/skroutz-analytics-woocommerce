@@ -1,6 +1,6 @@
-=== WooCommerce Skroutz Analytics ===
+=== Skroutz Analytics for WooCommerce ===
 Contributors: skroutz
-Tags: skroutz, alve, scrooge, analytics, woocommerce
+Tags: skroutz, analytics, woocommerce
 Requires at least: 4.0
 Tested up to: 5.6
 Stable tag: 1.6.5
@@ -38,7 +38,7 @@ Contributing: [Github](https://github.com/skroutz/skroutz-analytics-woocommerce)
 == Frequently Asked Questions ==
 
 = Which sites do you support? =
-We support Skrouz.gr, Alve.com and Scrooge.co.uk.
+We support Skroutz.gr
 
 = Where can I find the plugin's settings? =
 This plugin will add the settings to the WooCommerce Integration tab.
