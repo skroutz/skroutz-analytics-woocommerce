@@ -3,7 +3,7 @@ Contributors: skroutz
 Tags: skroutz, analytics, woocommerce
 Requires at least: 4.0
 Tested up to: 5.6
-Stable tag: 1.6.6
+Stable tag: 1.6.7
 Requires PHP: 5.4
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -112,6 +112,10 @@ Detailed documentation on how to integrate the widgets can be found [here](https
 2. Skroutz Analytics statistics in the Skroutz for merchants.
 
 == Changelog ==
+
+= 1.6.7 =
+* Rename README.txt to readme.txt
+* Update Skroutz logos in assets
 
 = 1.6.6 =
 * Modify plugin name to Skroutz Analytics for WooCommerce
