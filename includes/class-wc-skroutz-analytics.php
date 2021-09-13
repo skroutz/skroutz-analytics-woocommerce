@@ -34,7 +34,7 @@ class WC_Skroutz_Analytics {
 	 * @since    1.0.0
 	 * @var      string    PLUGIN_VERSION    The current version of the plugin.
 	 */
-	const PLUGIN_VERSION = '1.6.7';
+	const PLUGIN_VERSION = '1.6.8';
 
 	/**
 	 * Define the core functionality of the plugin.

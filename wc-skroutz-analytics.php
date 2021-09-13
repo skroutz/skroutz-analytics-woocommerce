@@ -15,7 +15,7 @@
  * Plugin Name:       Skroutz Analytics for WooCommerce
  * Plugin URI:        https://github.com/skroutz/skroutz-analytics-woocommerce
  * Description:       Integrate skroutz analytics to your WooCommerce enabled Wordpress site
- * Version:           1.6.7
+ * Version:           1.6.8
  * Author:            Skroutz
  * Author URI:        www.skroutz.gr
  * License:           GPL-2.0
@@ -23,7 +23,7 @@
  * Text Domain:       wc-skroutz-analytics
  * Domain Path:       /languages
  * WC requires at least: 2.5.0
- * WC tested up to: 4.8
+ * WC tested up to: 5.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
