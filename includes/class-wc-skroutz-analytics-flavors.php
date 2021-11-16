@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Skroutz_Analytics_Flavors
 {
-	const skroutz_analytics_url = 'https://analytics.skroutz.gr/analytics.min.js';
+	const skroutz_analytics_url = 'https://skroutza.skroutz.gr/skroutza.min.js';
 	const skroutz_merchants_url = 'https://merchants.skroutz.gr/merchants/account/settings/analytics';
 	const skroutz_default_tax_rate = 24;
 	const skroutz_analytics_object = 'SkroutzAnalyticsObject';
