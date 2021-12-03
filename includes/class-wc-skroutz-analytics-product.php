@@ -78,6 +78,44 @@ class WC_Skroutz_Analytics_Product {
 	}
 
 	/**
+	 * Returns the variable product id concatenated with first term id. This id will help us to show sku reviews widget
+	 * for variable products.
+	 *
+	 * @return string|integer  The product id concatenated with first term id
+	 *
+	 * @since    1.7.0
+	 */
+	public function get_reviews_widget_product_id() {
+		if ( $this->product->is_type( 'variable' ) && $this->items_product_id_settings['parent_id_enabled'] == 'no' ) {
+			// TODO Use only get_visible_children when we drop support for WooCommerce < 3.0
+			$variation_ids = method_exists( $this->product, 'get_visible_children' ) ?
+				$this->product->get_visible_children() :
+				$this->product->get_children(true);
+
+			// Verify there is at least one visible variation otherwise use the parent product
+			if ( isset($variation_ids[0]) ) {
+				$this->product = wc_get_product($variation_ids[0]);
+			}
+		}
+
+		$product_id = $this->get_custom_product_id($this->product);
+
+		if ( ! $product_id && $this->items_product_id_settings['id'] == 'sku' ) {
+			$product_id = $this->product->get_sku();
+		}
+
+		if ( ! $product_id ) {
+			$product_id = $this->product->get_id();
+		}
+
+		if ( $this->product->is_type( 'variable' ) && $this->items_product_id_settings['parent_id_enabled'] == 'parent_id_term_id' ) {
+			$product_id .= $this->get_product_first_term_suffix();
+		}
+
+		return apply_filters( 'wc_skroutz_analytics_product_reviews_widget_id_filter', $product_id, $this->product );
+	}
+
+	/**
 	 * Get the custom postmeta id if exists, based on admin settings
 	 *
 	 * @param WC_Product $product The WC Product
@@ -140,6 +178,37 @@ class WC_Skroutz_Analytics_Product {
 
 			if ( isset($product_attributes[$variation_attribute_name]) ) {
 				$term = get_term_by( 'slug', $product_attributes[$variation_attribute_name], $taxonomy_name );
+				if ( $term ) {
+					$terms .= "-{$term->term_id}";
+				}
+			}
+		}
+
+		return $terms;
+	}
+
+	/**
+	 * Get the suffix of the id that we use to sku reviews widget. The suffix is the first term of every
+	 * grouped attribute in settings
+	 * Format: -variation_id-first_term_id
+	 *
+	 * @return NULL|string The variable product id suffix. If no product attribute matches any attribute in
+	 * settings return null.
+	 *
+	 * @since    1.7.0
+	 * @access   private
+	 */
+	private function get_product_first_term_suffix() {
+		$product_attributes = $this->product->get_variation_attributes();
+
+		$terms = null;
+		foreach ($this->items_product_id_settings['grouping_attributes'] as $attribute_name) {
+
+			$taxonomy_name = wc_attribute_taxonomy_name($attribute_name);
+
+			if ( isset($product_attributes[$taxonomy_name][0]) ) {
+				$term = get_term_by( 'slug', $product_attributes[$taxonomy_name][0], $taxonomy_name );
+
 				if ( $term ) {
 					$terms .= "-{$term->term_id}";
 				}
