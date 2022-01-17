@@ -124,7 +124,7 @@ class WC_Skroutz_Analytics_Tracking {
 		$data = array(
 			'order_id' => $this->get_order_id(),
 			'revenue'  => $this->get_order_revenue(),
-			'shipping' => $this->order->get_total_shipping() + $this->order->get_shipping_tax(),
+			'shipping' => $this->get_order_shipping(),
 			'tax'      => $this->calculate_order_tax(),
 		);
 
@@ -255,6 +255,19 @@ class WC_Skroutz_Analytics_Tracking {
 		$order_fees = $this->calculate_order_fees();
 
 		return round ($this->order->get_total_tax() - $order_fees['fees_tax'], 2 );
+	}
+
+	/**
+	 * Calculates the shipping of the order
+	 *
+	 * @return float Order shipping
+	 *
+	 * @since    1.7.0
+	 * @access   private
+	 */
+	private function get_order_shipping() {
+		$order_shipping = $this->order->get_total_shipping() + $this->order->get_shipping_tax();
+		return apply_filters( 'wc_skroutz_analytics_tracking_order_shipping_filter', $order_shipping, $this->order );
 	}
 
 	/**
