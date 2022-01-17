@@ -123,7 +123,7 @@ class WC_Skroutz_Analytics_Tracking {
 	private function prepare_order_data() {
 		$data = array(
 			'order_id' => $this->get_order_id(),
-			'revenue'  => $this->calculate_order_revenue(),
+			'revenue'  => $this->get_order_revenue(),
 			'shipping' => $this->order->get_total_shipping() + $this->order->get_shipping_tax(),
 			'tax'      => $this->calculate_order_tax(),
 		);
@@ -226,11 +226,12 @@ class WC_Skroutz_Analytics_Tracking {
 	*
 	* @return float Order revenue
 	*
-	* @since    1.0.0
+	* @since    1.7.0
 	* @access   private
 	*/
-	private function calculate_order_revenue() {
-		return $this->order->get_total() - array_sum($this->calculate_order_fees());
+	private function get_order_revenue() {
+		$order_revenue = $this->order->get_total() - array_sum( $this->calculate_order_fees() );
+		return apply_filters( 'wc_skroutz_analytics_tracking_order_revenue_filter', $order_revenue, $this->order );
 	}
 
 	/**
@@ -246,7 +247,7 @@ class WC_Skroutz_Analytics_Tracking {
 		// Manually calculate the tax based on an the default country tax rate that we have configured
 		if ( $this->order->get_total_tax() == 0 ) {
 			return $this->calculate_tax_from_total(
-				$this->calculate_order_revenue(),
+				$this->get_order_revenue(),
 				constant( "WC_Skroutz_Analytics_Flavors::".$this->settings->get_flavor()."_default_tax_rate" )
 			);
 		}
