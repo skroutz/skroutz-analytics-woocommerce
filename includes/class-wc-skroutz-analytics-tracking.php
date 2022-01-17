@@ -122,7 +122,7 @@ class WC_Skroutz_Analytics_Tracking {
 	*/
 	private function prepare_order_data() {
 		$data = array(
-			'order_id' => $this->order->get_order_number(),
+			'order_id' => $this->get_order_id(),
 			'revenue'  => $this->calculate_order_revenue(),
 			'shipping' => $this->order->get_total_shipping() + $this->order->get_shipping_tax(),
 			'tax'      => $this->calculate_order_tax(),
@@ -156,7 +156,7 @@ class WC_Skroutz_Analytics_Tracking {
 		$sa_product = new WC_Skroutz_Analytics_Product( $product, $this->settings->get_product_id_settings() );
 
 		$data = array(
-			'order_id'    => $this->order->get_order_number(),
+			'order_id'    => $this->get_order_id(),
 			'product_id'  => $sa_product->get_id(),
 			'name'        => $product->get_title(),
 			'price'       => $this->order->get_item_total( $item, true ),
@@ -168,6 +168,18 @@ class WC_Skroutz_Analytics_Tracking {
 
 	private function create_action( $action, $data ) {
 		return "{$this->global_object_name}('ecommerce', '$action', {$data});";
+	}
+
+	/**
+	 * Returns the order id that should be reported to Analytics
+	 *
+	 * @return string  The order id that should be reported to Analytics
+	 *
+	 * @since    1.7.0
+	 * @access   private
+	 */
+	private function get_order_id() {
+		return apply_filters( 'wc_skroutz_analytics_tracking_order_id_filter', $this->order->get_order_number(), $this->order );
 	}
 
 	/**
