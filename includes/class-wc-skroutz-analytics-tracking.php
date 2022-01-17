@@ -130,7 +130,7 @@ class WC_Skroutz_Analytics_Tracking {
 
 		$payment_gateway = wc_get_payment_gateway_by_order( $this->order );
 		if ( $payment_gateway ) {
-			$data['paid_by'] = $payment_gateway->id;
+			$data['paid_by'] = $this->get_order_paid_by( $payment_gateway );
 			$data['paid_by_descr'] = mb_substr( $payment_gateway->get_title(), 0, self::PAID_BY_DESCR_MAX_LENGTH );
 		}
 
@@ -296,6 +296,20 @@ class WC_Skroutz_Analytics_Tracking {
 	private function calculate_tax_from_total($total, $tax_rate) {
 		return round( $total - $total / ( 1 + $tax_rate/100 ), 2 );
 	}
+
+	/**
+	 * Returns the paid by field to analytics
+	 *
+	 * @param WC_Payment_Gateway The payment method
+	 * @return string  The paid by field
+	 *
+	 * @since    1.7.0
+	 * @access   private
+	 */
+	private function get_order_paid_by( $payment_gateway ) {
+		return apply_filters( 'wc_skroutz_analytics_tracking_order_paid_by_filter', $payment_gateway->id, $this->order, $payment_gateway );
+	}
+
 
 	/**
 	 * Checks if order is prior to 30 days ago
