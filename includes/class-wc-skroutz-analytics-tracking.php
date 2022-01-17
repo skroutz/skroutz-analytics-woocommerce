@@ -131,7 +131,7 @@ class WC_Skroutz_Analytics_Tracking {
 		$payment_gateway = wc_get_payment_gateway_by_order( $this->order );
 		if ( $payment_gateway ) {
 			$data['paid_by'] = $this->get_order_paid_by( $payment_gateway );
-			$data['paid_by_descr'] = mb_substr( $payment_gateway->get_title(), 0, self::PAID_BY_DESCR_MAX_LENGTH );
+			$data['paid_by_descr'] = $this->get_order_paid_by_descr( $payment_gateway );
 		}
 
 		return json_encode($data);
@@ -310,6 +310,19 @@ class WC_Skroutz_Analytics_Tracking {
 		return apply_filters( 'wc_skroutz_analytics_tracking_order_paid_by_filter', $payment_gateway->id, $this->order, $payment_gateway );
 	}
 
+	/**
+	 * Returns the paid by description field to analytics
+	 *
+	 * @param WC_Payment_Gateway The payment method
+	 * @return string  The paid by description field
+	 *
+	 * @since    1.7.0
+	 * @access   private
+	 */
+	private function get_order_paid_by_descr( $payment_gateway ) {
+		$paid_by_descr = mb_substr( $payment_gateway->get_title(), 0, self::PAID_BY_DESCR_MAX_LENGTH );
+		return apply_filters( 'wc_skroutz_analytics_tracking_order_paid_by_descr_filter', $paid_by_descr, $this->order, $payment_gateway );
+	}
 
 	/**
 	 * Checks if order is prior to 30 days ago
