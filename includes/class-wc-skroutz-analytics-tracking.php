@@ -160,7 +160,7 @@ class WC_Skroutz_Analytics_Tracking {
 			'product_id'  => $sa_product->get_id(),
 			'name'        => $this->get_item_name( $item, $product ),
 			'price'       => $this->get_item_price( $item, $product ),
-			'quantity'    => (int)$item['qty'],
+			'quantity'    => $this->get_item_quantity( $item, $product ),
 		);
 
 		return json_encode($data);
@@ -382,5 +382,19 @@ class WC_Skroutz_Analytics_Tracking {
 	private function get_item_price( $item, $product ) {
 		$price = $this->order->get_item_total( $item, true );
 		return apply_filters( 'wc_skroutz_analytics_tracking_item_price_filter', $price, $item, $product );
+	}
+
+	/**
+	 * Returns the item quantity
+	 *
+	 *  @param WC_Item The order line item
+	 *  @param WC_Product The order product based on the line item
+	 * @return integer item quantity
+	 *
+	 * @since    1.7.0
+	 * @access   private
+	 */
+	private function get_item_quantity( $item, $product ) {
+		return apply_filters( 'wc_skroutz_analytics_tracking_item_quantity_filter', (int)$item['qty'], $item, $product );
 	}
 }
