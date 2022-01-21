@@ -16,6 +16,11 @@ class WC_Skroutz_Analytics_Tracking {
 	const PAID_BY_DESCR_MAX_LENGTH = 50;
 
 	/**
+	 * The days before we don't send addOrder and addItem
+	 */
+	const OBSOLETE_ORDER_DAYS = 30;
+
+	/**
 	* The global object name provided by the admin settings
 	* @var string
 	*/
@@ -72,6 +77,11 @@ class WC_Skroutz_Analytics_Tracking {
 
 		// Do not report an order to analytics when the order status is failed.
 		if ( $this->order->has_status( 'failed' ) ) {
+			return;
+		}
+
+		// Do not report an order to analytics when the order is prior to 30 days ago.
+		if ( $this->order_is_obsolete() ) {
 			return;
 		}
 
@@ -248,4 +258,34 @@ class WC_Skroutz_Analytics_Tracking {
 		return round( $total - $total / ( 1 + $tax_rate/100 ), 2 );
 	}
 
+	/**
+	 * Checks if order is prior to 30 days ago
+	 *
+	 * @return boolean
+	 *
+	 * @since    1.7.0
+	 * @access   private
+	 */
+	private function order_is_obsolete() {
+		$timezone = WC_Skroutz_Analytics_Helpers::getTimezone();
+		$thirty_days_ago = new DateTime('- '.self::OBSOLETE_ORDER_DAYS.' days', $timezone);
+
+		// TODO Use only WC_Order::get_date_created when we drop support for WooCommerce < 3.0
+		if ( method_exists( $this->order, 'get_date_created' ) ) {
+			if ( is_null( $this->order->get_date_created() ) ) {
+				return false;
+			}
+
+			$order_is_obsolete = ( $thirty_days_ago > $this->order->get_date_created() );
+		}
+		else {
+			if ( empty( $this->order->order_date ) ) {
+				return false;
+			}
+
+			$order_is_obsolete = ( $thirty_days_ago > new DateTime( $this->order->order_date, $timezone ) );
+		}
+
+		return $order_is_obsolete;
+	}
 }
