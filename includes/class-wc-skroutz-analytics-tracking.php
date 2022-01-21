@@ -117,7 +117,6 @@ class WC_Skroutz_Analytics_Tracking {
 	/**
 	* Builds an Analytics Ecommerce addOrder action.
 	*
-	* @param array $order The completed order to report.
 	* @return string The JavaScript representation of an Analytics Ecommerce addOrder action.
 	*/
 	private function prepare_order_data() {
@@ -140,7 +139,6 @@ class WC_Skroutz_Analytics_Tracking {
 	/**
 	* Builds an Analytics Ecommerce addItem action.
 	*
-	* @param array $order The completed order to report.
 	* @param array $item The purchesed product to report, part of this order.
 	* @return string The JavaScript representation of an Analytics Ecommerce addItem action.
 	*/
