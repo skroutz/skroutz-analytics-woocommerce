@@ -158,7 +158,7 @@ class WC_Skroutz_Analytics_Tracking {
 		$data = array(
 			'order_id'    => $this->get_order_id(),
 			'product_id'  => $sa_product->get_id(),
-			'name'        => $product->get_title(),
+			'name'        => $this->get_item_name( $item, $product ),
 			'price'       => $this->order->get_item_total( $item, true ),
 			'quantity'    => (int)$item['qty'],
 		);
@@ -353,5 +353,19 @@ class WC_Skroutz_Analytics_Tracking {
 		}
 
 		return $order_is_obsolete;
+	}
+
+  /**
+	 * Returns the item name that should be reported to Analytics
+	 *
+	 * @param WC_Item The order line item
+	 * @param WC_Product The order product based on the line item
+	 * @return string  The item
+	 *
+	 * @since    1.7.0
+	 * @access   private
+	 */
+	private function get_item_name( $item, $product ) {
+		return apply_filters( 'wc_skroutz_analytics_tracking_item_name_filter', $product->get_title(), $item, $product );
 	}
 }
