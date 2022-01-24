@@ -23,9 +23,18 @@ Visit documentation for [Skroutz Analytics Woocommerce Plugin](https://github.co
 
 === Filters ===
 
-The plugin provides [filters](https://developer.wordpress.org/plugins/hooks/filters/) that allows you to customize the fields that will be reported to analytics. The filters in the plugin are the following:
-1. [wc_skroutz_analytics_product_id_filter](https://github.com/skroutz/skroutz-analytics-woocommerce#1-wc_skroutz_analytics_product_id_filter)
-2. [wc_skroutz_analytics_product_reviews_widget_id](https://github.com/skroutz/skroutz-analytics-woocommerce#2-wc_skroutz_analytics_product_reviews_widget_id)
+The plugin provides [filters](https://developer.wordpress.org/plugins/hooks/filters/) that allows you to customize the fields that will be reported to analytics:
+* [wc_skroutz_analytics_tracking_order_id_filter](https://github.com/skroutz/skroutz-analytics-woocommerce#wc_skroutz_analytics_tracking_order_id_filter)
+* [wc_skroutz_analytics_tracking_order_revenue_filter](https://github.com/skroutz/skroutz-analytics-woocommerce#wc_skroutz_analytics_tracking_order_revenue_filter)
+* [wc_skroutz_analytics_tracking_order_shipping_filter](https://github.com/skroutz/skroutz-analytics-woocommerce#wc_skroutz_analytics_tracking_order_shipping_filter)
+* [wc_skroutz_analytics_tracking_order_tax_filter](https://github.com/skroutz/skroutz-analytics-woocommerce#wc_skroutz_analytics_tracking_order_tax_filter)
+* [wc_skroutz_analytics_tracking_order_paid_by_filter](https://github.com/skroutz/skroutz-analytics-woocommerce#wc_skroutz_analytics_tracking_order_paid_by_filter)
+* [wc_skroutz_analytics_tracking_order_paid_by_descr_filter](https://github.com/skroutz/skroutz-analytics-woocommerce#wc_skroutz_analytics_tracking_order_paid_by_descr_filter)
+* [wc_skroutz_analytics_product_id_filter](https://github.com/skroutz/skroutz-analytics-woocommerce#wc_skroutz_analytics_product_id_filter)
+* [wc_skroutz_analytics_tracking_item_name_filter](https://github.com/skroutz/skroutz-analytics-woocommerce#wc_skroutz_analytics_tracking_item_name_filter)
+* [wc_skroutz_analytics_tracking_item_price_filter](https://github.com/skroutz/skroutz-analytics-woocommerce#wc_skroutz_analytics_tracking_item_price_filter)
+* [wc_skroutz_analytics_tracking_item_quantity_filter](https://github.com/skroutz/skroutz-analytics-woocommerce#wc_skroutz_analytics_tracking_item_quantity_filter)
+* [wc_skroutz_analytics_product_reviews_widget_id_filter](https://github.com/skroutz/skroutz-analytics-woocommerce#wc_skroutz_analytics_product_reviews_widget_id_filter)
 
 == Installation ==
 
