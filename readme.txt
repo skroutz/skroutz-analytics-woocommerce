@@ -3,7 +3,7 @@ Contributors: skroutz
 Tags: skroutz, analytics, woocommerce
 Requires at least: 4.0
 Tested up to: 5.8
-Stable tag: 1.6.9
+Stable tag: 1.7.0
 Requires PHP: 5.4
 License: GPL-2.0
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -116,6 +116,20 @@ Detailed documentation on how to integrate the widgets can be found [here](https
 2. Skroutz Analytics statistics in the Skroutz for merchants.
 
 == Changelog ==
+
+= 1.7.0 =
+* Fix product reviews widget id on variable products
+* Stop reporting orders to analytics prior to 30 days
+* Add filter `wc_skroutz_analytics_tracking_order_id_filter`
+* Add filter `wc_skroutz_analytics_tracking_order_revenue_filter`
+* Add filter `wc_skroutz_analytics_tracking_order_shipping_filter`
+* Add filter `wc_skroutz_analytics_tracking_order_tax_filter`
+* Add filter `wc_skroutz_analytics_tracking_order_paid_by_filter`
+* Add filter `wc_skroutz_analytics_tracking_order_paid_by_descr_filter`
+* Add filter `wc_skroutz_analytics_tracking_item_name_filter`
+* Add filter `wc_skroutz_analytics_tracking_item_price_filter`
+* Add filter `wc_skroutz_analytics_tracking_item_quantity_filter`
+* Add filter `wc_skroutz_analytics_product_reviews_widget_id_filter`
 
 = 1.6.9 =
 * Replace Skroutz Analytics URL
