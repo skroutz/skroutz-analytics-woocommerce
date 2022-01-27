@@ -60,6 +60,7 @@ class WC_Skroutz_Analytics {
 	 * - WC_Skroutz_Analytics_i18n. Defines internationalization functionality.
 	 * - WC_Skroutz_Analytics_Integration. Defines the woocommerce integration functionality.
 	 * - WC_Skroutz_Analytics_Tracking. Defines the skroutz analytics tracking functionality.
+	 * - WC-Skroutz-Analytics-Helpers. Defines the plugin's helper functions.
 	 *
 	 * @since    1.0.0
 	 * @access   private
@@ -106,6 +107,11 @@ class WC_Skroutz_Analytics {
 		 * The class responsible for all the tracking actions.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wc-skroutz-analytics-tracking.php';
+
+		/**
+		 * The class responsible for all helper functions.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wc-skroutz-analytics-helpers.php';
 	}
 
 	/**
