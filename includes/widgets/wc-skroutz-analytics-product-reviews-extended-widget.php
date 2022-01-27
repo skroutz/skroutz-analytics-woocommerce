@@ -51,7 +51,7 @@ class WC_Skroutz_Analytics_Product_Reviews_Extended_Widget extends WP_Widget {
 
 		echo $args['before_widget'];
 		echo "<!-- Skroutz Analytics WooCommerce plugin - Extended Widget - v".WC_Skroutz_Analytics::PLUGIN_VERSION." -->";
-		echo "<div id='{$this->div_id()}' data-product-id='{$sa_product->get_id()}'>{$this->preview_placeholder()}</div>";
+		echo "<div id='{$this->div_id()}' data-product-id='{$sa_product->get_reviews_widget_product_id()}'>{$this->preview_placeholder()}</div>";
 		echo $args['after_widget'];
 	}
 

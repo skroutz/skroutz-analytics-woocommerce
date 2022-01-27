@@ -26,6 +26,43 @@ The plugin is available from the [Wordpress plugin repo][11].
 3. Activate the plugin through the Plugins menu in WordPress admin.
 4. Set the `Shop Account ID` to the plugin's settings.
 
+## Filters
+
+The plugin provides [filters][12] that allows you to customize some fields that will be reported to analytics in an order. The filters
+in the plugin are as follows:
+
+#### 1. wc_skroutz_analytics_product_id_filter
+
+Customize the Unique ID of each product that will be reported in an order.
+
+* `$id` string The generated Unique ID
+* `$product` WC_Product | WC_Product_Variable The product object
+
+Usage example:
+
+```
+function my_product_id( $id, $product ) {
+    return "my-{$id}-custom-{$product->get_sku()}"; // replace with custom id
+}
+add_action( 'wc_skroutz_analytics_product_id_filter', 'my_product_id', 10, 2 );
+```
+
+#### 2. wc_skroutz_analytics_product_reviews_widget_id
+
+Customize the ID of the product review widgets.
+
+* `$id` string The generated ID
+* `$product` WC_Product | WC_Product_Variable The product object
+
+Usage example:
+
+```
+function my_product_reviews_widget_id( $id, $product ) {
+    return "my-{$id}-custom"; // replace with custom id
+}
+add_action( 'wc_skroutz_analytics_product_reviews_widget_id', 'my_product_reviews_widget_id', 10, 2);
+```
+
 ## FAQ
 
 ##### Which sites do you support?
@@ -74,18 +111,6 @@ The following rules apply:
 * If a product is a variant and has one of the specified grouping attributes the `<parent product ID>-<attribute term ID>` is used.
 * If a product is a variant and has two of the specified grouping attributes the `<parent product ID>-<attribute1 termA ID>-<attribute2 termB ID>` is used.
 
-##### None of the settings for the Unique product ID works for me. Can I have a custom Unique ID?
-The plugin provides a [filter][12] that allows you to customize the Unique ID of each product that will be reported in an order. The filter tag is: `wc_skroutz_analytics_product_id_filter`, the value is the generated Unique ID and the additional argument is the product object (WC_Product | WC_Product_Variable).
-
-Usage example:
-
-```
-function my_product_id( $id, $product ) {
-    return "my-{$id}-custom-{$product->get_sku()}";
-}
-add_action( 'wc_skroutz_analytics_product_id_filter', 'my_product_id', 10, 2 );
-```
-
 ##### Global object name `skroutz_analytics` is already being used, can I change it?
 The option to use a custom global object name is supported. You have to check the `Use custom global object name` option in the plugin settings, and then specify a name in the text field.
 
@@ -133,4 +158,3 @@ Skroutz Analytics WooCommerce Plugin is licensed under the [GNU Public License v
 [10]: https://merchants.skroutz.gr/merchants/account/settings/analytics
 [11]: https://wordpress.org/plugins/skroutz-analytics-woocommerce/
 [12]: https://developer.wordpress.org/plugins/hooks/filters/
-

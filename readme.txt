@@ -14,19 +14,20 @@ Integrate Skroutz Analytics to your WooCommerce enabled Wordpress site.
 
 This plugin provides the integration between [Skroutz Analytics](http://developer.skroutz.gr/analytics/) and the [WooCommerce plugin](https://wordpress.org/plugins/woocommerce/).
 
-Details:
-
 * Integrates the analytics tracking script to all your frontend pages
 * Integrates the ecommerce data (transactions and revenue) generated during an order.
 
-Contributing: [Github](https://github.com/skroutz/skroutz-analytics-woocommerce)
-== Installation ==
+=== Documentation ===
 
-= Manual installation =
-1. Download the plugin file to your computer and unzip it.
-2. Using an FTP program, or your hosting control panel, upload the unzipped plugin folder to your WordPress installation’s `wp-content/plugins/` directory.
-3. Activate the plugin through the Plugins menu in WordPress admin.
-4. Set the `Shop Account ID` to the plugin's settings.
+Visit documentation for [Skroutz Analytics Woocommerce Plugin](https://github.com/skroutz/skroutz-analytics-woocommerce).
+
+=== Filters ===
+
+The plugin provides [filters](https://developer.wordpress.org/plugins/hooks/filters/) that allows you to customize the fields that will be reported to analytics. The filters in the plugin are the following:
+1. [wc_skroutz_analytics_product_id_filter](https://github.com/skroutz/skroutz-analytics-woocommerce#1-wc_skroutz_analytics_product_id_filter)
+2. [wc_skroutz_analytics_product_reviews_widget_id](https://github.com/skroutz/skroutz-analytics-woocommerce#2-wc_skroutz_analytics_product_reviews_widget_id)
+
+== Installation ==
 
 = Automatic installation =
 1. Go to your wordpress `admin panel > Plugins > Add New`.
@@ -34,6 +35,12 @@ Contributing: [Github](https://github.com/skroutz/skroutz-analytics-woocommerce)
 3. Install the plugin.
 4. Activate the plugin.
 5. Set the `Shop Account ID` to the plugin's settings.
+
+= Manual installation =
+1. Download the plugin file to your computer and unzip it.
+2. Using an FTP program, or your hosting control panel, upload the unzipped plugin folder to your WordPress installation’s `wp-content/plugins/` directory.
+3. Activate the plugin through the Plugins menu in WordPress admin.
+4. Set the `Shop Account ID` to the plugin's settings.
 
 == Frequently Asked Questions ==
 
@@ -82,18 +89,6 @@ The following rules apply:
 * If a product is a variant and does not have one of the declared color attributes the `<parent product ID>` is used.
 * If a product is a variant and has one of the specified grouping attributes the `<parent product ID>-<attribute term ID>` is used.
 * If a product is a variant and has two of the specified grouping attributes the `<parent product ID>-<attribute1 termA ID>-<attribute2 termB ID>` is used.
-
-= None of the settings for the Unique product ID works for me. Can I have a custom Unique ID? =
-The plugin provides a [filter][12] that allows you to customize the Unique ID of each product that will be reported in an order. The filter tag is: `wc_skroutz_analytics_product_id_filter`, the value is the generated Unique ID and the additional argument is the product object (WC_Product | WC_Product_Variable).
-
-Usage example:
-
-``
-function my_product_id( $id, $product ) {
-    return "my-{$id}-custom-{$product->get_sku()}";
-}
-add_action( 'wc_skroutz_analytics_product_id_filter', 'my_product_id', 10, 2 );
-``
 
 = Global object name `skroutz_analytics` is already being used, can I change it? =
 The option to use a custom global object name is supported. You have to check the `Use custom global object name` option in the plugin settings, and then specify a name in the text field.
@@ -215,4 +210,3 @@ Project restructure
 
 = 1.0.0 =
 Initial release
-
