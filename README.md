@@ -28,10 +28,109 @@ The plugin is available from the [Wordpress plugin repo][11].
 
 ## Filters
 
-The plugin provides [filters][12] that allows you to customize some fields that will be reported to analytics in an order. The filters
-in the plugin are as follows:
+### Ecommerce data
 
-#### 1. wc_skroutz_analytics_product_id_filter
+The plugin provides [filters][12] that allows you to customize the fields that will be reported to analytics:
+
+#### wc_skroutz_analytics_tracking_order_id_filter
+
+Customize the order ID that we send to analytics.
+
+* `$order_id` string The order ID
+* `$order` WC_Order The order object
+
+Usage example:
+
+```
+function my_order_id( $order_id, $order ) {
+    return $order_id; // Replace with custom order ID
+}
+add_action( 'wc_skroutz_analytics_tracking_order_id_filter', 'my_order_id', 10, 2);
+```
+
+#### wc_skroutz_analytics_tracking_order_revenue_filter
+
+Customize the order revenue that we send to analytics.
+
+* `$order_revenue` float The order revenue
+* `$order` WC_Order The order object
+
+Usage example:
+
+```
+function my_order_revenue( $order_revenue, $order ) {
+    return $order_revenue; // Replace with custom order revenue
+}
+add_action( 'wc_skroutz_analytics_tracking_order_revenue_filter', 'my_order_revenue', 10, 2);
+```
+
+#### wc_skroutz_analytics_tracking_order_shipping_filter
+
+Customize the order shipping that we send to analytics.
+
+* `$order_shipping` float The order shipping
+* `$order` WC_Order The order object
+
+Usage example:
+
+```
+function my_order_shipping( $order_shipping, $order ) {
+    return $order_shipping; // Replace with custom order shipping
+}
+add_action( 'wc_skroutz_analytics_tracking_order_shipping_filter', 'my_order_shipping', 10, 2);
+```
+
+#### wc_skroutz_analytics_tracking_order_tax_filter
+
+Customize the order tax that we send to analytics.
+
+* `$order_tax` float The order tax
+* `$order` WC_Order The order object
+
+Usage example:
+
+```
+function my_order_tax( $order_tax, $order ) {
+    return $order_tax; // Replace with custom order tax
+}
+add_action( 'wc_skroutz_analytics_tracking_order_tax_filter', 'my_order_tax', 10, 2);
+```
+
+#### wc_skroutz_analytics_tracking_order_paid_by_filter
+
+Customize the order paid by that we send to analytics.
+
+* `$order_paid_by` string The paid by
+* `$order` WC_Order The order object
+* `$payment_gateway` WC_Payment_Gateway The payment gateway object
+
+Usage example:
+
+```
+function my_order_paid_by( $order_paid_by, $order, $payment_gateway ) {
+    return $order_paid_by; // Replace with custom order paid by
+}
+add_action( 'wc_skroutz_analytics_tracking_order_paid_by_filter', 'my_order_paid_by', 10, 3);
+```
+
+#### wc_skroutz_analytics_tracking_order_paid_by_descr_filter
+
+Customize the order paid by description that we send to analytics.
+
+* `$order_paid_by_descr` string The paid by description
+* `$order` WC_Order The order object
+* `$payment_gateway` WC_Payment_Gateway The payment gateway object
+
+Usage example:
+
+```
+function my_order_paid_by_descr( $order_paid_by_descr, $order, $payment_gateway ) {
+    return $order_paid_by_descr; // Replace with custom order paid by descr
+}
+add_action( 'wc_skroutz_analytics_tracking_order_paid_by_descr_filter', 'my_order_paid_by_descr', 10, 3);
+```
+
+#### wc_skroutz_analytics_product_id_filter
 
 Customize the Unique ID of each product that will be reported in an order.
 
@@ -42,12 +141,65 @@ Usage example:
 
 ```
 function my_product_id( $id, $product ) {
-    return "my-{$id}-custom-{$product->get_sku()}"; // replace with custom id
+    return "my-{$id}-custom-{$product->get_sku()}"; // Replace with custom id
 }
 add_action( 'wc_skroutz_analytics_product_id_filter', 'my_product_id', 10, 2 );
 ```
 
-#### 2. wc_skroutz_analytics_product_reviews_widget_id
+#### wc_skroutz_analytics_tracking_item_name_filter
+
+Customize the item name that we send to analytics.
+
+* `$item_name` string The line item name
+* `$item` WC_Order_Item The line item object
+* `$product` WC_Product The product object
+
+Usage example:
+
+```
+function my_item_name( $item_name, $item, $product ) {
+    return $item_name; // Replace with custom order line item name
+}
+add_action( 'wc_skroutz_analytics_tracking_item_name_filter', 'my_item_name', 10, 3);
+```
+
+#### wc_skroutz_analytics_tracking_item_price_filter
+
+Customize the item price that we send to analytics.
+
+* `$item_price` float The line item price
+* `$item` WC_Order_Item The line item object
+* `$product` WC_Product The product object
+
+Usage example:
+
+```
+function my_item_total( $item_price, $item, $product ) {
+    return $item_price; // Replace with custom order line item price
+}
+add_action( 'wc_skroutz_analytics_tracking_item_price_filter', 'my_item_total', 10, 3);
+```
+
+#### wc_skroutz_analytics_tracking_item_quantity_filter
+
+Customize the item quantity that we send to analytics.
+
+* `$item_quantity` integer The line item quantity
+* `$item` WC_Order_Item The line item object
+* `$product` WC_Product The product object
+
+Usage example:
+
+```
+function my_item_quantity( $item_quantity, $item, $product ) {
+    return $item_quantity; // Replace with custom order line item quantity
+}
+add_action( 'wc_skroutz_analytics_tracking_item_quantity_filter', 'my_item_quantity', 10, 3);
+```
+
+### Widgets
+
+#### wc_skroutz_analytics_product_reviews_widget_id_filter
 
 Customize the ID of the product review widgets.
 
@@ -58,9 +210,9 @@ Usage example:
 
 ```
 function my_product_reviews_widget_id( $id, $product ) {
-    return "my-{$id}-custom"; // replace with custom id
+    return "my-{$id}-custom"; // Replace with custom id
 }
-add_action( 'wc_skroutz_analytics_product_reviews_widget_id', 'my_product_reviews_widget_id', 10, 2);
+add_action( 'wc_skroutz_analytics_product_reviews_widget_id_filter', 'my_product_reviews_widget_id', 10, 2);
 ```
 
 ## FAQ

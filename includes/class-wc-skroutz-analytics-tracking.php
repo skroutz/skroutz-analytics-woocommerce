@@ -117,21 +117,20 @@ class WC_Skroutz_Analytics_Tracking {
 	/**
 	* Builds an Analytics Ecommerce addOrder action.
 	*
-	* @param array $order The completed order to report.
 	* @return string The JavaScript representation of an Analytics Ecommerce addOrder action.
 	*/
 	private function prepare_order_data() {
 		$data = array(
-			'order_id' => $this->order->get_order_number(),
-			'revenue'  => $this->calculate_order_revenue(),
-			'shipping' => $this->order->get_total_shipping() + $this->order->get_shipping_tax(),
-			'tax'      => $this->calculate_order_tax(),
+			'order_id' => $this->get_order_id(),
+			'revenue'  => $this->get_order_revenue(),
+			'shipping' => $this->get_order_shipping(),
+			'tax'      => $this->get_order_tax(),
 		);
 
 		$payment_gateway = wc_get_payment_gateway_by_order( $this->order );
 		if ( $payment_gateway ) {
-			$data['paid_by'] = $payment_gateway->id;
-			$data['paid_by_descr'] = mb_substr( $payment_gateway->get_title(), 0, self::PAID_BY_DESCR_MAX_LENGTH );
+			$data['paid_by'] = $this->get_order_paid_by( $payment_gateway );
+			$data['paid_by_descr'] = $this->get_order_paid_by_descr( $payment_gateway );
 		}
 
 		return json_encode($data);
@@ -140,7 +139,6 @@ class WC_Skroutz_Analytics_Tracking {
 	/**
 	* Builds an Analytics Ecommerce addItem action.
 	*
-	* @param array $order The completed order to report.
 	* @param array $item The purchesed product to report, part of this order.
 	* @return string The JavaScript representation of an Analytics Ecommerce addItem action.
 	*/
@@ -156,11 +154,11 @@ class WC_Skroutz_Analytics_Tracking {
 		$sa_product = new WC_Skroutz_Analytics_Product( $product, $this->settings->get_product_id_settings() );
 
 		$data = array(
-			'order_id'    => $this->order->get_order_number(),
+			'order_id'    => $this->get_order_id(),
 			'product_id'  => $sa_product->get_id(),
-			'name'        => $product->get_title(),
-			'price'       => $this->order->get_item_total( $item, true ),
-			'quantity'    => (int)$item['qty'],
+			'name'        => $this->get_item_name( $item, $product ),
+			'price'       => $this->get_item_price( $item, $product ),
+			'quantity'    => $this->get_item_quantity( $item, $product ),
 		);
 
 		return json_encode($data);
@@ -168,6 +166,18 @@ class WC_Skroutz_Analytics_Tracking {
 
 	private function create_action( $action, $data ) {
 		return "{$this->global_object_name}('ecommerce', '$action', {$data});";
+	}
+
+	/**
+	 * Returns the order id that should be reported to Analytics
+	 *
+	 * @return string  The order id that should be reported to Analytics
+	 *
+	 * @since    1.7.0
+	 * @access   private
+	 */
+	private function get_order_id() {
+		return apply_filters( 'wc_skroutz_analytics_tracking_order_id_filter', $this->order->get_order_number(), $this->order );
 	}
 
 	/**
@@ -214,11 +224,25 @@ class WC_Skroutz_Analytics_Tracking {
 	*
 	* @return float Order revenue
 	*
-	* @since    1.0.0
+	* @since    1.7.0
 	* @access   private
 	*/
-	private function calculate_order_revenue() {
-		return $this->order->get_total() - array_sum($this->calculate_order_fees());
+	private function get_order_revenue() {
+		$order_revenue = $this->order->get_total() - array_sum( $this->calculate_order_fees() );
+		return apply_filters( 'wc_skroutz_analytics_tracking_order_revenue_filter', $order_revenue, $this->order );
+	}
+
+	/**
+	 * Get the tax of the order
+	 *
+	 * @return float Order tax
+	 *
+	 * @since    1.7.0
+	 * @access   private
+	 */
+	private function get_order_tax() {
+		$order_tax = $this->calculate_order_tax();
+		return apply_filters( 'wc_skroutz_analytics_tracking_order_tax_filter', $order_tax, $this->order );
 	}
 
 	/**
@@ -234,7 +258,7 @@ class WC_Skroutz_Analytics_Tracking {
 		// Manually calculate the tax based on an the default country tax rate that we have configured
 		if ( $this->order->get_total_tax() == 0 ) {
 			return $this->calculate_tax_from_total(
-				$this->calculate_order_revenue(),
+				$this->get_order_revenue(),
 				constant( "WC_Skroutz_Analytics_Flavors::".$this->settings->get_flavor()."_default_tax_rate" )
 			);
 		}
@@ -242,6 +266,19 @@ class WC_Skroutz_Analytics_Tracking {
 		$order_fees = $this->calculate_order_fees();
 
 		return round ($this->order->get_total_tax() - $order_fees['fees_tax'], 2 );
+	}
+
+	/**
+	 * Calculates the shipping of the order
+	 *
+	 * @return float Order shipping
+	 *
+	 * @since    1.7.0
+	 * @access   private
+	 */
+	private function get_order_shipping() {
+		$order_shipping = $this->order->get_total_shipping() + $this->order->get_shipping_tax();
+		return apply_filters( 'wc_skroutz_analytics_tracking_order_shipping_filter', $order_shipping, $this->order );
 	}
 
 	/**
@@ -256,6 +293,33 @@ class WC_Skroutz_Analytics_Tracking {
 	*/
 	private function calculate_tax_from_total($total, $tax_rate) {
 		return round( $total - $total / ( 1 + $tax_rate/100 ), 2 );
+	}
+
+	/**
+	 * Returns the paid by field to analytics
+	 *
+	 * @param WC_Payment_Gateway The payment method
+	 * @return string  The paid by field
+	 *
+	 * @since    1.7.0
+	 * @access   private
+	 */
+	private function get_order_paid_by( $payment_gateway ) {
+		return apply_filters( 'wc_skroutz_analytics_tracking_order_paid_by_filter', $payment_gateway->id, $this->order, $payment_gateway );
+	}
+
+	/**
+	 * Returns the paid by description field to analytics
+	 *
+	 * @param WC_Payment_Gateway The payment method
+	 * @return string  The paid by description field
+	 *
+	 * @since    1.7.0
+	 * @access   private
+	 */
+	private function get_order_paid_by_descr( $payment_gateway ) {
+		$paid_by_descr = mb_substr( $payment_gateway->get_title(), 0, self::PAID_BY_DESCR_MAX_LENGTH );
+		return apply_filters( 'wc_skroutz_analytics_tracking_order_paid_by_descr_filter', $paid_by_descr, $this->order, $payment_gateway );
 	}
 
 	/**
@@ -287,5 +351,48 @@ class WC_Skroutz_Analytics_Tracking {
 		}
 
 		return $order_is_obsolete;
+	}
+
+  /**
+	 * Returns the item name that should be reported to Analytics
+	 *
+	 * @param WC_Item The order line item
+	 * @param WC_Product The order product based on the line item
+	 * @return string  The item
+	 *
+	 * @since    1.7.0
+	 * @access   private
+	 */
+	private function get_item_name( $item, $product ) {
+		return apply_filters( 'wc_skroutz_analytics_tracking_item_name_filter', $product->get_title(), $item, $product );
+	}
+
+	/**
+	 * Returns the item total price
+	 *
+	 * @param WC_Item The order line item
+	 * @param WC_Product The order product based on the line item
+	 * @return float item total price
+	 *
+	 * @since    1.7.0
+	 * @access   private
+	 */
+	private function get_item_price( $item, $product ) {
+		$price = $this->order->get_item_total( $item, true );
+		return apply_filters( 'wc_skroutz_analytics_tracking_item_price_filter', $price, $item, $product );
+	}
+
+	/**
+	 * Returns the item quantity
+	 *
+	 *  @param WC_Item The order line item
+	 *  @param WC_Product The order product based on the line item
+	 * @return integer item quantity
+	 *
+	 * @since    1.7.0
+	 * @access   private
+	 */
+	private function get_item_quantity( $item, $product ) {
+		return apply_filters( 'wc_skroutz_analytics_tracking_item_quantity_filter', (int)$item['qty'], $item, $product );
 	}
 }
