@@ -2,7 +2,7 @@
 Contributors: skroutz
 Tags: skroutz, analytics, woocommerce
 Requires at least: 4.0
-Tested up to: 5.8
+Tested up to: 6.0
 Stable tag: 1.7.0
 Requires PHP: 5.4
 License: GPL-2.0
