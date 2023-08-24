@@ -54,6 +54,13 @@ function run_wc_skroutz_analytics() {
 }
 add_action( 'plugins_loaded', 'run_wc_skroutz_analytics' );
 
+add_action( 'before_woocommerce_init', function() {
+	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+} );
+
+
 /**
  * Checks if it is ok to run the Skroutz Analytics plugin
  *
